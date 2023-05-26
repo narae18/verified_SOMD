@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid" style="background-color: #e3f2fd;">
+    {% if user.is_authenticated %}
+    <!-- mainpage 링크 연결 -->
+    <a class="navbar-brand" href="{% url 'main:mainpage' %}">SOM D</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <!-- 솜디 게시판 링크 연결 -->
+                <a class="nav-link active" aria-current="page" href="#">솜디 게시판</a>
+            </li>
+            <li class="nav-item">
+                <!-- 나의 솜디 링크 연결 -->
+                <a class="nav-link active" aria-current="page" href="#">나의 솜디</a>
+            </li>
+            <li class="nav-item">
+                <!-- ??? 링크 연결 -->
+                <a class="nav-link active" aria-current="page" href="#">솜디 후기</a>
+            </li>
+            <li class="nav-item">
+                <!-- 마이페이지 링크 연결 -->
+                <a class="nav-link active" aria-current="page" href="{% url 'users:mypage' %}">마이 페이지</a>
+            </li>
+
+
+        <li class="nav-item dropdown">
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:mypage' %}">mypage</a></li>
+            </ul>
+
+    
+            {% endif %}
+            </li>
+        </ul>
+    </div>
+    </div>
+</nav>
