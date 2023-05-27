@@ -1,3 +1,13 @@
+.SDcontainer{
+    height: 100%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 input, select{
     border-color: #00E392;
     border-radius: 5px;
@@ -51,8 +61,6 @@ span{
     width: 140px;
     height: 50px;
     border-radius: 5px;
-    position: relative;
-    left:45.5%;
     margin-top: 20px;
 }
 
@@ -63,9 +71,7 @@ span{
     margin-top: 30px;
     border:2px solid #00E392;
     /* border-bottom:0px solid #00E392; */
-    width: 60%;
-    position:relative;
-    left: 20%;
+ 
 
 
     box-shadow: 0px 7px 3px -2px gray;
@@ -77,7 +83,7 @@ span{
     justify-content: center;
     align-items: center;
     height: 300px;
-    margin-right: 10px;
+
 }
 
 .mainCol2{
@@ -85,7 +91,7 @@ span{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-left: 10px;
+
 }
 
 .inputLabel1{
@@ -93,8 +99,10 @@ span{
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    width: 90px;
     height: 100%;
-    margin-right: 5px;
+
+
     /* border: 1px solid brown; */
 }
 
@@ -103,8 +111,8 @@ span{
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    width: 90px;
     height: 100%;
-    margin-right: 5px;
     /* border: 1px solid blue; */
 }
 
@@ -114,7 +122,7 @@ span{
     justify-content: space-evenly;
     width: 300px;
     height: 100%;
-    margin-left: 5px;
+
     /* border: 1px solid black; */
 }
 

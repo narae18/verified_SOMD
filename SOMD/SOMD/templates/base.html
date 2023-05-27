@@ -18,9 +18,11 @@
     <title>SOMD</title>
 </head>
 <body>
-{% include 'shared/_navbar.html' %}
-{% block content %}
+    {% include 'shared/_navbar.html' %}
+    <div class="SDcontainer">
+        {% block content %}
 
-{% endblock %}
+        {% endblock %}
+    </div>
 </body>
 </html>
