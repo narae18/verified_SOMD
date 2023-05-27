@@ -91,7 +91,68 @@
         </div>
     </section>
     
+<<<<<<< HEAD
     <input class="signupBtn" type="submit" value="회원가입" style="color:white">
+=======
+    <p>성별</p>
+    <label><input type="radio" name = "gender" value="male" required>남성</label>
+    <label><input type="radio" name = "gender" value="female">여성</label>
+    
+    <br>
+
+    <p>생년월일</p>
+    <input type="text" id="year" name="year" placeholder="YYYY" min="1900" max="2023" required oninput="isBirthday()">
+    <input type="text" id="month" name="month" placeholder="MM" min="1" max="12" required oninput="isBirthday()">
+    <input type="text" id="day" name="day" placeholder="DD" min="1" max="31" required oninput="isBirthday()">
+    
+
+    <p>단과대/학과</p>
+    <select id="college" name="college" onchange="selectDepartments()" required>
+        <option value="" selected disabled>단과대</option>
+        <option value="불교대학">불교대학</option>
+        <option value="문과대학">문과대학</option>
+        <option value="이과대학">이과대학</option>
+        <option value="법과대학">법과대학</option>
+        <option value="사회과학대학">사회과학대학</option>
+        <option value="경찰사법대학">경찰사법대학</option>
+        <option value="경영대학">경영대학</option>
+        <option value="바이오시스템대학">바이오시스템대학</option>
+        <option value="공과대학">공과대학</option>
+        <option value="AI융합대학">AI융합대학</option>
+        <option value="사범대학">사범대학</option>
+        <option value="예술대학">예술대학</option>
+        <option value="약학대학">약학대학</option>
+        <option value="미래융합대학">미래융합대학</option>
+    </select>
+
+    <select id="department" name="department" required>
+        <option value="" selected disabled>학과</option>
+    </select>
+    <br>
+    
+
+    <p>ID</p>
+    <input type="text" name="username" required>
+    <br>
+
+    <p>PW</p>
+    <input type="password" name="password" required>
+    <br>
+
+    <p>PW confirm</p>
+    <input type="password" name="confirm" required>
+
+    <p>Email</p>
+    <input type="text" id='email_id' name="email_id" required> @
+        <select id = "email_addr" name="email_addr" required>
+            <option value="" selected disabled hidden >선택</option>
+            <option value="dongguk.edu">dongguk.edu</option>
+            <option value="dgu.edu">dgu.edu</option>
+            <option value="dgu.ac.kr">dgu.ac.kr</option>
+        </select>
+    <br>
+    <input type="submit" value="회원가입">
+>>>>>>> 90a6124e8942bfc8a3ba7fa533109ced02a98e9b
 
 </form>
 
