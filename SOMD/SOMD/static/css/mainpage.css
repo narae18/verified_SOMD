@@ -1,0 +1,158 @@
+section{
+    width: 90%;
+}
+
+.somdList{
+    margin:20px 0px;
+    border: 3px solid #0ECC87;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.somdList_text{
+    font-size: 25px;
+    padding: 0 0 10px 0;
+}
+.somdList_text>span{
+    color:#0ECC87;
+}
+
+.somd{
+    margin: 0px 10px 0px 0px;
+    width: 100px;
+    height: 100px;
+    border: 3px solid #0ECC87;
+    border-radius: 50%;
+}
+.now{
+    background-color: #0ECC87;
+}
+.more{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+.more>.button{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000000;
+    background-color: white;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.more>.button>i{
+    font-size: 20px;
+
+}
+
+.somdList>.list{
+    display: flex;
+    justify-content: space-between;
+}
+
+.somd_list{
+    display: flex;
+}
+
+
+
+.newPost_text{
+    width: 100%;
+    padding: 3px 15px;
+    margin:10px 0px;
+    background-color:#0ECC87 ;
+    border-radius: 3px;
+    color: white;
+    font-size: 20px;
+}
+
+.newPost> .list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile{
+    padding: 0px 5px;
+    display: flex;
+}
+.profile>.image{
+    width: 50px;
+    height: 50px;
+    border: 3px solid #0ECC87;
+    border-radius: 50%;
+}
+.profile>.name{
+    padding: 0px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newPost>.list{
+    padding: 5px 10px;
+}
+.post{
+    padding: 5px 7px;
+    width:50%;
+}
+
+
+.about_post{
+    display: flex;
+    flex-direction: column;
+}
+.about_post>.image{
+    border: 3px solid #0ECC87;
+    width: 100%;
+    height: 120px;
+}
+
+.about_post{
+    width: 100%;
+    height: 300px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+    margin:10px 0px 15px 0;
+
+    display: flex;
+    flex-direction: column;
+}
+.about_post>.text{
+    flex-grow:1;
+    width: 100%;
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    margin: 10px 0px;
+}
+.about_post>.text>.body{
+    flex-grow: 1;
+    font-size: 10px;
+}
+
+.about_post>.icon{
+    display: flex;
+    justify-content: end;
+    font-size: 7px;
+}
+
+.about_post>.icon>div{
+    padding: 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about_post>.icon>div>i{
+    padding: 0 2px;
+}
