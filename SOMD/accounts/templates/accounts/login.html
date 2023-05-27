@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
-
+    
 {% block content %}
-
-<form action="{% url 'accounts:login' %}" method="POST">
-    {% csrf_token %}
-    id: <input type="text" name="username"><br>
-    password: <input type="password" name="password"><br>
-    <input type="submit" value="로그인">
-</form>
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <div class="upperMain">
+        <div>
+            <img src="{% static '/SomDLogo.png' %}" class="logoImg" alt="로고이미지">
+        </div>
+        <div class="upperMainText">
+            <h1 style="font-weight: bold; font-size: 50px;">
+                SOM D
+            </h1>
+            <span>
+                동국대 소모임 네트워킹 서비스
+            </span>
+        </div>
+    </div>
+    <div class="lowerMain">
+        <form action="{% url 'accounts:login' %}" method="POST" class="btndiv">
+            {% csrf_token %}
+            <input class="inputbtn" type="text" name="username" placeholder="ID"><br>
+            <input class="inputbtn" type="password" name="password" placeholder="PassWord"><br>
+            <input class="loginbtn"type="submit" value="로그인" style="color:white">
+        </form>
+    </div>
 
 {% endblock %}
