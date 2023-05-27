@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <h1>솜디 등록 페이지</h1>
+    <form action="{% url 'main:createSOMD' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit">등록</button>
+    </form>
+{% endblock %}

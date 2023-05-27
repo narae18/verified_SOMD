@@ -13,7 +13,7 @@ def login(request):
         user = auth.authenticate(request, username = username, password = password)
         if user is not None:
             auth.login(request,user)
-            return redirect('main:test')
+            return redirect('main:mainpage')
         else:
             return render(request,'accounts/login.html')
         
@@ -77,7 +77,7 @@ def signup(request):
         profile.save()
         auth.login(request,user)
 
-        return redirect('main:test')
+        return redirect('main:mainpage')
 
     return render(request, 'accounts/signup.html')
     
