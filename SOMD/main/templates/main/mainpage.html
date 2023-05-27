@@ -3,8 +3,21 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <h1>솜디 게시판</h1>
-    <a href="{% url 'main:register' %}">솜디 등록</a>
+    <!-- <h1>솜디 게시판</h1>
+    <a href="{% url 'main:register' %}">솜디 등록</a> -->
+    <h1>Mainpage</h1>
+    <div class="container">
+        <h3><span class="maincolor">SOM D </span> LIST</h3>
+        {% for somd in somds %}
+            <h4>{{ somd.name }}</h4>
+        {% empty %}
+            <p>가입한 소모임이 없습니다.</p>
+        {% endfor %}
+        <br>
+        <br>
+    <div class="container">
+        <h5>NEW POST</h5>
+    </div>
 
 {% else %}
     <a href="{% url 'accounts:login' %}">로그인</a>
