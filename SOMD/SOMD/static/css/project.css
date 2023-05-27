@@ -4,3 +4,22 @@ h1 {
 .maincolor {
     color: #0ECC87;
 }
+
+* {
+    /* border: 1px solid blue; */
+}
+
+body{
+    justify-content: center;
+    align-items: center;
+}
+.SDcontainer{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    width:100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,30 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid" style="background-color: #e3f2fd;">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+<div class="navbar">
     {% if user.is_authenticated %}
     <!-- mainpage 링크 연결 -->
-    <a class="navbar-brand" href="{% url 'main:mainpage' %}">SOM D</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <!-- 솜디 게시판 링크 연결 -->
-                <a class="nav-link active" aria-current="page" href="{% url 'main:mainpage' %}">솜디 게시판</a>
-            </li>
-            <li class="nav-item">
-                <!-- 나의 솜디 링크 연결 -->
-                <a class="nav-link active" aria-current="page" href="#">나의 솜디</a>
-            </li>
 
-            <li class="nav-item">
-                <!-- 마이페이지 링크 연결 -->
-                <a class="nav-link active" aria-current="page" href="{% url 'users:mypage' %}">마이 페이지</a>
-            </li>
+    <a class="logo" href="{% url 'main:mainpage' %}">SOM D</a>
+
+
+    <!-- 솜디 게시판 링크 연결 -->
+    <a class="icon" href="{% url 'main:mainpage' %}">
+        <i class="fa-solid fa-user-group"></i>
+        <div class="text">솜디 게시판</div>
+    </a>
+
+    <!-- 나의 솜디 링크 연결 -->
+    <a class="icon" href="#">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <div class="text">나의 솜디</div>
+    </a>
+
+    <!-- 마이페이지 링크 연결 -->
+    <a class="icon" href="{% url 'users:mypage' %}">
+        <i class="fa-solid fa-user-large"></i>
+        <div class="text">마이 페이지</div>
+    </a>
 
             {% endif %}
 
-        </ul>
-    </div>
-    </div>
-</nav>
+</div>
