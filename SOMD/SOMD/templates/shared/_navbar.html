@@ -1,7 +1,7 @@
 {% load static %}
+{% if user.is_authenticated %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
 <div class="navbar">
-    {% if user.is_authenticated %}
     <!-- mainpage 링크 연결 -->
 
     <a class="logo" href="{% url 'main:mainpage' %}">SOM D</a>
@@ -24,7 +24,5 @@
         <i class="fa-solid fa-user-large"></i>
         <div class="text">마이 페이지</div>
     </a>
-
-            {% endif %}
-
 </div>
+{% endif %}

@@ -6,10 +6,12 @@ h1 {
 }
 
 * {
-    /* border: 1px solid blue; */
+     border: 1px solid blue; 
 }
 
 body{
+    width: 100vw;
+    height: 100vh;
     justify-content: center;
     align-items: center;
 }

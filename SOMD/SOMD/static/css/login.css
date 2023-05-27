@@ -1,3 +1,6 @@
+.SDcontainer{
+    height: 100%;
+}
 .upperMain{
     display: flex;
     /* flex-direction: row; */
@@ -36,9 +39,10 @@ span{
     align-items: center;
     /* flex-direction: column; */
     padding: 30px 20px;
+    margin: 0 0 70px 0;
     width: 500px;
     height: 200px;
-    position: absolute;
+
     left: 35%;
     box-shadow: 0px 7px 3px -2px gray;
 }
