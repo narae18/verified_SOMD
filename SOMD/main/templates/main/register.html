@@ -5,11 +5,11 @@
     <form action="{% url 'main:createSOMD' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="back-pic-wrapper">
-            <input type="file" accept="image/*" name="back_pic" id="back-pic-input">
+            배경사진 <input type="file" accept="image/*" name="back_pic" id="back-pic-input">
                 <div class="back-pic-preview"></div>
         </div>
         <div class="profile-pic-wrapper">
-            <input type="file" accept="image/*" name="profile_pic" id="profile-pic-input">
+            메인 사진<input type="file" accept="image/*" name="profile_pic" id="profile-pic-input">
                 <div class="profile-pic-preview"></div>
         </div>
 

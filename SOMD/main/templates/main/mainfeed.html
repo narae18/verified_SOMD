@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>소모임별 메인피드</h1>
+    {% for somd in somds %}
+        <h2>{{ somd.name }}</h2>
+        {{ somd.intro }}
+    {% endfor %}
+
+{% endblock %}
