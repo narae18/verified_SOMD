@@ -1,6 +1,4 @@
-section{
-    width: 90%;
-}
+
 
 .somdList{
     margin:20px 0px;
@@ -17,18 +15,9 @@ section{
     color:#0ECC87;
 }
 
-.somd{
-    margin: 0px 10px 0px 0px;
-    width: 100px;
-    height: 100px;
-    border: 3px solid #0ECC87;
-    border-radius: 50%;
-}
-.now{
-    background-color: #0ECC87;
-}
 .more{
     display: flex;
+
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -50,15 +39,42 @@ section{
 
 }
 
+.more>.text{
+    font-size: 5px;
+}
+
 .somdList>.list{
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 .somd_list{
-    display: flex;
+    flex-grow: 1;
+    flex-wrap: no-wrap;
+    overflow: hidden;
 }
 
+
+.somd_list>.somd_list_for_scroll{
+    width: 100%;
+    display: flex;
+    overflow: scroll;
+    flex-shrink: 1;
+}
+
+.somd{
+    flex-shrink: 0;
+    margin: 0px 10px 0px 0px;
+    flex-basis: 70px;
+    width: 70px;
+    height: 70px;
+    border: 3px solid #0ECC87;
+    border-radius: 50%;
+}
+
+.now.somd{
+    background-color: #0ECC87;
+}
 
 
 .newPost_text{
@@ -83,8 +99,8 @@ section{
     display: flex;
 }
 .profile>.image{
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border: 3px solid #0ECC87;
     border-radius: 50%;
 }
@@ -111,12 +127,12 @@ section{
 .about_post>.image{
     border: 3px solid #0ECC87;
     width: 100%;
-    height: 120px;
+    height: 70px;
 }
 
 .about_post{
     width: 100%;
-    height: 300px;
+    height: 200px;
     border: 2px solid #000000;
     border-radius: 5px;
     display: flex;

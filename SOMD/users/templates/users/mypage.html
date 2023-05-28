@@ -2,13 +2,36 @@
 {% load static %}
 
 {% block content %}
-    <h6> 프로필 사진</h6>
+<link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+<section class="somdPage">
 
-    <h6> 닉네임 : {{ user.profile.nickname }}</h6>
-    <h6> 소속 학과 : {{ user.profile.department }}</h6>
-    <h6> 활동 중인 소모임 : </h6>
-    <h6> 추가 입력 사항..?</h6>
-    <br>
+    <table class="profile">
+        <tr>
+            <td>프로필 사진</td>
+            <td>
+                <div class="profile image"></div>
+            </td>
+        </tr>
+        <tr>
+            <td><div class="category">닉네임</div></td>
+            <td class="short text">{{ user.profile.nickname }}</td>
+        </tr>
 
-    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+        <tr>
+            <td><div class="category">소속학과</div></td>
+            <td class="short text">{{ user.profile.department }}</td>
+        </tr>
+
+        <tr>
+            <td class="long td"><div class="category">자기소개</div></td>
+            <td class="long text">집에가고싶다...</td>
+        </tr>
+
+        <tr>
+           <td><div class="category">활동 중인 소모임</div></td> 
+           <td class="short text">멋사</td>
+        </tr>
+    </table>
+</section>
+<a href="{% url 'accounts:logout' %}">로그아웃</a>
 {% endblock %}

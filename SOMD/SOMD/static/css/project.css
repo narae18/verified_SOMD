@@ -1,27 +1,41 @@
-h1 {
-    color: #00E392;
+html, body{
+    width: 100%;
+    height: 100%;
 }
+
+/* * {border: 1px solid blue; }
+
+.SDcontainer{border: solid 2px red;} */
+
 .maincolor {
     color: #0ECC87;
 }
 
-* {
-     border: 1px solid blue; 
+.image{
+    background-repeat: round;
+}
+
+.SomDLogo{
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
+    background-image: url("../image/SomDLogo.png");
 }
 
 body{
-    /* width: 100vw; */
-    height: 99.8vh;
     justify-content: center;
     align-items: center;
 }
+
 .SDcontainer{
+    position: fixed;
+    overflow: hidden;
     margin: 0px 0px;
     padding: 0px 0px;
     width:100%;
-
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
 }

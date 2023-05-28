@@ -1,66 +1,62 @@
 .SDcontainer{
-    height: 100%;
-}
-.upperMain{
-    display: flex;
-    /* flex-direction: row; */
     justify-content: center;
-    align-items: center;
-    /* border: 1px solid black; */
-    text-align: center;
-    padding: 20px 20px;
+}
+
+.upperMain{
+ display: flex;
+
+ justify-content: center;
+ align-items: center;
+
+ text-align: center;
+ padding: 20px 20px;
 }
 
 .title{
-    font-weight: bold;
-    font-size: 50px;
-    color: red;
+ font-weight: bold;
+ font-size: 50px;
+ color: #00E392
 }
 
-.logoImg {
-    width: 100px;
-    height: 100px;
-    border-radius: 10%;
-}
 
 .upperMainText {
-    padding-left: 10px;
+ padding-left: 10px;
 }
 
 span{
-    color:#00E392 !important;
-    font-size: 15px;
+ color:#00E392 !important;
+ font-size: 15px;
 }
 
 .lowerMain{
-    border: 2px solid #00E392;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* flex-direction: column; */
-    padding: 30px 20px;
-    margin: 0 0 70px 0;
-    width: 500px;
-    height: 200px;
+ border: 2px solid #00E392;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ /* flex-direction: column; */
+ padding: 30px 20px;
+ margin: 0 0 70px 0;
+ width: 500px;
+ height: 200px;
 
-    left: 35%;
-    box-shadow: 0px 7px 3px -2px gray;
+ left: 35%;
+ box-shadow: 0px 7px 3px -2px gray;
 }
 
 .btndiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
 }
 
 
 .inputbtn{
-    border: 1px solid #00E392;
+ border: 1px solid #00E392;
 }
 
 .loginbtn{
-    background-color: #00E392;
-    border: 0;
-    width: 100px;
+ background-color: #00E392;
+ border: 0;
+ width: 100px;
 }

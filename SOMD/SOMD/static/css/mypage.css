@@ -1,0 +1,39 @@
+table.profile{
+    width: 100%;
+    border-spacing: 10px 10px;
+    border-collapse: separate;
+}
+
+td:nth-child(1){
+    text-align: right;
+    width: 35%;
+
+    color: #0ECC87;;
+}
+
+.text{
+    border: 2px solid #0ECC87;
+    border-radius: 5px;
+}
+
+.long.td{
+    vertical-align:top;
+}
+.long.text{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    height: 90px;
+}
+
+td>.image{
+    border: none;
+    border-radius: 0px;
+}
+
+.profile.image{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #0ECC87;
+}
