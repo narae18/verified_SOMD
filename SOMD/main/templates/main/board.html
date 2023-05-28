@@ -4,9 +4,10 @@
 {% block content %}
 <h1>솜디게시판</h1>
 <a href="{% url 'main:register' %}">SOM D 등록</a>
+<br>
 
 {% for somd in somds %}
     <a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a>
-    <br>
+    <p></p>
 {% endfor %}
 {% endblock %}
