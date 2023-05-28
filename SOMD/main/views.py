@@ -7,8 +7,9 @@ import re
 def mainpage(request):
     if request.user.is_authenticated:
         user = request.user
-        somds = SOMD.objects.filter(members__user=user)
-        if somds.exists():
+        members = Member.objects.filter(user=user)
+        somds = SOMD.objects.filter(members__in=members)
+        if somds:
             return render(request, 'main/mainpage.html', {'somds': somds})
     return render(request, 'main/mainpage.html')
     
@@ -34,18 +35,20 @@ def createSOMD(request):
             new_somd.department = request.POST["college"]
         else:
             pass
-        
+
         new_somd.category = request.POST["category"]
         new_somd.intro = request.POST["intro"]
         new_somd.snslink = request.POST["snslink"]
-        
         new_somd.save()
-        
+
+        tag_text = request.POST.get("tag")  # 선택된 태그 텍스트
+        tag, created = Tag.objects.get_or_create(name=tag_text)
+        new_somd.tags.set([tag])
+
         member, created = Member.objects.get_or_create(user=user)
         member.somds.add(new_somd)
-        
         new_somd.admins.set([user])
-        
+
         return redirect("main:mainfeed", new_somd.id)
     else:
         return redirect('accounts:login')
@@ -53,9 +56,19 @@ def createSOMD(request):
 
 
 def mainfeed(request, id):
+    # user = request.user
+    # member = Member.objects.get(user=user)
+    somd = SOMD.objects.get(id=id)
+    return render(request, "main/mainfeed.html", {
+        'somd': somd,
+    })
+
+def mysomd(request):
     user = request.user
     member = Member.objects.get(user=user)
-    somds = SOMD.objects.filter(members=member)
-    return render(request, "main/mainfeed.html", {
+    somds = member.somds.all()
+    tags = Tag.objects.all()
+    return render(request, "main/mysomd.html", {
         'somds': somds,
+        'tags':tags,
     })
