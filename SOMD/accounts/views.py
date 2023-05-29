@@ -42,6 +42,7 @@ def signup(request):
         email_id = request.POST['email_id']
         email_addr = request.POST['email_addr']
 
+
         # # 정규식 및 유효성 검사
         # if not re.match('^[a-zA-Z0-9_-]{5,20}$', username):
         #     messages.error(request, '올바른 ID 형식이 아닙니다.')
