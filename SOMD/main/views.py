@@ -65,6 +65,11 @@ def mainfeed(request, id):
 
 def mysomd(request):
     user = request.user
+    try:
+        member = Member.objects.get(user=user)
+    except Member.DoesNotExist:
+        return render(request, "main/mysomd.html")
+        
     member = Member.objects.get(user=user)
     somds = member.somds.all()
     tags = Tag.objects.all()
@@ -72,3 +77,4 @@ def mysomd(request):
         'somds': somds,
         'tags':tags,
     })
+        

@@ -2,15 +2,37 @@
 {% load static %}
 
 {% block content %}
-<h1>내 소모임</h1>
-{{ request.user.name }}
-{% for somd in somds %}
-    <p><b><a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a></b> : {{ somd.intro }}</p>
-    <p>태그:
-        {% for tag in somd.tags.all %}
-            {{ tag.name }}
-        {% endfor %}
-    </p>
+<link rel="stylesheet" type="text/css" href="{% static 'css/mysomd.css' %}">
+<section class="somdPage">
+    <section class="title">
+        <div class="image"></div>
+        <div class="text">{{user.profile.nickname}}</div>
+    </section>
 
-{% endfor %}
+    <section class="somdList">
+{%if somds%}
+        {% for somd in somds %}
+    <a class="somd" href="{% url 'main:mainfeed' somd.id %}">
+        <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
+        <div class="information">
+            <div class="name">{{ somd.name }}</div>
+            <div class="intro">{{ somd.intro }}</div>
+            <div class="tag"> 
+                {%if somd.tags %}
+                <i class="fa-solid fa-hashtag"></i>
+                {% for tag in somd.tags.all %}
+                        {{ tag.name }}
+                {% endfor %}
+                {% else %}
+                    #없음
+                {%endif%}
+            </div>
+        </div>
+    </a>
+        {% endfor %}
+{% else %}
+    <section class="warning">아직 가입된 소모임이 없습니다!<br>소모임을 가입해보세요!</section>
+{%endif%}
+    </section>
+</section>
 {% endblock %}
