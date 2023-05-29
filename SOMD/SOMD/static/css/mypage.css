@@ -1,39 +1,71 @@
-table.profile{
-    width: 100%;
-    border-spacing: 10px 10px;
-    border-collapse: separate;
+.mypage{
+    display: flex;
+    flex-direction: column;
 }
-
-td:nth-child(1){
-    text-align: right;
-    width: 35%;
-
-    color: #0ECC87;;
-}
-
-.text{
-    border: 2px solid #0ECC87;
-    border-radius: 5px;
-}
-
-.long.td{
-    vertical-align:top;
-}
-.long.text{
+.mypage>section{
     display: flex;
     justify-content: start;
+    margin: 10px 0px;
+}
+.mypage>.first{
+    align-items: center;
+}
+.first .box{
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
     align-items: start;
-    height: 90px;
 }
 
-td>.image{
-    border: none;
-    border-radius: 0px;
+.mypage .label{
+    width: 120px;
+    color: #0ECC87;
+    display: flex;
+    align-items: start;
+}
+.mypage .text{
+    flex-grow: 1;
+    border-radius: 5px;
+    border: 3px solid #0ECC87;
+    padding: 5px;
 }
 
-.profile.image{
-    width: 100px;
-    height: 100px;
+.mypage .long.text{
+    height: 70px;
+}
+
+.mypage .somd_list{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.somd_list>.text{
+    margin-bottom: 3px;
+}
+
+.mypage .image{
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    border: 2px solid #0ECC87;
+    border: 3px solid #0ECC87;
+}
+
+.mypage{
+    padding: 10px 0px;
+}
+
+section .button_case{
+    margin-bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.button{
+    display: inline;
+    padding: 3px 5px;
+    border: 3px solid #0ECC87;
+    background-color: #0ECC87;
+    color: white;
+    border-radius: 5px;
 }
