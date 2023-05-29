@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>소모임별 메인피드</h1>
+
+        <h3>{{ somd.name }}</h3>
+        {% if somd.department is not None %}
+            {{ somd.department }} 소모임! <br>
+        {% else %}
+            {{ somd.category }} 소모임! <br>
+        {% endif %}
+
+        {{ somd.intro }}
+
+
+{% endblock %}

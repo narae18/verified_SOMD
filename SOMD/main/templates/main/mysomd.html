@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>내 소모임</h1>
+{{ request.user.name }}
+{% for somd in somds %}
+    <p><b><a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a></b> : {{ somd.intro }}</p>
+    <p>태그:
+        {% for tag in somd.tags.all %}
+            {{ tag.name }}
+        {% endfor %}
+    </p>
+
+{% endfor %}
+{% endblock %}

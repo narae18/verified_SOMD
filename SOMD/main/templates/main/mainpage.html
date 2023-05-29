@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainpage.css' %}">
 <section class="somdPage">
-   
+
     
     <section class="somdList">
         <div class="somdList_text"><span>SOMD </span>LIST</div>
@@ -16,7 +16,9 @@
             <div class="somd_list">
                 <div class="somd_list_for_scroll">
                     <div class="somd now"></div>
-                    <div class="somd"></div>
+                    {% for somd in somds %}
+                    <div class="somd">{{somd.name}}</div>
+                    {% endfor %}
                     <div class="somd"></div>
                     <div class="somd"></div>
                     <div class="somd"></div>
