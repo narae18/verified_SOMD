@@ -1,8 +1,10 @@
+import re
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Profile
+from django.db.models import Q
 
 # Create your views here.
 def login(request):
@@ -23,8 +25,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect("main:mainpage")
-
+    return redirect("main:mainpage")   
 
 def signup(request):
     if request.method == "POST":
@@ -36,49 +37,48 @@ def signup(request):
         day = request.POST['day']
         college = request.POST['college']
         department = request.POST['department']
-
-        username = request.POST['username']
-        password = request.POST['password']
         email_id = request.POST['email_id']
         email_addr = request.POST['email_addr']
 
+        if not re.match(r'^[a-zA-Z0-9_-]{4,16}$', request.POST['username']):
+            messages.error(request, '유효한 아이디 형식이 아닙니다.')
+            return redirect('accounts:signup')
 
-        # # 정규식 및 유효성 검사
-        # if not re.match('^[a-zA-Z0-9_-]{5,20}$', username):
-        #     messages.error(request, '올바른 ID 형식이 아닙니다.')
-        #     return redirect('/')
-        
-        # if not re.match('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$', password):
-        #     messages.error(request, '올바른 비밀번호 형식이 아닙니다.')
-        #     return redirect('/')
-        
-        if User.objects.filter(username=username).exists():
-            messages.error(request, '이미 사용 중인 ID입니다.')
-            return redirect('/')
-        
-        if request.POST['password'] == request.POST['confirm']:
-            user = User.objects.create_user(
-                username=request.POST['username'],
-                password=request.POST['password']
+        if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$', request.POST['password']):
+            messages.error(request, '비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 6자 이상 입력해야 합니다.')
+            return redirect('accounts:signup')
 
+        if request.POST['password'] != request.POST['confirm_password']:
+            messages.error(request, '비밀번호가 일치하지 않습니다.')
+            return redirect('accounts:signup')
+
+        if User.objects.filter(Q(username=request.POST['username']) | Q(email=email_id + '@' + email_addr)).exists():
+            messages.error(request, '이미 사용 중인 ID 또는 이메일입니다.')
+            return redirect('accounts:signup')
+
+        try:
+            user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
+            user.email = email_id + '@' + email_addr
+            user.save()
+
+            # 추가 필드 정보 저장
+            birthday = year + '-' + month + '-' + day
+            profile = Profile(
+                user=user,
+                name=name,
+                nickname=nickname,
+                gender=gender,
+                birthday=birthday,
+                college=college,
+                department=department
             )
-        user.email = email_id + '@' + email_addr
-        user.save()
-        # 추가 필드 정보 저장
-        birthday = year + '-' + month + '-' + day
-        profile = Profile(
-            user=user,
-            name=name,
-            nickname=nickname,
-            gender=gender,
-            birthday=birthday,
-            college=college,
-            department=department
-        )
-        profile.save()
-        auth.login(request,user)
+            profile.save()
 
-        return redirect('main:mainpage')
+            auth.login(request, user)
+
+            messages.success(request, '회원 가입이 완료되었습니다.')
+            return redirect('main:mainpage')
+        except Exception as e:
+            messages.error(request, '회원 가입 중 오류가 발생했습니다. 다시 시도해주세요.')
 
     return render(request, 'accounts/signup.html')
-    
