@@ -7,6 +7,7 @@
     <!-- <a href="{% url 'main:register' %}">솜디 등록</a> -->
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainpage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 <section class="somdPage">
 
     
@@ -18,14 +19,21 @@
                 <div class="somd_list_for_scroll">
                     {% for somd in somds %}
                     <a class="somd icon_box" href="{% url 'main:mainfeed' somd.id %}">
-                        <div class="image"></div>
+                        
+                        {% if somd.profileimage %}
+                        <div class="image"
+                            style="background-image:url({{somd.profileimage.url}});"></div>
+                        {% else %}
+                        <div class="basic somd image">somd</div>
+                        {% endif %}
+
                         <div class="name">{{somd.name}}</div>
                     </a>
                     {% endfor %}
                 </div>
             </div>
             <div class="more icon_box">
-                <div class="button"><i class="fa-solid fa-ellipsis"></i></div>
+                <a class="button" href="{% url 'main:board' %}"><i class="fa-solid fa-ellipsis"></i></a>
                 <div class="name">둘러보기</div>
             </div>
             {% else %}
@@ -34,14 +42,15 @@
         </div>
     </section>
 
-    <section class="newPost">
-        <div class="newPost_text">NEW POST</div>
+    <section class="Post">
         <div class="list">
             <div class="post">
-                <div class="profile">
-                    <div class="image"></div>
-                    <div class="name">Somder1</div>
-                </div>
+                <section class="post_header">
+                    <div class="profile">
+                        <div class="image"></div>
+                        <div class="name">Somder1</div>
+                    </div>
+                </section>
                 <div class="about_post">
                     <div class="image"></div>
                     
@@ -62,60 +71,6 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="post">
-                <div class="profile">
-                    <div class="image"></div>
-                    <div class="name">Somder1</div>
-                </div>
-                <div class="about_post">
-                    <div class="image"></div>
-                    
-                    <div class="text">
-                        <div class="title">Somd1</div>
-                        <div class="body">text</div>
-                    </div>
-                    
-                    <div class="icon">
-                        <div class="like">
-                            <i class="fa-solid fa-heart"></i>
-                            <div>10</div>
-                        </div>
-                        <div class="comment">
-                            <i class="fa-regular fa-message"></i>
-                            <div>10</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="profile">
-                    <div class="image"></div>
-                    <div class="name">Somder1</div>
-                </div>
-                <div class="about_post">
-                    <div class="image"></div>
-                    
-                    <div class="text">
-                        <div class="title">Somd1</div>
-                        <div class="body">text</div>
-                    </div>
-                    
-                    <div class="icon">
-                        <div class="like">
-                            <i class="fa-solid fa-heart"></i>
-                            <div>10</div>
-                        </div>
-                        <div class="comment">
-                            <i class="fa-regular fa-message"></i>
-                            <div>10</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
     </section>
 
 </section> 
