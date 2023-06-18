@@ -1,10 +1,13 @@
 {% load static %}
-{% if user.is_authenticated %}
+<!-- {% if user.is_authenticated %} -->
 <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
 <section class="navbar">
     <!-- mainpage 링크 연결 -->
 
-    <a class="logo" href="{% url 'main:mainpage' %}">SOMD</a>
+    <a class="icon" href="{% url 'main:mainpage' %}">
+        <i class="fa-solid fa-house"></i>
+        <div class="text">메인페이지</div>
+    </a>
 
 
     <!-- 솜디 게시판 링크 연결 -->
@@ -25,5 +28,4 @@
         <div class="text">마이페이지</div>
     </a>
 </section>
-<section class="EmptyforNav"></section>
 {% endif %}

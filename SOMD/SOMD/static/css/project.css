@@ -6,21 +6,25 @@ html, body{
 /* * {border: 1px solid blue; }
 .SDcontainer{border: solid 2px red;} */
 
+i{
+    display: flex;
+    place-items: center;
+}
+
+
 a{
     text-decoration: none;
     color: #000000;
 }
 
-a:hover {
-    color: white;
-}
 
 .maincolor {
     color: #0ECC87;
 }
 
 .image{
-    background-repeat: round;
+    background-size: cover;
+    background-position: center;
 }
 
 .SomDLogo{
@@ -51,21 +55,15 @@ body{
     align-items: center;
 }
 
-.somdPage>.title{
-    margin:20px 10px;
+
+.somdPage{
+    width: 100%;
+    padding: 0 10px;
     display: flex;
-    align-items: center;
-}
-.somdPage>.title>.image{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 3px solid #0ECC87;
-}
-.somdPage>.title>.text{
-    color:#0ECC87;
-    font-size: 20px;
-    padding: 5px;
+    flex-direction: column;
+    overflow: scroll;
+    overscroll-behavior: contain;
+    z-index: 1;
 }
 
 .warning{
@@ -84,3 +82,35 @@ body{
         width: 100%;
     }
   }
+
+
+select{
+    border: none;
+    background-color: white;
+    color: black;
+}
+
+.basic.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.basic.somd.image{
+    color: #0ECC87;
+    background-color: white;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.title_text{
+    width: 100%;
+    padding: 3px 15px;
+    margin:10px 0px;
+    background-color:#0ECC87 ;
+    border-radius: 3px;
+    color: white;
+    font-size: 20px;
+}
+

@@ -7,41 +7,21 @@
     <!-- <a href="{% url 'main:register' %}">솜디 등록</a> -->
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainpage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
+<section class="header">
+    <a class="logo" href="{% url 'main:mainpage' %}">SOMD</a>
+</section>
+<section class="EmptyForHeader"></section>
 <section class="somdPage">
-
-    
-    <section class="somdList">
-        <div class="somdList_text"><span>SOMD </span>LIST</div>
+    <section class="Post">
         <div class="list">
-            <div class="somd_list">
-                {%if somds%}
-                <div class="somd_list_for_scroll">
-                    {% for somd in somds %}
-                    <a class="somd icon_box" href="{% url 'main:mainfeed' somd.id %}">
+            <div class="post">
+                <section class="post_header">
+                    <div class="profile">
                         <div class="image"></div>
-                        <div class="name">{{somd.name}}</div>
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="more icon_box">
-                <div class="button"><i class="fa-solid fa-ellipsis"></i></div>
-                <div class="name">둘러보기</div>
-            </div>
-            {% else %}
-            <section class="warning">아직 가입된 소모임이 없습니다!<br>소모임을 가입해보세요!</section>
-            {%endif%}
-        </div>
-    </section>
-
-    <section class="newPost">
-        <div class="newPost_text">NEW POST</div>
-        <div class="list">
-            <div class="post">
-                <div class="profile">
-                    <div class="image"></div>
-                    <div class="name">Somder1</div>
-                </div>
+                        <div class="name">Somder1</div>
+                    </div>
+                </section>
                 <div class="about_post">
                     <div class="image"></div>
                     
@@ -62,60 +42,6 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="post">
-                <div class="profile">
-                    <div class="image"></div>
-                    <div class="name">Somder1</div>
-                </div>
-                <div class="about_post">
-                    <div class="image"></div>
-                    
-                    <div class="text">
-                        <div class="title">Somd1</div>
-                        <div class="body">text</div>
-                    </div>
-                    
-                    <div class="icon">
-                        <div class="like">
-                            <i class="fa-solid fa-heart"></i>
-                            <div>10</div>
-                        </div>
-                        <div class="comment">
-                            <i class="fa-regular fa-message"></i>
-                            <div>10</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="profile">
-                    <div class="image"></div>
-                    <div class="name">Somder1</div>
-                </div>
-                <div class="about_post">
-                    <div class="image"></div>
-                    
-                    <div class="text">
-                        <div class="title">Somd1</div>
-                        <div class="body">text</div>
-                    </div>
-                    
-                    <div class="icon">
-                        <div class="like">
-                            <i class="fa-solid fa-heart"></i>
-                            <div>10</div>
-                        </div>
-                        <div class="comment">
-                            <i class="fa-regular fa-message"></i>
-                            <div>10</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
     </section>
 
 </section> 

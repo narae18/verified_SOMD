@@ -1,50 +1,89 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <h1>솜디 등록 페이지</h1>
+<link rel="stylesheet" type="text/css" href="{% static 'css/somd_register.css' %}">
+<section class="header"></section>
+<section class="EmptyForHeader"></section>
+<section class="somdPage">
     <form action="{% url 'main:createSOMD' %}" method="POST" enctype="multipart/form-data">
+        <section class="somd_register">
         {% csrf_token %}
-        <div class="back-pic-wrapper">
-            배경사진 <input type="file" accept="image/*" name="back_pic" id="back-pic-input">
-                <div class="back-pic-preview"></div>
-        </div>
-        <div class="profile-pic-wrapper">
-            메인 사진<input type="file" accept="image/*" name="profile_pic" id="profile-pic-input">
-                <div class="profile-pic-preview"></div>
-        </div>
+        <section class="feed_header">
+            <div class="back-pic-preview background image">
+                <i class="fa-regular fa-image"></i>
+                <label for="back-pic-input">
+                    <input type="file" accept="image/*" name="back_pic" id="back-pic-input">
+                </label>
+            </div>
+            
+            <div class="profile-pic-preview profile image">
+                <i class="fa-regular fa-image"></i>
+                <label for="profile-pic-input">
+                    <input type="file" accept="image/*" name="profile_pic" id="profile-pic-input">
+                </label>
+            </div>
+        </section>
 
-        <p>소모임명 : <input type="text" name="somdname"></p>
+        <section class = "info">
+            <section>
+                <div class="label">소모임명</div>
+                <input class="text" type="text" name="somdname">
+            </section>
+            
+            <section>
+                <div class="label">소속학과</div>
+                <div class="select">
+                    <select id="college" name="college" onchange="selectDepartments()">
+                        <option value="" selected disabled>단과대</option>
+                        <option value="불교대학">불교대학</option>
+                        <option value="문과대학">문과대학</option>
+                        <option value="이과대학">이과대학</option>
+                        <option value="법과대학">법과대학</option>
+                        <option value="사회과학대학">사회과학대학</option>
+                        <option value="경찰사법대학">경찰사법대학</option>
+                        <option value="경영대학">경영대학</option>
+                        <option value="바이오시스템대학">바이오시스템대학</option>
+                        <option value="공과대학">공과대학</option>
+                        <option value="AI융합대학">AI융합대학</option>
+                        <option value="사범대학">사범대학</option>
+                        <option value="예술대학">예술대학</option>
+                        <option value="약학대학">약학대학</option>
+                        <option value="미래융합대학">미래융합대학</option>
+                    </select>
+                    <select id="department" name="department">
+                        <option value="" selected disabled>학과</option>
+                    </select>
+                </div>
+            
+            </section>
 
-        <p>소속학과 : <select id="college" name="college" onchange="selectDepartments()">
-            <option value="" selected disabled>단과대</option>
-            <option value="불교대학">불교대학</option>
-            <option value="문과대학">문과대학</option>
-            <option value="이과대학">이과대학</option>
-            <option value="법과대학">법과대학</option>
-            <option value="사회과학대학">사회과학대학</option>
-            <option value="경찰사법대학">경찰사법대학</option>
-            <option value="경영대학">경영대학</option>
-            <option value="바이오시스템대학">바이오시스템대학</option>
-            <option value="공과대학">공과대학</option>
-            <option value="AI융합대학">AI융합대학</option>
-            <option value="사범대학">사범대학</option>
-            <option value="예술대학">예술대학</option>
-            <option value="약학대학">약학대학</option>
-            <option value="미래융합대학">미래융합대학</option>
-        </select>
-        <select id="department" name="department">
-            <option value="" selected disabled>학과</option>
-        </select>
-        </p>
-        <p>카테고리 : <input type="text" name = "category"></p>
-        <p>한줄소개 : <input type="text" name = "intro"></p>
-        <p>해시태그 : <input type="text" name="tag"></p>
-        <p>SNS 링크 : <input type="text" name="snslink"></p>
+            <section>
+                <div class="label">카테고리</div>
+                <input class="text" type="text" name = "category">
+            </section>
 
+            <section>
+                <div class="label">한줄소개</div>
+                <input class="text" type="text" name = "intro">
+            </section>
+            
+            <section>
+                <div class="label">해시태그</div>
+                <input class="text" type="text" name = "tag">
+            </section>
 
+            <section>
+                <div class="label">SNS 링크</div>
+                <input class="text" type="text" name = "snslink">
+            </section>
+
+        </section>
+        
         <button type="submit">등록</button>
+    </section>
+    </section> 
     </form>
-
+</section>
 
 
     <script>
@@ -68,7 +107,7 @@
             const reader = new FileReader();
 
             reader.addEventListener('load', function(event) {
-                BackPicPreview.style.backgroundImage = `url(${event.target.result})`;
+                backPicPreview.style.backgroundImage = `url(${event.target.result})`;
         });
 
     reader.readAsDataURL(file);

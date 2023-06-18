@@ -1,3 +1,6 @@
+*{
+    font-size: 15px;
+}
 .mypage{
     display: flex;
     flex-direction: column;
@@ -18,7 +21,7 @@
 }
 
 .mypage .label{
-    width: 120px;
+    width: 100px;
     color: #0ECC87;
     display: flex;
     align-items: start;
@@ -51,10 +54,6 @@
     border: 3px solid #0ECC87;
 }
 
-.mypage{
-    padding: 10px 0px;
-}
-
 section .button_case{
     margin-bottom: 0px;
     width: 100%;
@@ -68,4 +67,8 @@ section .button_case{
     background-color: #0ECC87;
     color: white;
     border-radius: 5px;
+}
+
+input{
+    border: none;
 }

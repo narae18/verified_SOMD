@@ -2,12 +2,85 @@
 {% load static %}
 
 {% block content %}
-<h1>솜디게시판</h1>
-<a href="{% url 'main:register' %}">SOM D 등록</a>
-<br>
+<link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+<section class="header"><a class="logo" href="{% url 'main:mainpage' %}">솜디게시판</a></section>
+<section class="EmptyForHeader"></section>
 
-{% for somd in somds %}
-    <a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a>
-    <p></p>
-{% endfor %}
+<section class="somdPage_header"></section>
+
+<section class="somdPage">
+    <section class="somdList">
+        <div class="somdList_text"><span>SOMD </span>RANK</div>
+        <div class="list">
+            <div class="somd_list">
+                <!-- {%if somds%} -->
+                <div class="somd_list_for_scroll">
+                    {% for somd in somds %}
+                    <a class="somd icon_box" href="{% url 'main:mainfeed' somd.id %}">
+                        
+                        {% if somd.profileimage %}
+                        <div class="image"
+                            style="background-image:url({{somd.profileimage.url}});"></div>
+                        {% else %}
+                        <div class="basic somd image">somd</div>
+                        {% endif %}
+    
+                        <div class="name">{{somd.name}}</div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- <div class="more icon_box">
+                <a class="button" href="{% url 'main:board' %}"><i class="fa-solid fa-ellipsis"></i></a>
+                <div class="name">둘러보기</div>
+            </div>
+            {% else %}
+            <section class="warning">아직 가입된 소모임이 없습니다!<br>소모임을 가입해보세요!</section>
+            {%endif%} -->
+        </div>
+    </section>
+    
+    <section class="option">
+        <form class="search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text">
+        </form>
+    
+        <form class="view">
+            <select name="view_option" id="lang">
+                <option value="feed">피드형</option>
+                <option value="list">리스트형</option>
+            </select>
+        </form>
+    </section>
+    
+    <section class="all_somdList">
+        <a href="{% url 'main:register' %}">SOM D 등록</a>
+
+        {% for somd in somds %}
+            <a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a>
+            <p></p>
+        {% endfor %}
+        {% for somd in somds %}
+            <a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a>
+            <p></p>
+        {% endfor %}
+        {% for somd in somds %}
+            <a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a>
+            <p></p>
+        {% endfor %}
+        {% for somd in somds %}
+            <a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a>
+            <p></p>
+        {% endfor %}
+        {% for somd in somds %}
+            <a href="{% url 'main:mainfeed' somd.id %}">{{ somd.name }}</a>
+            <p></p>
+        {% endfor %}
+        </section>
+        
+    </section>
+
+<script src="{% static 'js/scroll_board.js' %}"></script>
+
 {% endblock %}
