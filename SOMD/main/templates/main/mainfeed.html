@@ -4,10 +4,18 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainfeed.css' %}">
+<section class="header">
+    <div class="button_case">
+        <a class="button">가입하기</a>
+        <a class="button">관리하기</a>
+        <a class="button">수정하기</a>
+    </div>
+</section>
+<section class="EmptyForHeader"></section>
 <section class="somdPage">
     <section class="mainfeed">
         <!-- <section class="write">글쓰기</section> -->
-        <section class="header">
+        <section class="feed_header">
 
             {% if somd.backgroundimage %}
             <div class="background image" 
@@ -31,11 +39,6 @@
             {% endif %}
             </div>
             
-            <div class="button_case">
-                <a class="button">가입하기</a>
-                <a class="button">관리하기</a>
-                <a class="button">수정하기</a>
-            </div>
 
             <div class="info">
                 <div class="name">{{ somd.name }}</div>
@@ -88,6 +91,124 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="post">
+                    <section class="post_header">
+                        <div class="profile">
+                            <div class="image"></div>
+                            <div class="name">Somder1</div>
+                        </div>
+                        <i class="fa-solid fa-thumbtack"></i>
+                    </section>
+                    <div class="about_post">
+                        <div class="image"></div>
+                        
+                        <div class="text">
+                            <div class="title">Somd1</div>
+                            <div class="body">text</div>
+                        </div>
+                        
+                        <div class="icon">
+                            <div class="like">
+                                <i class="fa-solid fa-heart"></i>
+                                <div>10</div>
+                            </div>
+                            <div class="comment">
+                                <i class="fa-regular fa-message"></i>
+                                <div>10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <section class="post_header">
+                        <div class="profile">
+                            <div class="image"></div>
+                            <div class="name">Somder1</div>
+                        </div>
+                        <i class="fa-solid fa-thumbtack"></i>
+                    </section>
+                    <div class="about_post">
+                        <div class="image"></div>
+                        
+                        <div class="text">
+                            <div class="title">Somd1</div>
+                            <div class="body">text</div>
+                        </div>
+                        
+                        <div class="icon">
+                            <div class="like">
+                                <i class="fa-solid fa-heart"></i>
+                                <div>10</div>
+                            </div>
+                            <div class="comment">
+                                <i class="fa-regular fa-message"></i>
+                                <div>10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="post">
+                    <section class="post_header">
+                        <div class="profile">
+                            <div class="image"></div>
+                            <div class="name">Somder1</div>
+                        </div>
+                        <i class="fa-solid fa-thumbtack"></i>
+                    </section>
+                    <div class="about_post">
+                        <div class="image"></div>
+                        
+                        <div class="text">
+                            <div class="title">Somd1</div>
+                            <div class="body">text</div>
+                        </div>
+                        
+                        <div class="icon">
+                            <div class="like">
+                                <i class="fa-solid fa-heart"></i>
+                                <div>10</div>
+                            </div>
+                            <div class="comment">
+                                <i class="fa-regular fa-message"></i>
+                                <div>10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="post">
+                    <section class="post_header">
+                        <div class="profile">
+                            <div class="image"></div>
+                            <div class="name">Somder1</div>
+                        </div>
+                        <i class="fa-solid fa-thumbtack"></i>
+                    </section>
+                    <div class="about_post">
+                        <div class="image"></div>
+                        
+                        <div class="text">
+                            <div class="title">Somd1</div>
+                            <div class="body">text</div>
+                        </div>
+                        
+                        <div class="icon">
+                            <div class="like">
+                                <i class="fa-solid fa-heart"></i>
+                                <div>10</div>
+                            </div>
+                            <div class="comment">
+                                <i class="fa-regular fa-message"></i>
+                                <div>10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </section>
     
     </section> 
@@ -105,7 +226,7 @@
         {% endif %}
 
         {{ somd.intro }}
+ -->
 
-
-{% endblock %} -->
+{% endblock %}
 

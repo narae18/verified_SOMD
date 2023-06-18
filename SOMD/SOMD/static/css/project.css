@@ -55,21 +55,15 @@ body{
     align-items: center;
 }
 
-.somdPage>.title{
-    margin:20px 10px;
+
+.somdPage{
+    width: 100%;
+    padding: 0 10px;
     display: flex;
-    align-items: center;
-}
-.somdPage>.title>.image{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 3px solid #0ECC87;
-}
-.somdPage>.title>.text{
-    color:#0ECC87;
-    font-size: 20px;
-    padding: 5px;
+    flex-direction: column;
+    overflow: scroll;
+    overscroll-behavior: contain;
+    z-index: 1;
 }
 
 .warning{
@@ -109,3 +103,14 @@ select{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.title_text{
+    width: 100%;
+    padding: 3px 15px;
+    margin:10px 0px;
+    background-color:#0ECC87 ;
+    border-radius: 3px;
+    color: white;
+    font-size: 20px;
+}
+

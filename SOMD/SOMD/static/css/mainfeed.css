@@ -3,7 +3,7 @@
     flex-direction: column;
 }
 
-.header{
+.feed_header{
     height: 215px;
     position: relative;
 }
@@ -22,19 +22,19 @@
     text-align: end;
     font-size: 12px;
 } 
-.header>.profile{
+.feed_header>.profile{
     padding: 0px 8px;
     position: absolute;
     transform: translate(0,-50%);
 }
-.header>.profile>.image{
+.feed_header>.profile>.image{
     width: 80px;
     height: 80px;
     border: 3px solid white;
     border-radius: 50%;
 }
 
-.header>.info{
+.feed_header>.info{
     position: absolute;
     bottom:0px;
     padding: 00px 10px;
@@ -43,7 +43,7 @@
     font-size: 15px;
     color: grey;
 }
-.header>.info>.name{
+.feed_header>.info>.name{
     display: flex;
     align-items: center;
     font-size: 20px;
