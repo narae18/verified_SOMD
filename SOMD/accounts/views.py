@@ -29,6 +29,7 @@ def logout(request):
 
 def signup(request):
     if request.method == "POST":
+        messages.DEFAULT_TAGS
         name = request.POST['name']
         nickname = request.POST['nickname']
         gender = request.POST['gender']
@@ -44,8 +45,8 @@ def signup(request):
             messages.error(request, '유효한 아이디 형식이 아닙니다.')
             return redirect('accounts:signup')
 
-        if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$', request.POST['password']):
-            messages.error(request, '비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 6자 이상 입력해야 합니다.')
+        if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', request.POST['password']):
+            messages.error(request, '비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상 입력해야 합니다.')
             return redirect('accounts:signup')
 
         if request.POST['password'] != request.POST['confirm']:
