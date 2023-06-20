@@ -48,7 +48,7 @@ def signup(request):
             messages.error(request, '비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 6자 이상 입력해야 합니다.')
             return redirect('accounts:signup')
 
-        if request.POST['password'] != request.POST['confirm_password']:
+        if request.POST['password'] != request.POST['confirm']:
             messages.error(request, '비밀번호가 일치하지 않습니다.')
             return redirect('accounts:signup')
 
@@ -82,3 +82,8 @@ def signup(request):
             messages.error(request, '회원 가입 중 오류가 발생했습니다. 다시 시도해주세요.')
 
     return render(request, 'accounts/signup.html')
+
+def deleteUser(request):
+    user = request.user
+    user.delete()
+    return redirect('main:mainpage')
