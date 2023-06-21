@@ -28,7 +28,7 @@
     </ul>
 {% endif %}
 
-<form action="{% url 'accounts:signup' %}" method="POST">
+<form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return validateForm()">
     {% csrf_token %}
     <section class="mainbody">
         <div class="mainCol1">
@@ -99,8 +99,9 @@
             </div>
         </div>
     </section>
-    <input class="signupBtn" type="submit" value="회원가입" style="color:white">
-
+    <!-- <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="vatlidateForm()"> -->
+    <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button>
+    
 </form>
 
 <script>
@@ -154,16 +155,22 @@ function isBirthday() {
     
     // 연도 1900 보다 작거나 yearNow 보다 크다면 false를 반환
         if (year.length == 4 && (1900 > year || year > yearNow)){
+            alert('년도를 확인하세요');
             return false;
         } else if (month && (month < 1 || month > 12)) {
+            alert('달은 01월부터 12월까지 입력 가능합니다.');
             return false;
         } else if (day && (day < 1 || day > 31)) {
+            alert('일은 1일부터 31일까지 입력가능합니다.');
             return false;
         } else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+            alert(month+"월은 31일이 존재하지 않습니다.");
             return false;
         } else if (month == 2) {
+
             var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
             if (day>29 || (day==29 && !isleap)) {
+                alert(year + "년 2월은  " + day + "일이 없습니다.");
                 return false;
             } else {
                 return true;
@@ -173,46 +180,39 @@ function isBirthday() {
         }//end of if
 }
 
-// function validateForm(event) {
-//     console.log("validateForm() 함수가 호출되었습니다.");
-//     event.preventDefault();
-//     var username = document.getElementById('username').value;
-//     var password = document.getElementById('password').value;
-//     var confirm_password = document.getElementById('confirm').value;
-//     var isValidBirthday = isBirthday();
+function validateForm() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var confirm_password = document.getElementById('confirm').value;
+    var isValidBirthday = isBirthday();
 
-//     console.log("username:", username);
-//     console.log("password:", password);
-//     console.log("confirm_password:", confirm_password);
-//     console.log("isValidBirthday:", isValidBirthday);
-    
-//     // 생년월일 확인
-//     if (!isValidBirthday){
-//         alert("생년월일이 올바르지 않습니다.");
-//         return false;
-//     }
+    // 생년월일 확인
+    if (!isValidBirthday){
+        alert("생년월일이 올바르지 않습니다.");
+        return false;
+    }
 
-//     // 아이디 형식 확인
-//     if (!/^[a-zA-Z0-9_-]{4,16}$/.test(username)) {
-//         alert('아이디는 영문자, 숫자, 대시(-), 밑줄(_)로 구성되며 4자 이상 16자 이하여야 합니다.');
-//         return false;
-//     }
+    // 아이디 형식 확인
+    if (!/^[a-zA-Z0-9_-]{4,16}$/.test(username)) {
+        alert('아이디는 영문자, 숫자, 대시(-), 밑줄(_)로 구성되며 4자 이상 16자 이하여야 합니다.');
+        return false;
+    }
 
-//     // 비밀번호 형식 확인
-//     if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
-//         alert('비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상이어야 합니다.');
-//         return false;
-//     }
+    // 비밀번호 형식 확인
+    else if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+        alert('비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상이어야 합니다.');
+        return false;
+    }
 
-//     // 비밀번호 일치 여부 확인
-//     if (password !== confirm_password) {
-//         alert('비밀번호가 일치하지 않습니다.');
-//         return false;
-//     }
-
-//     return true;
-    
-// }
+    // 비밀번호 일치 여부 확인
+    else if (password !== confirm_password) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
 </script>
 <script>

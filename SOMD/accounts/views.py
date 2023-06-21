@@ -29,7 +29,6 @@ def logout(request):
 
 def signup(request):
     if request.method == "POST":
-        messages.DEFAULT_TAGS
         name = request.POST['name']
         nickname = request.POST['nickname']
         gender = request.POST['gender']
