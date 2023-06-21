@@ -49,7 +49,7 @@
             </div>
             <div class="inputBlank">
                 <p>생년월일</p>
-                <input type="text" name="birth" placeholder="YYYY.MM.DD" required>
+                <input type="text" name="birth" placeholder="YYYYMMDD" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required maxlength="8">
             </div>
             <div class="inputBlank">
                 <p>단과대</p>
@@ -90,6 +90,10 @@
                 <input type="password" name="password" required>
             </div>
             <div class="inputBlank">
+                <p>PW CONFIRM</p>
+                <input type="password" name="confirm" required>
+            </div>
+            <div class="inputBlank">
                 <p>Email</p>
                 <input type="text" name="email" required>
             </div>
@@ -125,8 +129,8 @@
             </div> -->
         </div>
     </section>
-    <!-- <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="vatlidateForm()"> -->
-    <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button>
+    <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="vatlidateForm()">
+    <!-- <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button> -->
     
 </form>
 
