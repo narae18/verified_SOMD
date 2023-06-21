@@ -104,59 +104,117 @@
 
     for (const college in departmentsByCollege){
         const departments = departmentsByCollege[college]
+        let category_box = document.createElement("section");
+        allsomdList.append(category_box);
         let subTitle = document.createElement("section");
-        subTitle.classList.add('subTitle');
+        subTitle.classList.add('departmentTitle');
         let text = document.createElement("div");
         text.innerText = college;
         let toggle = document.createElement("button");
+        toggle.className = "toggle";
         let iconToggle = document.createElement("i");
         iconToggle.className = "fa-solid fa-chevron-down";
-        allsomdList.appendChild(subTitle);
+        category_box.appendChild(subTitle);
         subTitle.appendChild(text);
         subTitle.appendChild(toggle);
         toggle.appendChild(iconToggle);
 
-
-        for(const department of departments){
-            let list = document.createElement("section");
-            list.className = "list"
-            if(department_Somd[department].length != 0){
-                let category = document.createElement("section");
-                category.className = "category"
-
-                let category_title = document.createElement("div");
-                category_title.className = "category_title"
-                category_title.innerText = "◦" + department;
-                allsomdList.append(category);
-                category.appendChild(category_title);
-                category.appendChild(list);
-                for(const somd of department_Somd[department]){
-
-                    let icon = document.createElement("a");
-                    icon.href = somd.a_href;
-                    icon.className = "somd icon_box";
-                    
-                    let iconName = document.createElement("div");
-                    iconName.className = "name";
-                    iconName.innerText = somd.name;
-
-                    let iconImage = document.createElement("div");
-                    iconImage.className = "image";
-                    iconImage.style = "background-image:url("+somd.profileimage+");"
-                    icon.appendChild(iconImage);
-                    icon.appendChild(iconName);
-
-
-                    list.appendChild(icon);
-                }
-            }
-        
-
-        }
         
         //console.log(`${key}:${departmentsByCollege[key]}`);
     }
 
+    var toggle_buttons = document.getElementsByClassName("toggle");
+    
+    const openCollege = {
+        불교대학: false,
+        문과대학: false,
+        이과대학: false,
+        법과대학: false,
+        사회과학대학: false,
+        경찰사법대학: false,
+        경영대학: false,
+        바이오시스템대학: false,
+        공과대학: false,
+        AI융합대학: false,
+        사범대학: false,
+        예술대학: false,
+        약학대학: false,
+        미래융합대학: false,
+    };
+
+    for(item of toggle_buttons){
+       
+        item.addEventListener('click', function(event){
+            let toggle_icon = event.target;
+            let toggle_button = toggle_icon.parentElement;
+
+            let toggle_category = toggle_button.parentElement.innerText;
+            
+
+            if (openCollege[toggle_category]){ //카테고리 닫을거예요
+                toggle_icon.className = "fa-solid fa-chevron-down";
+                openCollege[toggle_category] = false;
+
+                let category_box = toggle_button.parentElement.parentElement;
+                (category_box.lastChild).remove();
+            }
+
+            else{ //카테고리 얼거예요
+                let category_box = toggle_button.parentElement.parentElement;
+                let departments = departmentsByCollege[toggle_category];
+
+                let category = document.createElement("section");
+                category.className = "category"
+
+                category_box.append(category);
+
+                for(const department of departments){
+                    
+                    let list = document.createElement("section");
+                    list.className = "list"
+                    if(department_Somd[department].length != 0){
+                        // console.log(department);
+                        
+                        let category_title = document.createElement("div");
+                        category_title.className = "category_title"
+                        category_title.innerText = "◦" + department;
+                        
+                        category.appendChild(category_title);
+                        category.appendChild(list);
+                        for(const somd of department_Somd[department]){
+
+                            let icon = document.createElement("a");
+                            icon.href = somd.a_href;
+                            icon.className = "somd icon_box";
+                            
+                            let iconName = document.createElement("div");
+                            iconName.className = "name";
+                            iconName.innerText = somd.name;
+
+                            let iconImage = document.createElement("div");
+                            iconImage.className = "image";
+                            iconImage.style = "background-image:url("+somd.profileimage+");"
+                            icon.appendChild(iconImage);
+                            icon.appendChild(iconName);
+
+
+                            list.appendChild(icon);
+                        }
+                    }
+                }
+            
+                toggle_icon.className = "fa-solid fa-chevron-up";
+                openCollege[toggle_category] = true;
+
+            }
+        
+            // console.log(event.target);
+        });
+    }
+
+    
+
+    
 </script>
 <script src="{% static 'js/scroll_board.js' %}"></script>
 {% endblock %}
