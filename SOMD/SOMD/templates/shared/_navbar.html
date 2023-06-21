@@ -1,31 +1,43 @@
 {% load static %}
 <!-- {% if user.is_authenticated %} -->
-<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
-<section class="navbar">
-    <!-- mainpage 링크 연결 -->
-
-    <a class="icon" href="{% url 'main:mainpage' %}">
-        <i class="fa-solid fa-house"></i>
-        <div class="text">메인페이지</div>
-    </a>
-
-
-    <!-- 솜디 게시판 링크 연결 -->
-    <a class="icon" href="{% url 'main:board' %}">
-        <i class="fa-solid fa-user-group"></i>
-        <div class="text">솜디게시판</div>
-    </a>
-
-    <!-- 나의 솜디 링크 연결 -->
-    <a class="icon" href="{% url 'main:mysomd' %}">
-        <i class="fa-solid fa-mobile-screen-button"></i>
-        <div class="text">나의솜디</div>
-    </a>
-
-    <!-- 마이페이지 링크 연결 -->
-    <a class="icon" href="{% url 'users:mypage' %}">
-        <i class="fa-solid fa-user-large"></i>
-        <div class="text">마이페이지</div>
-    </a>
+<section class="header">
+        <i class="header_button fa-solid fa-bars"></i>
+   
 </section>
-{% endif %}
+<section class="EmptyForHeader"></section>
+<section class="BlurForHeader"></section>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
+<section class="navbar_container">
+    <section class="navbar">
+        <div class="header_button_close">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        
+        <a class="profile" href="{% url 'users:mypage' %}">
+            <div class="image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
+            <div class="info">
+                <div class="name">{{ user.profile.nickname }}</div>
+                <div class="department">{{ user.profile.college }}</div>
+                <div class="department">{{ user.profile.department }}</div>
+            </div>
+            <!-- <i class="fa-solid fa-angle-right"></i> -->
+        </a>
+    
+        <section class="linkList">
+            <a class="icon" href="{% url 'main:mainpage' %}">메인 페이지</a>
+            <a class="icon" href="{% url 'main:board' %}">전체 소모임</a>
+            <a class="icon" href="{% url 'main:mysomd' %}">나의 솜디</a>
+        </section>
+
+
+        <a class="logout" href="{% url 'accounts:logout' %}">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            로그아웃
+        </a>
+    </section>
+
+</section>
+
+
+<!-- {% endif %} -->

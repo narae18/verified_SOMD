@@ -2,8 +2,7 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/somd_register.css' %}">
-<section class="header"></section>
-<section class="EmptyForHeader"></section>
+
 <section class="somdPage">
     <form action="{% url 'main:createSOMD' %}" method="POST" enctype="multipart/form-data">
         <section class="somd_register">

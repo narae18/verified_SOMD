@@ -2,15 +2,19 @@ let header = document.querySelector(".header");
 let empty = document.querySelector(".EmptyForHeader")
 let page = document.querySelector(".somdPage");
 let container = document.querySelector(".SDcontainer");
+
+let navbar = document.querySelector(".navbar_container");
+navbar.style.display = "none";
+
 let preScroll = page.scrollTop;
 let prepreScroll = page.scrollTop;
 let nowScroll = page.scrollTop;
 
-let maxScroll = page.scrollHeight - page.clientHeight;
+let maxScroll = page.scrollHeight - container.clientHeight;
 
 let state = "add";
 page.addEventListener('scroll', function(event){
-    maxScroll = page.scrollHeight - page.clientHeight;
+    maxScroll = page.scrollHeight - container.clientHeight;
     // console.log("scroll!");
     nowScroll  = page.scrollTop;
     // header.innerText = maxScroll +" / " +preScroll +" -> "+nowScroll+" = "+(preScroll - nowScroll) + state;
@@ -67,5 +71,19 @@ page.addEventListener('scroll', function(event){
   preScroll = nowScroll;
 });
 // 
+let header_button = document.querySelector(".header_button");
+
+let BlurForHeader = document.querySelector(".BlurForHeader");
+BlurForHeader.style.display ="none";
+header_button.addEventListener('click', function(event){
+  navbar.style.display = "block";
+  BlurForHeader.style.display ="block";
+});
+
+let header_button_close = document.querySelector(".header_button_close")
+header_button_close.addEventListener('click',function(event){
+  navbar.style.display = "none";
+  BlurForHeader.style.display ="none";
+});
 
 
