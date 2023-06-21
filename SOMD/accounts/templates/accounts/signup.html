@@ -7,9 +7,9 @@
 
 
 <div class="upperMain">
-    <div>
+    <!-- <div>
         <div class="SomDLogo image" alt="로고이미지"></div>
-    </div>
+    </div> -->
     <div class="upperMainText">
         <h1>
             SOM D
@@ -28,31 +28,41 @@
     </ul>
 {% endif %}
 
-<form action="{% url 'accounts:signup' %}" method="POST">
+<form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return validateForm()">
     {% csrf_token %}
+    <section class="titleSection">
+        <h3 class="title">개인정보 입력</h3>
+    </section>
     <section class="mainbody">
-        <div class="mainCol1">
-            <div class="inputLabel1">
+        <div class="mainCol">
+            <div class="inputBlank">
                 <p>이름</p>
-                <p>닉네임</p>
-                <p>성별</p>
-                <p>생년월일</p>
-                <p>단과대/학과</p>
+                <input type="text" name="name" placeholder="홍길동" required>
             </div>
-            <div class="inputBox">
-                <input type="text" name="name" required>
-                <input type="text" name="nickname" required>
-                <div class="sex">
-                    <label><input type="radio" name = "gender" value="male" required>남성</label>
-                    <label><input type="radio" name = "gender" value="female">여성</label>
+            <div class="inputBlank">
+                <p>닉네임</p>
+                <input type="text" name="nickname" placeholder="홍길동" required>
+            </div>
+            <div class="inputBlank">
+                <p>성별</p>
+                <!-- <input type="text" name="gender" placeholder="남/여" required> -->
+
+                <div class="select selectOption">
+                    <select id="gender" name="gender" class="selectOption">
+                        <option value="" selected disabled>성별</option>
+                        <option value="male">남</option>
+                        <option value="female">여</option>
+                    </select>
                 </div>
-                <div class="birth">
-                    <input type="text" id="year" name="year" placeholder="YYYY" min="1900" max="2023" required oninput="isBirthday()">
-                    <input type="text" id="month" name="month" placeholder="MM" min="1" max="12" required oninput="isBirthday()">
-                    <input type="text" id="day" name="day" placeholder="DD" min="1" max="31" required oninput="isBirthday()">
-                </div>
-                <div class="departmentOption">
-                    <select id="college" name="college" onchange="selectDepartments()" required>
+            </div>
+            <div class="inputBlank">
+                <p>생년월일</p>
+                <input type="text" name="birth" placeholder="YYYYMMDD" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required maxlength="8">
+            </div>
+            <div class="inputBlank">
+                <p>단과대</p>
+                <div class="select selectOption">
+                    <select id="college" name="college" class="selectOption" onchange="selectDepartments()">
                         <option value="" selected disabled>단과대</option>
                         <option value="불교대학">불교대학</option>
                         <option value="문과대학">문과대학</option>
@@ -69,15 +79,43 @@
                         <option value="약학대학">약학대학</option>
                         <option value="미래융합대학">미래융합대학</option>
                     </select>
-                    <select id="department" name="department" required>
+                </div>
+            </div>
+            <div class="inputBlank">
+                <p>학과</p>
+                <div class="select selectOption">
+                    <select id="department" name="department" class="selectOption">
                         <option value="" selected disabled>학과</option>
                     </select>
                 </div>
             </div>
-        </div>
+            <div class="inputBlank">
+                <p>ID</p>
+                <input type="text" name="username" required>
+            </div>
+            <div class="inputBlank">
+                <p>PW</p>
+                <input type="password" name="password" required>
+            </div>
+            <div class="inputBlank">
+                <p>PW CONFIRM</p>
+                <input type="password" name="confirm" required>
+            </div>
+            <div class="inputBlank">
+                <p>Email</p>
+                <input type="text" name="email" required>
+            </div>
+            <!-- <div class="inputLabel1">
+                
+                
+            </div>
+            <div class="inputBox">
+                
+            </div> -->
+        
 
-        <div class="mainCol2">
-            <div class="inputLabel2">
+        
+            <!-- <div class="inputLabel2">
                 <p>ID</p>
                 <p>PW</p>
                 <p>PW confirm</p>
@@ -96,12 +134,12 @@
                         <option value="dgu.ac.kr">dgu.ac.kr</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
+    <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="vatlidateForm()">
+    <!-- <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button> -->
     
-    <input class="signupBtn" type="submit" value="회원가입" style="color:white">
-
 </form>
 
 <script>
@@ -180,11 +218,51 @@ function isBirthday() {
         }//end of if
 }
 
-// function validateform(){
-//         var isBirthday = isBirthday();
-//         var 
-// }
+function validateForm() {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var confirm_password = document.getElementById('confirm').value;
+    var isValidBirthday = isBirthday();
+
+    // 생년월일 확인
+    if (!isValidBirthday){
+        alert("생년월일이 올바르지 않습니다.");
+        return false;
+    }
+
+    // 아이디 형식 확인
+    if (!/^[a-zA-Z0-9_-]{4,16}$/.test(username)) {
+        alert('아이디는 영문자, 숫자, 대시(-), 밑줄(_)로 구성되며 4자 이상 16자 이하여야 합니다.');
+        return false;
+    }
+
+    // 비밀번호 형식 확인
+    else if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+        alert('비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상이어야 합니다.');
+        return false;
+    }
+
+    // 비밀번호 일치 여부 확인
+    else if (password !== confirm_password) {
+        alert('비밀번호가 일치하지 않습니다.');
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
 </script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // SOM D 로고 클릭 시 메인 페이지로 이동
+        document.querySelector('.SomDLogo').addEventListener('click', function() {
+        window.location.href = '/';  
+        });
+      // SOM D 텍스트 클릭 시 메인 페이지로 이동
+        document.querySelector('.upperMainText').addEventListener('click', function() {
+        window.location.href = '/';  
+        });
+    });
+</script>
 {% endblock %}
