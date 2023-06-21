@@ -7,9 +7,9 @@
 
 
 <div class="upperMain">
-    <div>
+    <!-- <div>
         <div class="SomDLogo image" alt="로고이미지"></div>
-    </div>
+    </div> -->
     <div class="upperMainText">
         <h1>
             SOM D
@@ -30,29 +30,31 @@
 
 <form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return validateForm()">
     {% csrf_token %}
+    <section class="titleSection">
+        <h3 class="title">개인정보 입력</h3>
+    </section>
     <section class="mainbody">
-        <div class="mainCol1">
-            <div class="inputLabel1">
+        <div class="mainCol">
+            <div class="inputBlank">
                 <p>이름</p>
-                <p>닉네임</p>
-                <p>성별</p>
-                <p>생년월일</p>
-                <p>단과대/학과</p>
+                <input type="text" name="name" placeholder="홍길동" required>
             </div>
-            <div class="inputBox">
-                <input type="text" name="name" required>
-                <input type="text" name="nickname" required>
-                <div class="sex">
-                    <label><input type="radio" name = "gender" value="male" required>남성</label>
-                    <label><input type="radio" name = "gender" value="female">여성</label>
-                </div>
-                <div class="birth">
-                    <input type = "text" id="year" name="year" placeholder="YYYY" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="4" minlength="4">
-                    <input type = "text" id="month" name="month" placeholder="MM" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="2">
-                    <input type = "text" id="day" name="day" placeholder="DD" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="2">
-                </div>
-                <div class="departmentOption">
-                    <select id="college" name="college" onchange="selectDepartments()" required>
+            <div class="inputBlank">
+                <p>닉네임</p>
+                <input type="text" name="nickname" placeholder="홍길동" required>
+            </div>
+            <div class="inputBlank">
+                <p>성별</p>
+                <input type="text" name="gender" placeholder="남/여" required>
+            </div>
+            <div class="inputBlank">
+                <p>생년월일</p>
+                <input type="text" name="birth" placeholder="YYYY.MM.DD" required>
+            </div>
+            <div class="inputBlank">
+                <p>단과대</p>
+                <div class="select selectOption">
+                    <select id="college" name="college" class="selectOption" onchange="selectDepartments()">
                         <option value="" selected disabled>단과대</option>
                         <option value="불교대학">불교대학</option>
                         <option value="문과대학">문과대학</option>
@@ -69,15 +71,39 @@
                         <option value="약학대학">약학대학</option>
                         <option value="미래융합대학">미래융합대학</option>
                     </select>
-                    <select id="department" name="department" required>
+                </div>
+            </div>
+            <div class="inputBlank">
+                <p>학과</p>
+                <div class="select selectOption">
+                    <select id="department" name="department" class="selectOption">
                         <option value="" selected disabled>학과</option>
                     </select>
                 </div>
             </div>
-        </div>
+            <div class="inputBlank">
+                <p>ID</p>
+                <input type="text" name="username" required>
+            </div>
+            <div class="inputBlank">
+                <p>PW</p>
+                <input type="password" name="password" required>
+            </div>
+            <div class="inputBlank">
+                <p>Email</p>
+                <input type="text" name="email" required>
+            </div>
+            <!-- <div class="inputLabel1">
+                
+                
+            </div>
+            <div class="inputBox">
+                
+            </div> -->
+        
 
-        <div class="mainCol2">
-            <div class="inputLabel2">
+        
+            <!-- <div class="inputLabel2">
                 <p>ID</p>
                 <p>PW</p>
                 <p>PW confirm</p>
@@ -96,7 +122,7 @@
                         <option value="dgu.ac.kr">dgu.ac.kr</option>
                     </select>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
     <!-- <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="vatlidateForm()"> -->
