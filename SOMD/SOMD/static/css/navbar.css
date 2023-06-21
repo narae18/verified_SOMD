@@ -1,31 +1,202 @@
+.navbar a{
+  font-size: 20px;
+  padding: 10px 0px;
+
+}
+
+.navbar .logout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color:lightgrey;
+}
+
+.navbar .logout>i{
+  font-size: 15px;
+  padding-right: 3px;
+}
+
+.navbar i{
+  font-size: 25px;
+}
+
+.header i{
+  font-size: 25px;
+}
+
+.header_button_close{
+  /* position: absolute;
+  top: 0px; */
+  width: 100%;
+  height: 50px;
+  display: flex;
+  /* text-align: right; */
+ align-items: center;
+ justify-content: right;
+}
+
+/* ---- 헤더 ---- */
+
+.header{
+  position: fixed;
+  top:0px;
+  left: 0px;
+
+  width: 100%;
+  height: 50px;
+  
+  z-index: 3;
+  background-color: white;
+  border-bottom: solid 1px grey;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  padding: 0px 20px;
+}
+
+.EmptyForHeader{
+  z-index: 2;
+  width: 100%;
+  height: 50px;
+
+  flex-shrink: 0;
+}
+.BlurForHeader{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+  background-blend-mode: multiply;
+  opacity: 0.7;
+  z-index: 4;
+}
+
+.header>.logo{
+text-decoration: none;
+color:#0ECC87;
+font-size: 20px;
+}
+
+/* ---- 네브바 --- */
+
+.navbar_container{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 5;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+
+}
 .navbar{
+  height: 100%;
+  padding: 0px 20px;
+  display: flex;  
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    
-    width: 100%;
-    height: 70px;
+.navbar>.linkList{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
-    padding:0px 20px;
-    background-color: #F8FFEE;
+/* ----네브바에있는 프로필(마이페이지로 감)--- */
+
+.navbar>.profile{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
+  margin-bottom: 10px;
+  border-bottom: solid 1px #282828;
+}
+.navbar>.profile>.info{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.navbar>.profile>.info .department{
+  font-size: 12px;
+}
+
+.navbar>.profile .image{
+  flex-shrink: 0;
+  margin-right: 10px;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  border: solid 2px #0ECC87;
+}
+
+.navbar>.profile i{
+  font-size: 20px;
 }
 
 
-.navbar>.icon{
-    text-decoration: none;
-    color: #000000;
-    width: 70px;
-    align-items: center;
-}
+.remove {
+    animation: removeHeader 0.3s;
+    animation-fill-mode: forwards;
+  }
 
-.navbar>a>i{
-    width: 100%;
-    font-size: 20px;
-    text-align: center;
-}
+  @keyframes removeHeader {
+    0% {
+      top: 0px;
+    }
+    100% {
+      top: -50px;
+    }
+  }
 
-.navbar>.icon>.text{
-    font-size: 15px;
-    text-align: center;
-}
+  .removeEmpty{
+    animation: removeEmpty 0.3s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes removeEmpty {
+    0% {
+      height: 50px;
+    }
+    100% {
+      height: 0px;
+    }
+  }
+
+.add {
+    animation: addHeader 0.3s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes addHeader {
+    0% {
+      top: -50px;
+    }
+    100% {
+      top: 0px;
+    }
+  }
+
+  
+  .addEmpty{
+    animation: addEmpty 0.3s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes addEmpty {
+    0% {
+      height: 0px;
+    }
+    100% {
+      height: 50px;
+    }
+  }
+
+/* <section class="header"></section>
+    <section class="EmptyForHeader"></section> */

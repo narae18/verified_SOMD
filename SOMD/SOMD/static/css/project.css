@@ -6,8 +6,9 @@
 }
 
 * { font-family: 'Pretendard-Regular'; 
-    color: #282828;
+    color:#282828;
 }
+
 i {
 	all: unset;
 }
@@ -25,10 +26,13 @@ i{
     place-items: center;
 }
 
+button{
+	all: unset;
+}
+
 
 a{
-    text-decoration: none;
-    color: #000000;
+    all: unset;
 }
 
 
@@ -39,6 +43,8 @@ a{
 .image{
     background-size: cover;
     background-position: center;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 .SomDLogo{
@@ -150,8 +156,4 @@ select{
 }
 *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
-}
-
-button{
-	all: unset;
 }
