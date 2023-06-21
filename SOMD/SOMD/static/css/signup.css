@@ -11,23 +11,36 @@ form{
 input, select{
     border-color: #00E392;
     border-radius: 5px;
+    border:#00E392 solid 2px;
     box-shadow: 0px 4px 3px -2px gray;
+}
+
+.titleSection {
+    display: flex;
+    flex-direction: flex-start;
+    /* justify-content: center; */
+}
+
+.selectOption {
+    width: 185px;
 }
 
 h1 {
     font-weight: bold;
     font-size: 50px;
     margin-bottom: 0.5rem;
+    color: #00E392;
 }
-    
 
 p {
     font-weight: bold;
     text-align: center;
 }
 
-.sex label input{
-    box-shadow: 0px 0px 0px 0px gray;
+.title {
+    display: inline-flex;
+    font-size: 30px;
+    font-weight: bolder;
 }
 
 .upperMain{
@@ -64,24 +77,16 @@ span{
     flex-direction: row;
     justify-content: center;
     margin-top: 30px;
-    border:2px solid #00E392;
-    box-shadow: 0px 7px 3px -2px gray;
+    /* border:2px solid #00E392; */
+    /* box-shadow: 0px 7px 3px -2px gray; */
 }
 
-.mainCol1{
+.mainCol{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 300px;
-
-}
-
-.mainCol2{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    width: 300px;
 
 }
 
@@ -135,11 +140,16 @@ span{
     margin-right: 15px;
 }
 
-.departmentOption{
-    padding-bottom: 10px;
-}
 
 .email {
     padding-bottom: 10px;
     margin-top: -10px;
+}
+
+.inputBlank {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
 }
