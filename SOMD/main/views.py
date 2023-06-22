@@ -143,14 +143,14 @@ def viewpost(request, post_id):
             'images': images,
             'comments': comments
             })
-    # elif request.method == 'POST':
-    #     if request.user.is_authenticated:
-    #         new_comment = Comment()
-    #         new_comment.post = post
-    #         new_comment.writer = request.user
-    #         new_comment.content = request.GET["comment"]
-    #         new_comment.pub_date = timezone.now()
-    #         new_comment.save()
+    elif request.method == 'POST':
+        if request.user.is_authenticated:
+            new_comment = Comment()
+            new_comment.post = post
+            new_comment.writer = request.user
+            new_comment.content = request.POST["comment"]
+            new_comment.pub_date = timezone.now()
+            new_comment.save()
 
-    #         return redirect('main/viewpost.html', post.id)
+            return redirect('main:viewpost', post.id)
 
