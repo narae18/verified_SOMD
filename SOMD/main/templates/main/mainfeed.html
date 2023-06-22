@@ -18,7 +18,6 @@
             <a href="{% url 'main:new' somd.id%}">글 쓰기</a>
         </section>
         <section class="feed_header">
-
             {% if somd.backgroundimage %}
             <div class="background image" 
                 style="background-image:url({{somd.backgroundimage.url}});">
@@ -40,7 +39,6 @@
             <div class="basic somd image">somd</div>
             {% endif %}
             </div>
-            
 
             <div class="info">
                 <div class="name">{{ somd.name }}</div>
@@ -48,12 +46,18 @@
             </div>
             
 
-
         </section>
+<<<<<<< Updated upstream
         <div>
             <br>
             
         </div>
+=======
+
+        <!-- <div>{{ somd.admins.name }} {{user}}</div> -->
+
+
+>>>>>>> Stashed changes
         <section class="option">
             <form class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>

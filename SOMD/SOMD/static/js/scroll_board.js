@@ -34,8 +34,8 @@ page_main.addEventListener('scroll', function(event){
     }
 
     //  console.log(option.parentNode);
-    console.log(boader_state);
-    console.log(Scroll);
+    // console.log(boader_state);
+    // console.log(Scroll);
 });
 // 
 
