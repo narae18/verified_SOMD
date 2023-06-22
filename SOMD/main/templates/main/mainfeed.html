@@ -10,9 +10,9 @@
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
         <div class="button_case">
-            <a class="button">가입하기</a>
+            <!-- <a class="button">가입하기</a>
             <a class="button">관리하기</a>
-            <a class="button">수정하기</a>
+            <a class="button">수정하기</a> -->
         </div>
     </section>
 </section>
@@ -20,8 +20,8 @@
 
 <section class="somdPage">
     <a class="writeButton" href="{% url 'main:new' somd.id%}"><i class="fa-solid fa-pen"></i></a>
+
     <section class="mainfeed">
-        
         <section class="feed_header">
             {% if somd.backgroundimage %}
             <div class="background image" 
@@ -54,25 +54,23 @@
 
         </section>
 
+
         <section class="option">
             <form class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text">
             </form>
-
-            <form class="view">
-                <select name="view_option" id="lang">
-                    <option value="feed">피드형</option>
-                    <option value="list">리스트형</option>
-                </select>
-            </form>
+            <div class="view postContainer_control">
+                <i class="fa-solid fa-image"></i>
+                <i class="fa-solid fa-list"></i>
+            </div>
         </section>
         
-        <section class="postContainer">
+        <section class="postContainer linebyline_post">
             <div class="list">
                 {% if posts %}
                 {% for post in posts %}
-                <a class="post_box album_post" href="{% url 'main:viewpost' post.id %}">
+                <a class="post_box" href="{% url 'main:viewpost' post.id %}">
                     <section class="post_header">
                         <div class="profile">
                             <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
@@ -94,6 +92,8 @@
                                 </div>
                             {% endif %}
                             </div>
+                        {% else %}
+                            <div class="nonimage"></div>
                         {% endif %}
                         <div class="text">
                             <div class="title">{{ post.title }}</div>
@@ -130,9 +130,47 @@
 
 
 <script>
-    {% for post in posts %}
-    console.log("{{ post.images. }}");
-    {% endfor %}
+const postContainer_control = document.querySelector('.postContainer_control');
+const postContainer_control_list = postContainer_control.querySelector('.fa-list');
+const postContainer_control_feed = postContainer_control.querySelector('.fa-image');
+let postContainer_control_state = "리스트";
+postContainer_control_feed.style.color = "lightgrey";
+// console.log("dd" + postContainer_control);
+
+postContainer_control.addEventListener('click', function(event){
+
+if(event.target == postContainer_control ||event.target  == postContainer_control_list || event.target == postContainer_control_feed){
+    // console.log(event.target);
+    let postContainer = document.querySelector(".postContainer");
+    let nonImages = postContainer.getElementsByClassName("nonimage");
+    // console.log(nonImages)
+    if(postContainer_control_state == "리스트"){
+        postContainer_control_state = "피드";
+        postContainer_control_feed.style.color = "grey";
+        postContainer_control_list.style.color = "lightgrey";
+        postContainer.className = "postContainer album_post"
+        // postContainer_control_icon.className = "fa-solid fa-list";
+
+        for(image of nonImages){
+            image.parentNode.parentNode.style.display = "none";
+        }
+    }
+    else if (postContainer_control_state == "피드"){
+        postContainer_control_state = "리스트"
+        postContainer_control_list.style.color = "grey";
+        postContainer_control_feed.style.color = "lightgrey";
+        postContainer.className = "postContainer linebyline_post";
+        
+        // postContainer_control_icon.className = "fa-solid fa-image";
+
+        for(image of nonImages){
+            image.parentNode.parentNode.style.display = "block";
+        }
+    }
+    
+    // console.log(postContainer_control_state);
+}
+});
 </script>
 
 {% endblock %}
