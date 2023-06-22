@@ -3,8 +3,8 @@ let empty = document.querySelector(".EmptyForHeader")
 let page = document.querySelector(".somdPage");
 let container = document.querySelector(".SDcontainer");
 
-let navbar = document.querySelector(".navbar_container");
-navbar.style.display = "none";
+let sidebar = document.querySelector(".sidebar_container");
+sidebar.style.display = "none";
 
 let preScroll = page.scrollTop;
 let prepreScroll = page.scrollTop;
@@ -71,19 +71,19 @@ page.addEventListener('scroll', function(event){
   preScroll = nowScroll;
 });
 // 
-let header_button = document.querySelector(".header_button");
+let sidebar_button = document.querySelector(".sidebar_button");
 
-let BlurForHeader = document.querySelector(".BlurForHeader");
-BlurForHeader.style.display ="none";
-header_button.addEventListener('click', function(event){
-  navbar.style.display = "block";
-  BlurForHeader.style.display ="block";
+let BlurForSidebar = document.querySelector(".BlurForSidebar");
+BlurForSidebar.style.display ="none";
+sidebar_button.addEventListener('click', function(event){
+  sidebar.style.display = "flex";
+  BlurForSidebar.style.display ="block";
 });
 
-let header_button_close = document.querySelector(".header_button_close")
-header_button_close.addEventListener('click',function(event){
-  navbar.style.display = "none";
-  BlurForHeader.style.display ="none";
+let sidebar_button_close = document.querySelector(".sidebar_button_close")
+sidebar_button_close.addEventListener('click',function(event){
+  sidebar.style.display = "none";
+  BlurForSidebar.style.display ="none";
 });
 
 

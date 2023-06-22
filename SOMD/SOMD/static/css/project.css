@@ -6,7 +6,7 @@
 }
 
 * { font-family: 'Pretendard-Regular'; 
-    color:#282828;
+    /* color:#282828; */
 }
 
 i {
@@ -130,10 +130,18 @@ select{
     color: #0ECC87;
     font-size: 22px;
     font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .mainTitle>i{
     padding-right: 5px;
-    margin-bottom: 15px;
+
+}
+.mainTitle>div{
+    flex-grow: 1;
 }
 
 .subTitle{
