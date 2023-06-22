@@ -58,6 +58,7 @@ def createSOMD(request):
         new_somd.category = request.POST["category"]
         new_somd.intro = request.POST["intro"]
         new_somd.snslink = request.POST["snslink"]
+        new_somd.admin = request.user
         new_somd.save()
 
         tag_text = request.POST.get("tag")  # 선택된 태그 텍스트
@@ -66,7 +67,8 @@ def createSOMD(request):
 
         member, created = Member.objects.get_or_create(user=user)
         member.somds.add(new_somd)
-        new_somd.admins.set([user])
+        new_somd.admins.set([request.user])
+        
 
         return redirect("main:mainfeed", new_somd.id)
     else:
