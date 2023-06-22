@@ -6,7 +6,7 @@ let option = document.querySelector(".option");
 let title = document.querySelector(".mainTitle")
 let EmptyForTitle = document.querySelector(".EmptyForTitle")
 let Scroll = page_main.scrollTop;
-console.log("연결");
+// console.log("연결");
 
 page_main.addEventListener('scroll', function(event){
     Scroll  = page_main.scrollTop;
