@@ -21,40 +21,12 @@
 
 <section class="somdPage">
     <section class="subTitle">New Post</section>
-{% if user.id == 13 %}
-    <div class="NEED_TO_LOGIN"><a class="logout" href="{% url 'accounts:logout' %}">로그인하세요</div>
-{% else %}
-    <section class="Post">
-        <div class="list">
-            <div class="post">
-                <section class="post_header">
-                    <div class="profile">
-                        <div class="image"></div>
-                        <div class="name">Somder1</div>
-                    </div>
-                </section>
-                <div class="about_post">
-                    <div class="image"></div>
-                    
-                    <div class="text">
-                        <div class="title">Somd1</div>
-                        <div class="body">text</div>
-                    </div>
-                    
-                    <div class="icon">
-                        <div class="like">
-                            <i class="fa-solid fa-heart"></i>
-                            <div>10</div>
-                        </div>
-                        <div class="comment">
-                            <i class="fa-regular fa-message"></i>
-                            <div>10</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
-{% endif %}
+    {% if user.id == 13 %}
+        <div class="NEED_TO_LOGIN"><a class="logout" href="{% url 'accounts:logout' %}">로그인하세요</div>
+    {% else %}
+        <section class="Post">
+        </section>
+    {% endif %}
 </section> 
 
 {% else %}

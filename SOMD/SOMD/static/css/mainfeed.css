@@ -88,11 +88,15 @@
 }
 
 .view{
+    width: 60px;
     height: 100%;
     display: flex;
-    border:solid 2px grey;
-    padding: 3px;
+    justify-content: space-between;
+    align-items: center;
+    border:solid 1px lightgrey;
+    padding: 5px;
     border-radius: 5px;
+    font-size: 20px;
 }
 
 .view>select{
@@ -109,7 +113,7 @@
     align-items: center;
     
 
-    border:solid 2px grey;
+    border:solid 1px lightgrey;
     padding: 3px;
     border-radius: 5px;
 }
