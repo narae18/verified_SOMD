@@ -5,18 +5,23 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainfeed.css' %}">
 <section class="header">
-    <div class="button_case">
-        <a class="button">가입하기</a>
-        <a class="button">관리하기</a>
-        <a class="button">수정하기</a>
-    </div>
+
+    <section class="mainTitle">
+        <!-- <i class="fa-solid fa-house"></i> -->
+        <div>{{ somd.name }}</div>
+        <div class="button_case">
+            <a class="button">가입하기</a>
+            <a class="button">관리하기</a>
+            <a class="button">수정하기</a>
+        </div>
+    </section>
 </section>
 <section class="EmptyForHeader"></section>
+
 <section class="somdPage">
+    <a class="writeButton" href="{% url 'main:new' somd.id%}"><i class="fa-solid fa-pen"></i></a>
     <section class="mainfeed">
-        <section class="write">
-            <a href="{% url 'main:new' somd.id%}">글 쓰기</a>
-        </section>
+        
         <section class="feed_header">
             {% if somd.backgroundimage %}
             <div class="background image" 
@@ -43,7 +48,7 @@
             <div class="info">
                 <div class="name">{{ somd.name }}</div>
                 <div>{{ somd.intro }}</div>
-                <div>{{ somd.admin.username }}</div>
+                <!-- <div>{{ somd.admin.username }}</div> -->
             </div>
             
 
@@ -63,24 +68,39 @@
             </form>
         </section>
         
-        <section class="Post">
+        <section class="postContainer">
             <div class="list">
-                <div class="post">
+                {% if posts %}
+                {% for post in posts %}
+                <a class="post_box album_post" href="{% url 'main:viewpost' post.id %}">
                     <section class="post_header">
                         <div class="profile">
-                            <div class="image"></div>
-                            <div class="name">Somder1</div>
+                            <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                            <div class="name">{{ post.writer.profile.nickname }}</div>
                         </div>
-                        <i class="fa-solid fa-thumbtack"></i>
+                        <div class="icon">
+                            <i class="fa-solid fa-thumbtack"></i>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
                     </section>
                     <div class="about_post">
-                        <div class="image"></div>
-                        
+
+                        {% if post.images.all %}
+                            
+                            <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
+                            {% if post.images.all|length > 1 %}
+                                <div class="image_more">
+                                    <i class="fa-solid fa-plus"></i>
+                                </div>
+                            {% endif %}
+                            </div>
+                        {% endif %}
                         <div class="text">
-                            <div class="title">Somd1</div>
-                            <div class="body">text</div>
+                            <div class="title">{{ post.title }}</div>
+                            <div class="body">{{ post.summary }}</div>
                         </div>
-                        
+                    </div>
+                    <section class="post_footer">
                         <div class="icon">
                             <div class="like">
                                 <i class="fa-solid fa-heart"></i>
@@ -91,151 +111,29 @@
                                 <div>10</div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="post">
-                    <section class="post_header">
-                        <div class="profile">
-                            <div class="image"></div>
-                            <div class="name">Somder1</div>
+                        <div class="scrap">
+                            <i class="fa-regular fa-bookmark"></i>
                         </div>
-                        <i class="fa-solid fa-thumbtack"></i>
+
                     </section>
-                    <div class="about_post">
-                        <div class="image"></div>
-                        
-                        <div class="text">
-                            <div class="title">Somd1</div>
-                            <div class="body">text</div>
-                        </div>
-                        
-                        <div class="icon">
-                            <div class="like">
-                                <i class="fa-solid fa-heart"></i>
-                                <div>10</div>
-                            </div>
-                            <div class="comment">
-                                <i class="fa-regular fa-message"></i>
-                                <div>10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="post">
-                    <section class="post_header">
-                        <div class="profile">
-                            <div class="image"></div>
-                            <div class="name">Somder1</div>
-                        </div>
-                        <i class="fa-solid fa-thumbtack"></i>
-                    </section>
-                    <div class="about_post">
-                        <div class="image"></div>
-                        
-                        <div class="text">
-                            <div class="title">Somd1</div>
-                            <div class="body">text</div>
-                        </div>
-                        
-                        <div class="icon">
-                            <div class="like">
-                                <i class="fa-solid fa-heart"></i>
-                                <div>10</div>
-                            </div>
-                            <div class="comment">
-                                <i class="fa-regular fa-message"></i>
-                                <div>10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="post">
-                    <section class="post_header">
-                        <div class="profile">
-                            <div class="image"></div>
-                            <div class="name">Somder1</div>
-                        </div>
-                        <i class="fa-solid fa-thumbtack"></i>
-                    </section>
-                    <div class="about_post">
-                        <div class="image"></div>
-                        
-                        <div class="text">
-                            <div class="title">Somd1</div>
-                            <div class="body">text</div>
-                        </div>
-                        
-                        <div class="icon">
-                            <div class="like">
-                                <i class="fa-solid fa-heart"></i>
-                                <div>10</div>
-                            </div>
-                            <div class="comment">
-                                <i class="fa-regular fa-message"></i>
-                                <div>10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="post">
-                    <section class="post_header">
-                        <div class="profile">
-                            <div class="image"></div>
-                            <div class="name">Somder1</div>
-                        </div>
-                        <i class="fa-solid fa-thumbtack"></i>
-                    </section>
-                    <div class="about_post">
-                        <div class="image"></div>
-                        
-                        <div class="text">
-                            <div class="title">Somd1</div>
-                            <div class="body">text</div>
-                        </div>
-                        
-                        <div class="icon">
-                            <div class="like">
-                                <i class="fa-solid fa-heart"></i>
-                                <div>10</div>
-                            </div>
-                            <div class="comment">
-                                <i class="fa-regular fa-message"></i>
-                                <div>10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    {% if posts %}
-                        {% for post in posts %}
-                            <a href="{% url 'main:viewpost' post.id %}">{{ post.title }}</a>
-                        {% endfor %}
-                    {% endif %}
-                </div>
+                </a>
+                {% endfor %}
+                {% else %}
+                <section class="warning">아직 포스트가 없습니다!</section>
+                {% endif %}
         </section>
     
     </section> 
 
 </section>
 
-<!-- 
-<h1>소모임별 메인피드</h1>
 
-        <h3>{{ somd.name }}</h3>
-        {% if somd.department is not None %}
-            {{ somd.department }} 소모임! <br>
-        {% else %}
-            {{ somd.category }} 소모임! <br>
-        {% endif %}
-
-        {{ somd.intro }}
--->
+<script>
+    {% for post in posts %}
+    console.log("{{ post.images. }}");
+    {% endfor %}
+</script>
 
 {% endblock %}
 

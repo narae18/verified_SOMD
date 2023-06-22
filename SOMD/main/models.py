@@ -31,6 +31,17 @@ class Post(models.Model):
     pub_date = models.DateTimeField()
     somd = models.ForeignKey(SOMD, null=False, blank=False, on_delete=models.CASCADE,related_name='somds')
     content = models.TextField()
+    scrap = models.ManyToManyField(User, related_name='scrap', blank=True)
+
+    def __str__(self):
+        return self.title
+    
+    def summary(self):
+        if len(self.content) > 65:
+            return self.content[:65]+'...'
+        else:
+            return self.content
+        
 
 class Images(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
