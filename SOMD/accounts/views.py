@@ -22,6 +22,10 @@ def login(request):
     elif request.method == "GET":
         return render(request, 'accounts/login.html')
 
+# def login(request):
+#         if request.method == "POST" :
+#             username = 'guest';
+#             password = 'simbaton'
 
 def logout(request):
     auth.logout(request)

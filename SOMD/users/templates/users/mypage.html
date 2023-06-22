@@ -3,8 +3,6 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
-<section class="header"></section>
-<section class="EmptyForHeader"></section>
 <section class="somdPage">
     <section class="mypage">
         <section class="first">
@@ -43,15 +41,15 @@
         {% endfor %}
     </div>
 
-    {% else %}
+{% else %}
     <div class="text">
         <section class="warning">아직 가입된 소모임이 없습니다!<br>소모임을 가입해보세요!</section>
     </div>
     
-    {%endif%}
+{%endif%}
         </section>
     </section>
-    <a href="{% url 'accounts:logout' %}">로그아웃</a>
+
     <a href="{% url 'accounts:deleteUser' %}">탈퇴</a>
 </section>
 {% endblock %}

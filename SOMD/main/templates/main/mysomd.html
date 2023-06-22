@@ -3,13 +3,15 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/mysomd.css' %}">
-<section class="header"></section>
-<section class="EmptyForHeader"></section>
+
 <section class="somdPage">
-        <section class="title">
-            <div class="image"style="background-image:url({{user.profile.profile_pic.url}});"></div>
-            <div class="text">{{user.profile.nickname}}</div>
-        </section>
+    <section class="mainTitle">
+        <i class="fa-solid fa-house"></i>
+        <div>
+            나의솜디
+        </div>
+        <a href="{% url 'main:register' %}">SOM D 등록</a>
+    </section>
 
         <section class="somdList">
     {%if somds%}
