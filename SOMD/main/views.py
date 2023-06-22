@@ -97,3 +97,8 @@ def mysomd(request):
         'tags':tags,
     })
         
+def join(request):
+    return render(request, "main/join.html")
+
+def members(request):
+    return render(request, "main/members.html")

@@ -9,4 +9,6 @@ urlpatterns = [
     path('mysomd/',mysomd,name="mysomd"),
     path('createSOMD/',createSOMD,name="createSOMD"),
     path('mainfeed/<int:id>',mainfeed,name="mainfeed"),
+    path('join/', join,name="join"),
+    path('members/',members,name="members"),
 ]
