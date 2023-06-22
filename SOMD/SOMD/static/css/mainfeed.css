@@ -142,3 +142,7 @@
     color: white;
     box-shadow: 0 0px 2px 1px rgba(169, 169, 169, 0.299);;;
 }
+
+.writeButton:hover{
+    color: white;
+}

@@ -1,6 +1,14 @@
+/* ----리스트형---- */
+
 .linebyline_post{
     /* width:180%; */
     color: #282828;
+}
+
+.linebyline_post .icon{
+    /* width: 160px; */
+    font-size: 15px;
+    color:grey;
 }
 
 .linebyline_post .postContainer> .list{
@@ -9,6 +17,7 @@
     align-items: center;
     justify-content: space-between;
 }
+/* ----리스트형 헤더---- */
 .linebyline_post .post_header{
     display: flex;
     justify-content: space-between;
@@ -51,7 +60,7 @@
     align-items: center;
     margin: 3px 5px;
 }
-
+/* ----리스터형 내용---- */
 .linebyline_post .about_post{    
     display: flex;
     justify-content: center;
@@ -117,15 +126,6 @@
     text-overflow: ellipsis;
 }
 
-.linebyline_post .icon{
-    /* width: 160px; */
-    font-size: 15px;
-    color:grey;
-}
-
-.linebyline_post .icon{
-    color:grey;
-}
 
 .linebyline_post .post_footer{
     margin:  0px 5px;
@@ -152,5 +152,159 @@
 }
 
 .linebyline_post:hover{
+    color:#282828;
+}
+
+
+
+
+
+/* ----피드형---- */
+
+.album_post{
+    display: inline-block;
+    width:180px;
+    color: #282828;
+}
+
+.album_post .icon{
+    /* width: 160px; */
+    font-size: 15px;
+    color:grey;
+}
+
+.album_post .postContainer> .list{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ----피드형 헤더---- */
+.album_post .post_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.album_post .post_header>.profile{
+    padding: 0px 5px;
+    display: flex;
+}
+.album_post .post_header>.profile>.image{
+    width: 35px;
+    height: 35px;
+    background-color: #0ECC87;
+    border-radius: 50%;
+}
+.album_post .post_header>.profile>.name{
+    padding: 0px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.album_post .post_header>i{
+    padding: 5px;
+}
+
+/* ----피드형 내용---- */
+.album_post .about_post{    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid #000000;
+    border-radius: 5px;
+    padding:10px 0px 5px 0px;
+    margin:10px 0px 15px 0;
+}
+
+.album_post .about_post>.image{
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: 0 0px 2px 1px rgba(214, 214, 214, 0.299);
+    width: 160px;
+    height: 160px;
+}
+
+.album_post .about_post>.image>.image_more{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(214, 214, 214, 0.299);
+
+    background-blend-mode: multiply;
+    color: white;
+}
+
+.album_post .about_post>.text{
+    width: 160px;
+    /* height: 80px; */
+    padding: 3px 5px;
+    /* border: 2px solid gray; */
+    border-radius: 5px;
+    margin: 5px 0px;
+
+    font-size: 15px;
+}
+
+.album_post .about_post>.text>.body{
+    /* flex-grow: 1; */
+    font-size: 0px;
+    height: 0px;
+}
+
+.album_post .about_post>.icon{
+    width: 160px;
+    display: flex;
+    justify-content: end;
+    font-size: 10px;
+}
+
+.album_post .about_post>.icon>div{
+    padding: 0 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.album_post .about_post>.icon>div>i{
+    padding: 0 2px;
+}
+
+.album_post .post_footer{
+    margin:  0px 5px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.album_post .post_footer>.icon{
+    display: flex;
+}
+
+.album_post .post_footer>.icon>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3px;
+}
+
+.album_post .post_footer i{
+    margin: 3px;
+    font-size: 15px;
+    color:grey;
+}
+
+.album_post:hover{
     color:#282828;
 }
