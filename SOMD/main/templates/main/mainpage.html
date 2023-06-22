@@ -9,13 +9,14 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainpage.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 
-<section class="header">
-    <a class="logo" href="{% url 'main:mainpage' %}">SOMD</a>
-</section>
-<section class="EmptyForHeader"></section>
 
 <section class="somdPage">
-    <section class="mainTitle"><i class="fa-solid fa-house"></i>메인페이지</section>
+    <section class="mainTitle">
+        <i class="fa-solid fa-house"></i>
+        <div>
+            메인페이지
+        </div>
+    </section>
     <section class="subTitle">New Post</section>
 
     <section class="Post">
@@ -57,7 +58,7 @@
         <div class="SomDLogo image"></div>
         <div class="title">SOM D</div>
         <div class="sub title">동국대 소모임 네트워킹 서비스</div>
-        <a class="start button">시작하기</a>
+        <a class="start button" href="{% url 'main:mainpage' %}">시작하기</a>
         <a class="button" href="{% url 'accounts:login' %}">로그인</a>
         <a class="button" href="{% url 'accounts:signup' %}">회원가입</a>
     </section>

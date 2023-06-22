@@ -6,8 +6,9 @@
 }
 
 * { font-family: 'Pretendard-Regular'; 
-    color: #282828;
+    /* color:#282828; */
 }
+
 i {
 	all: unset;
 }
@@ -25,10 +26,13 @@ i{
     place-items: center;
 }
 
+button{
+	all: unset;
+}
+
 
 a{
-    text-decoration: none;
-    color: #000000;
+    all: unset;
 }
 
 
@@ -39,6 +43,8 @@ a{
 .image{
     background-size: cover;
     background-position: center;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 .SomDLogo{
@@ -124,10 +130,18 @@ select{
     color: #0ECC87;
     font-size: 22px;
     font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .mainTitle>i{
     padding-right: 5px;
-    margin-bottom: 15px;
+
+}
+.mainTitle>div{
+    flex-grow: 1;
 }
 
 .subTitle{
@@ -150,8 +164,4 @@ select{
 }
 *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
-}
-
-button{
-	all: unset;
 }

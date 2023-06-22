@@ -2,15 +2,19 @@ let header = document.querySelector(".header");
 let empty = document.querySelector(".EmptyForHeader")
 let page = document.querySelector(".somdPage");
 let container = document.querySelector(".SDcontainer");
+
+let sidebar = document.querySelector(".sidebar_container");
+sidebar.style.display = "none";
+
 let preScroll = page.scrollTop;
 let prepreScroll = page.scrollTop;
 let nowScroll = page.scrollTop;
 
-let maxScroll = page.scrollHeight - page.clientHeight;
+let maxScroll = page.scrollHeight - container.clientHeight;
 
 let state = "add";
 page.addEventListener('scroll', function(event){
-    maxScroll = page.scrollHeight - page.clientHeight;
+    maxScroll = page.scrollHeight - container.clientHeight;
     // console.log("scroll!");
     nowScroll  = page.scrollTop;
     // header.innerText = maxScroll +" / " +preScroll +" -> "+nowScroll+" = "+(preScroll - nowScroll) + state;
@@ -67,5 +71,19 @@ page.addEventListener('scroll', function(event){
   preScroll = nowScroll;
 });
 // 
+let sidebar_button = document.querySelector(".sidebar_button");
+
+let BlurForSidebar = document.querySelector(".BlurForSidebar");
+BlurForSidebar.style.display ="none";
+sidebar_button.addEventListener('click', function(event){
+  sidebar.style.display = "flex";
+  BlurForSidebar.style.display ="block";
+});
+
+let sidebar_button_close = document.querySelector(".sidebar_button_close")
+sidebar_button_close.addEventListener('click',function(event){
+  sidebar.style.display = "none";
+  BlurForSidebar.style.display ="none";
+});
 
 

@@ -6,15 +6,17 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainfeed.css' %}">
 <section class="header">
     <div class="button_case">
-        <a class="button" href="{% url 'main:join' %}">가입하기</a>
-        <a class="button" href="{% url 'main:members' %}">관리하기</a>
+        <a class="button">가입하기</a>
+        <a class="button">관리하기</a>
         <a class="button">수정하기</a>
     </div>
 </section>
 <section class="EmptyForHeader"></section>
 <section class="somdPage">
     <section class="mainfeed">
-        <!-- <section class="write">글쓰기</section> -->
+        <section class="write">
+            <a href="{% url 'main:new' somd.id%}">글 쓰기</a>
+        </section>
         <section class="feed_header">
 
             {% if somd.backgroundimage %}
@@ -44,9 +46,14 @@
                 <div class="name">{{ somd.name }}</div>
                 <div>{{ somd.intro }}</div>
             </div>
+            
 
 
         </section>
+        <div>
+            <br>
+            
+        </div>
         <section class="option">
             <form class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -208,6 +215,13 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    {% if posts %}
+                        {% for post in posts %}
+                            <a href="{% url 'main:viewpost' post.id %}">{{ post.title }}</a>
+                        {% endfor %}
+                    {% endif %}
                 </div>
         </section>
     
