@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Comment, Tag, SOMD, Member
+from .models import Post, Comment, Tag, SOMD, Member, Images, JoinRequest
 from django.contrib.auth.models import User
 from django.utils import timezone
 import re
@@ -78,8 +78,10 @@ def mainfeed(request, id):
     # user = request.user
     # member = Member.objects.get(user=user)
     somd = SOMD.objects.get(id=id)
+    posts = somd.somds.all()
     return render(request, "main/mainfeed.html", {
         'somd': somd,
+        'posts':posts
     })
 
 def mysomd(request):
@@ -96,4 +98,51 @@ def mysomd(request):
         'somds': somds,
         'tags':tags,
     })
+    
+def new(request,somd_id):
+    somd = SOMD.objects.get(id=somd_id)
+    return render(request, 'main/new.html', {'somd': somd})
+
+def createpost(request, somd_id):
+    # if request.user in SOMD.members:
+        if request.method == 'POST':
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            writer = request.user
+            somd = SOMD.objects.get(id=somd_id)
+
+            new_post = Post.objects.create(
+                title=title,
+                writer=writer,
+                pub_date=timezone.now(),
+                content=content,
+                somd=somd
+            )
+
+            images = request.FILES.getlist('images')
+            for image in images:
+                new_image = Images.objects.create(post=new_post, image=image)
+
+            return render(request, 'main/viewpost.html', {'post': new_post, 'images': new_post.images.all()})
         
+def viewpost(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == 'GET':
+        images = post.images.all()
+        comments = Comment.objects.filter(post=post)
+        return render(request, 'main/viewpost.html', {
+            'post': post,
+            'images': images,
+            'comments': comments
+            })
+    # elif request.method == 'POST':
+    #     if request.user.is_authenticated:
+    #         new_comment = Comment()
+    #         new_comment.post = post
+    #         new_comment.writer = request.user
+    #         new_comment.content = request.GET["comment"]
+    #         new_comment.pub_date = timezone.now()
+    #         new_comment.save()
+
+    #         return redirect('main/viewpost.html', post.id)
+            

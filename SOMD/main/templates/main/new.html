@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form action = "{% url 'main:createpost' somd.id %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div =>
+        <p>제목 : <input type="text" name="title"></p>
+
+        <p>사진 : <input type="file" accept = "image/*" name ="images" multiple></p>
+        <p>내용 : <textarea type="textarea" name="content" id="" cols="30" rows="10"></textarea></p>
+        
+        <button type="submit">제출</button>
+    </div>
+    
+</form>
+{% endblock %}
