@@ -154,3 +154,54 @@ def viewpost(request, post_id):
 
             return redirect('main:viewpost', post.id)
 
+def bookmark(request,SOMD_id):
+    bookmarked_somd = get_object_or_404(SOMD, pk=id)
+    user = request.user
+    is_user_bookmarked = user.bookmark.filter(id=bookmarked_somd.id).exists()
+    
+    if is_user_bookmarked:
+        user.bookmark.add(bookmarked_somd) 
+        bookmarked = True
+    
+    else:
+        user.bookmark.remove(bookmarked_somd)
+        bookmarked = False
+        
+    return redirect('main:mysomd', bookmarked_somd.id) #??어디로 redirect??
+
+
+
+    
+    
+def Scrap(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    user = request.user
+    is_user_scraped = user.scrap.filter(id=post.id).exists()
+    
+    if is_user_scraped:
+        user.scrap.add(post) 
+        scraped = True
+    
+    else:
+        user.scrap.remove(post)
+        scraped = False
+        
+    return redirect('main:viewpost', post.id)
+
+
+
+
+# def JoinRequest(request):
+#         new_join_request = JoinRequest()
+#         user = request.user.profile 
+#         created_at = timezone.now()
+#         title = request.POST.get('title')
+#         motivation = request.POST.get('motivation')
+        
+#         new_join_request.save()
+        
+        
+#         join_request = JoinRequest(user=user, title=title, motivation=motivation)
+#         join_request.save()  
+        
+#         return redirect('가입완료페이지')

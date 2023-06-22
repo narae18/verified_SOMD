@@ -72,7 +72,7 @@
             <div class="list">
                 {% if posts %}
                 {% for post in posts %}
-                <a class="linebyline_post" href="{% url 'main:viewpost' post.id %}">
+                <a class="post_box album_post" href="{% url 'main:viewpost' post.id %}">
                     <section class="post_header">
                         <div class="profile">
                             <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
@@ -87,14 +87,13 @@
 
                         {% if post.images.all %}
                             
-                            <div class="about_post">
-                                <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
+                            <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
                             {% if post.images.all|length > 1 %}
-                                    <div class="image_more">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </div>
-                            {% endif %}
+                                <div class="image_more">
+                                    <i class="fa-solid fa-plus"></i>
                                 </div>
+                            {% endif %}
+                            </div>
                         {% endif %}
                         <div class="text">
                             <div class="title">{{ post.title }}</div>
@@ -120,6 +119,8 @@
                     </section>
                 </a>
                 {% endfor %}
+                {% else %}
+                <section class="warning">아직 포스트가 없습니다!</section>
                 {% endif %}
         </section>
     
