@@ -1,6 +1,17 @@
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 
-* { font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
+* { font-family: 'Pretendard-Regular'; 
+    /* color:#282828; */
+}
+
+i {
+	all: unset;
+}
 
 html, body{
     width: 100%;
@@ -15,10 +26,13 @@ i{
     place-items: center;
 }
 
+button{
+	all: unset;
+}
+
 
 a{
-    text-decoration: none;
-    color: #000000;
+    all: unset;
 }
 
 
@@ -29,6 +43,8 @@ a{
 .image{
     background-size: cover;
     background-position: center;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 .SomDLogo{
@@ -109,15 +125,24 @@ select{
 }
 .mainTitle{
     width: 100%;
-    margin:15px 0px 5px 0px;
+    /* margin:15px 0px 5px 0px; */
     padding: 0px 5px;
     color: #0ECC87;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 500;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .mainTitle>i{
     padding-right: 5px;
-    margin-bottom: 15px;
+    font-size: 15px;
+
+}
+.mainTitle>div{
+    flex-grow: 1;
 }
 
 .subTitle{
@@ -140,8 +165,4 @@ select{
 }
 *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
-}
-
-button{
-	all: unset;
 }

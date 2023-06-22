@@ -3,6 +3,8 @@
 <html lang="ko">
     
 <head>  
+    <link rel="shortcut icon" href="#">
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
@@ -15,18 +17,18 @@
     <script src="https://kit.fontawesome.com/081be4ecb0.js" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
-    
     <title>SOMD</title>
 </head>
 <body>
     
     <div class="SDcontainer">
+        {% include 'shared/_header.html' %}
         {% block content %}
 
         {% endblock %}
     </div>
     {% include 'shared/_navbar.html' %}
+    
 </body>
-    <script src="{% static 'js/scroll_header.js' %}"></script>
+    
 </html>

@@ -1,0 +1,36 @@
+
+<h1>{{post.title}}</h1></div>
+<div class = 'detail'>
+    작성자 : {{post.writer}}<br>
+    최종 수정 날짜 : {{post.pub_date}}
+    {% if post.images %}
+        {% for image in images %}
+            <p><img src="{{image.image.url}}" alt="사진" style="max-height: 200px; max-width: 200px;" onclick="window.open(this.src)"></p>
+        {% endfor %}
+    {% endif %}
+    <hr>
+    <p>{{post.body}}</p>
+</div>
+
+<div class="comment_container">
+    <div class="comment_form">
+        <br>
+        <h5>&nbsp;댓글 작성하기</h5>
+        <form method="POST" action="{% url 'main:viewpost' post.id %}">
+            {% csrf_token %}
+            &nbsp;&nbsp;<input type="text" name="comment">
+            <input type="submit" name="submit" value="등록">
+        </form>
+    </div>
+    <div class="comment_list">
+        {% for comment in comments %}
+            <hr>
+            <div style="display: flex; align-items: center;">
+                <h5 style="margin-right: 10px;">작성자: {{ comment.writer }}</h5>
+                
+            </div>
+            <p>내용 : {{ comment.content }} <br></p>
+            <p>작성일 {{ comment.pub_date }}</p>
+        {% endfor %}
+    </div>
+</div>

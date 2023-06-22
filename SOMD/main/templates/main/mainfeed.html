@@ -14,9 +14,10 @@
 <section class="EmptyForHeader"></section>
 <section class="somdPage">
     <section class="mainfeed">
-        <!-- <section class="write">글쓰기</section> -->
+        <section class="write">
+            <a href="{% url 'main:new' somd.id%}">글 쓰기</a>
+        </section>
         <section class="feed_header">
-
             {% if somd.backgroundimage %}
             <div class="background image" 
                 style="background-image:url({{somd.backgroundimage.url}});">
@@ -38,15 +39,16 @@
             <div class="basic somd image">somd</div>
             {% endif %}
             </div>
-            
 
             <div class="info">
                 <div class="name">{{ somd.name }}</div>
                 <div>{{ somd.intro }}</div>
+                <div>{{ somd.admin.username }}</div>
             </div>
-
+            
 
         </section>
+
         <section class="option">
             <form class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -209,6 +211,13 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    {% if posts %}
+                        {% for post in posts %}
+                            <a href="{% url 'main:viewpost' post.id %}">{{ post.title }}</a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
         </section>
     
     </section> 
@@ -226,7 +235,7 @@
         {% endif %}
 
         {{ somd.intro }}
- -->
+-->
 
 {% endblock %}
 

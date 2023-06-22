@@ -3,14 +3,21 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/mysomd.css' %}">
-<section class="header"></section>
+<section class="header">
+    <section class="mainTitle">
+        <i class="fa-solid fa-house"></i>
+        <div>
+            나의솜디
+        </div>
+    </section>
+</section>
 <section class="EmptyForHeader"></section>
-<section class="somdPage">
-        <section class="title">
-            <div class="image"style="background-image:url({{user.profile.profile_pic.url}});"></div>
-            <div class="text">{{user.profile.nickname}}</div>
-        </section>
 
+<section class="somdPage">
+{% if user.id == 13 %}
+    <div class="NEED_TO_LOGIN"><a class="logout" href="{% url 'accounts:logout' %}">로그인하세요</div>
+
+{% else %}
         <section class="somdList">
     {%if somds%}
             {% for somd in somds %}
@@ -36,6 +43,7 @@
         <section class="warning">아직 가입된 소모임이 없습니다!<br>소모임을 가입해보세요!</section>
     {%endif%}
         </section>
+{% endif %}        
 </section>
     
 {% endblock %}
