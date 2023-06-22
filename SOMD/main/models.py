@@ -32,6 +32,15 @@ class Post(models.Model):
     somd = models.ForeignKey(SOMD, null=False, blank=False, on_delete=models.CASCADE,related_name='somds')
     content = models.TextField()
 
+    def __str__(self):
+        return self.title
+    
+    def summary(self):
+        if len(self.content) > 65:
+            return self.content[:65]+'...'
+        else:
+            return self.content
+
 class Images(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to="post/", blank=True, null=True)    
