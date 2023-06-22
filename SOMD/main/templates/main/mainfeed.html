@@ -4,14 +4,20 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainfeed.css' %}">
-
+<section class="header">
+    <div class="button_case">
+        <a class="button">가입하기</a>
+        <a class="button">관리하기</a>
+        <a class="button">수정하기</a>
+    </div>
+</section>
+<section class="EmptyForHeader"></section>
 <section class="somdPage">
     <section class="mainfeed">
         <section class="write">
             <a href="{% url 'main:new' somd.id%}">글 쓰기</a>
         </section>
         <section class="feed_header">
-
             {% if somd.backgroundimage %}
             <div class="background image" 
                 style="background-image:url({{somd.backgroundimage.url}});">
@@ -33,7 +39,6 @@
             <div class="basic somd image">somd</div>
             {% endif %}
             </div>
-            
 
             <div class="info">
                 <div class="name">{{ somd.name }}</div>
@@ -42,12 +47,8 @@
             </div>
             
 
-
         </section>
-        <div>
-            <br>
-            
-        </div>
+
         <section class="option">
             <form class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>

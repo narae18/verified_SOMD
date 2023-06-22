@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}"> -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/join.css' %}">
+
+<section class="header">
+    <a class="logo" href="{% url 'main:mainpage' %}">SOMD</a>
+</section>
+<section class="EmptyForHeader"></section>
+<section class="somdPage">
+    <section class="mainTitle">
+        <i class="fas fa-sign-in-alt"></i>
+        가입하기
+    </section>
+    <div class="titlebtn">
+        <a class="button">회원정보</a>
+    </div>
+
+    <div class="mainForm">
+        <section class="joinForm">
+            <input type="text" name="title" class="titleForm" placeholder="TITLE">
+            <textarea type="text" name="text" class="textForm" placeholder="TEXT"></textarea>
+        </section>
+    </div>
+</section>
+
+<button type="submit" class="button">제출하기</button>
+
+{% endblock %}

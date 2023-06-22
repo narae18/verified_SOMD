@@ -127,6 +127,12 @@ def createpost(request, somd_id):
 
             return render(request, 'main/viewpost.html', {'post': new_post, 'images': new_post.images.all()})
         
+def join(request):
+    return render(request, "main/join.html")
+
+def members(request):
+    return render(request, "main/members.html")
+
 def viewpost(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.method == 'GET':
@@ -147,4 +153,4 @@ def viewpost(request, post_id):
     #         new_comment.save()
 
     #         return redirect('main/viewpost.html', post.id)
-            
+

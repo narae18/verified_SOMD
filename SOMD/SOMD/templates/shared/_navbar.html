@@ -5,15 +5,15 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
 <section class="sidebar_container">
+{% if user.id == 13 %}
+    <div class="NEED_TO_LOGIN"><a class="logout" href="{% url 'accounts:logout' %}"></a>로그인하세요</div>
+{% else %}
     <section class="sidebar">
         <a class="logout" href="{% url 'accounts:logout' %}">
             <i class="fa-solid fa-right-from-bracket"></i>
             로그아웃
         </a>
         <div class="profile">
-            {% if user.id == 13 %}
-            <div>로그인하세요</div>
-            {% else %}
             <div class="image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
             <div class="info">
                 <div class="name"></div>
@@ -21,7 +21,6 @@
                 <div class="department">{{ user.profile.department }}</div>
             </div>
             <!-- <i class="fa-solid fa-angle-right"></i> -->
-            {% endif %}
         </div>
     
         <section class="linkList">
@@ -29,6 +28,7 @@
             <a class="icon" href="{% url 'main:mainpage' %}">스크랩한 게시물</a>
         </section>
     </section>
+{% endif %}
     <div class="bottom">
         <div class="icon sidebar_button_close">
             <i class="fa-solid fa-xmark"></i>
