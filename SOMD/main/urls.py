@@ -15,7 +15,10 @@ urlpatterns = [
     path('mainfeed/<int:somd_id>/new/',new, name="new"),
     path('mainfeed/<int:somd_id>/createpost/',createpost,name="createpost"),
     path('mainfeed/viewpost/<int:post_id>',viewpost,name="viewpost"),
-    path('join/', join,name="join"),
+    
+    path('join/<int:id>', join, name="join"),
+    path('wantTojoin/<int:id>', wantTojoin, name= 'wantTojoin'),
+    
     path('members/',members,name="members"),
 
 ]

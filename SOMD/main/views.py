@@ -169,8 +169,30 @@ def createpost(request, somd_id):
 
             return render(request, 'main/viewpost.html', {'post': new_post, 'images': new_post.images.all()})
         
-def join(request):
-    return render(request, "main/join.html")
+       
+def join(request, id):
+    somd = SOMD.objects.get(id=id)
+    return render(request, "main/join.html", {
+        'somd': somd,
+    })
+
+
+def wantTojoin(request, id):
+    somd = SOMD.objects.get(id=id)
+
+    new_join_request = JoinRequest()
+
+    if request.method == 'POST':
+        new_join_request.title = request.POST.get('title')
+        new_join_request.motivation = request.POST.get('motivation')
+        new_join_request.created_at = timezone.now()
+        new_join_request.writer = (request.user)
+        new_join_request.save()
+    
+    somd.waitTojoin_members.add(request.user)
+    somd.join_requests.add(new_join_request)
+    return redirect("main:mainfeed", somd.id)
+
 
 def members(request):
     return render(request, "main/members.html")
