@@ -71,18 +71,4 @@
 
 <!-- {% endif %} -->
 
-<script src="{% static 'js/scroll_header.js' %}"></script>
-<script>
-    var link =  document.querySelector(".mainTitle").querySelector("div").innerText;
-
-if(link == "메인페이지"){
-    // console.log(document.querySelector(".mainpageIcon"));
-    document.querySelector(".mainpageIcon").style.color = "#282828";
-}
-else if (link == "솜디게시판"){
-    document.querySelector(".boardIcon").style.color = "#282828";
-}
-else if (link == "나의솜디"){
-    document.querySelector(".mysomdIcon").style.color = "#282828";
-}
-</script>
+<script src="{% static 'js/header.js' %}"></script>

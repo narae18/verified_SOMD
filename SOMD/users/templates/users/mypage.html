@@ -3,40 +3,52 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+
+<section class="header">
+    <section class="mainTitle">
+        <div class="historyBack"><i class="fa-solid fa-chevron-left"></i></div>
+        <!-- <i class="fa-solid fa-house"></i> -->
+        <div>{{ somd.name }}</div>
+        <a href="" class="button"><span><i class="fa-solid fa-pen"></i> 수정</span></a>
+    </section>
+</section>
+<section class="EmptyForHeader"></section>
+
+
 <section class="somdPage">
     <section class="mypage">
-        <section class="first">
-            <div class="label">프로필 사진</div>
-            <div class="box">
-                <div class="image" style="background-image:url({{user.profile.profile_pic.url}});">
-                </div>
-                <a href="" class="button"><span><i class="fa-solid fa-pen"></i> 수정</span></a>
-            </div>
+        <section class="top">
+            <!-- <div class="label">프로필 사진</div> -->
+            <div class="image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
         </section>
 
-        <section>
+        <section class="item">
             <div class="label">닉네임</div>
             <div class="text">{{ user.profile.nickname }}</div>
         </section>
 
-        <section>
-            <div class="label">소속학과</div>
-            <div class="text">{{ user.profile.department }}</div>
+        <section class="item">
+            <div class="label">소속대학</div>
+            <div class="text">
+                {{ user.profile.college }}
+                <br>
+                {{ user.profile.department }}
+            </div>
         </section>
 
-        <section>
+        <section class="item">
             <div class="label">자기소개</div>
             <div class="long text"></div>
         </section>
 
-        <section>
-
-            <div class="label">활동중인 소모임</div>
+        <section class="bottom item">
+            <div class="label">내 소모임</div>
 {%if somds%}
     <div class="somd_list">
         {% for somd in somds %}
         <div class="text">
             <div class="name">{{ somd.name }}</div>
+            <i class="fa-regular fa-star"></i>
         </div>
         {% endfor %}
     </div>

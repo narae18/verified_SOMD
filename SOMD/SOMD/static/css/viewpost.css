@@ -1,0 +1,163 @@
+.viewpost{
+    padding: 0px 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---모든 프로필 기본 설정--- */
+
+.viewpost .profile{
+    /* padding: 0px 5px; */
+    display: flex;
+}
+.viewpost .profile>.image{
+    width: 35px;
+    height: 35px;
+    /* background-color: #0ECC87; */
+    border-radius: 50%;
+}
+.viewpost .profile>.name{
+    padding: 0px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ----뷰포스트,헤더---- */
+.viewpost_header .title{
+    font-size: 30px;
+    margin: 10px 0px;
+}
+
+.viewpost_header .info{
+    display: flex;
+    justify-content: space-between;
+}
+.viewpost_header .profile{
+    margin-bottom: 5px;
+}
+.viewpost_header .date{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5px;
+    color:  grey;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.viewpost_header {
+    border-bottom: solid 1px lightgrey;
+    margin-bottom: 20px;
+}
+
+/* ----뷰포스트바디---- */
+.viewpost_body .image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    border-radius: 20px;
+}
+
+.viewpost_body .image>img{
+    width: 100%;
+}
+
+
+
+.viewpost_footer{
+    margin:  0px 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+
+    border-top: solid 1px lightgrey;
+}
+.viewpost_footer>.icon{
+    display: flex;
+}
+
+.viewpost_footer>.icon>div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 3px;
+}
+
+.viewpost_footer i{
+    margin: 3px;
+    font-size: 15px;
+    color:grey;
+}
+
+
+
+/* ---댓글모음---- */
+
+input{
+    border: none;
+    background-color: white;
+}
+
+.viewpost_commentConatiner .comment_form{
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.viewpost_commentConatiner .title{
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.viewpost_commentConatiner .title>i{
+padding-left: 3px;
+font-size: 7px;
+}
+
+.viewpost_commentConatiner .comment_form>.text{
+    resize: vertical;
+    word-wrap:break-word;
+    width: 290px;
+    height: 50px;
+    margin:5px 0px;
+    border: solid 1px lightgrey;
+}
+
+.viewpost_commentConatiner .comment_form>.submit{
+    width: 50px;
+    
+    margin:5px 0px;
+    border: solid 1px lightgrey;
+    margin-left: 5px;
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewpost_commentConatiner .comment{
+    margin-bottom: 20px;
+    border-bottom: solid 1px lightgrey;
+}
+
+.viewpost_commentConatiner .comment .profile{
+    margin-bottom: 5px;
+}
+
+.viewpost_commentConatiner .comment .comment_body{
+    margin-bottom: 7px;
+}
+
+.viewpost_commentConatiner .comment .comment_footer{
+    font-size: 5px;
+    color: grey;
+    padding-bottom: 5px;
+}
