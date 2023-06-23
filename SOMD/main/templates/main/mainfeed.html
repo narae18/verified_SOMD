@@ -13,7 +13,7 @@
 
         <div class="button_case">
             {% if somd.admin.id == user.id %}
-                <a class="button" href="{% url 'main:members' %}">관리하기</a>
+                <a class="button" href="{% url 'main:members' somd.id %}">관리하기</a>
                 <a class="button" href="{% url 'main:somd_edit' somd.id %}">수정하기</a>
             {% endif %}
             {%if not user in somd.join_members.all %}

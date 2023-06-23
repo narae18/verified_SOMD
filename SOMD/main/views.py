@@ -194,8 +194,12 @@ def wantTojoin(request, id):
     return redirect("main:mainfeed", somd.id)
 
 
-def members(request):
-    return render(request, "main/members.html")
+def members(request, id):
+    somd = somd = SOMD.objects.get(id=id)
+    
+    return render(request, "main/members.html", {
+        'somd': somd,
+    })
 
 def viewpost(request, post_id):
     post = get_object_or_404(Post, id=post_id)
