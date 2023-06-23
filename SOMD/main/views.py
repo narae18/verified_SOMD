@@ -48,12 +48,8 @@ def createSOMD(request):
     
         new_somd.name = request.POST["somdname"]
 
-        if request.POST.get("department"):
-            new_somd.department = request.POST["department"]
-        elif request.POST.get("college"):
-            new_somd.department = request.POST["college"]
-        else:
-            pass
+        new_somd.department = request.POST["department"]
+        new_somd.college = request.POST["college"]
 
         new_somd.category = request.POST["category"]
         new_somd.intro = request.POST["intro"]
@@ -73,6 +69,51 @@ def createSOMD(request):
         return redirect("main:mainfeed", new_somd.id)
     else:
         return redirect('accounts:login')
+
+def somd_edit(request, id):
+    somd = SOMD.objects.get(id=id)
+    return render(request, "main/somd_edit.html", {
+            'somd': somd,
+    })
+
+def somd_update(request, id):
+    update_somd =  SOMD.objects.get(id=id)
+    
+    if "back_pic" in request.FILES:
+        update_somd.backgroundimage = request.FILES["back_pic"]
+    else:
+        default_image_path = "somd/somdbackDefaultImage.png"
+        default_image_content = default_storage.open(default_image_path).read()
+        default_image_file = ContentFile(default_image_content)
+        update_somd.backgroundimage.save("somdbackDefaultImage.png", default_image_file)
+
+    if "profile_pic" in request.FILES:
+        update_somd.profileimage = request.FILES["profile_pic"]
+    else:
+        default_profile_image_path = "somd/somdDefaultImage.png"
+        default_profile_image_content = default_storage.open(default_profile_image_path).read()
+        default_profile_image_file = ContentFile(default_profile_image_content)
+        update_somd.profileimage.save("somdDefaultImage.png", default_profile_image_file)
+
+    update_somd.name = request.POST["somdname"]
+
+    update_somd.department = request.POST["department"]
+    update_somd.college = request.POST["college"]
+
+
+    update_somd.category = request.POST["category"]
+    update_somd.intro = request.POST["intro"]
+    update_somd.snslink = request.POST["snslink"]
+    update_somd.admin = request.user
+    update_somd.save()
+
+    tag_text = request.POST.get("tag")  # 선택된 태그 텍스트
+    tag, created = Tag.objects.get_or_create(name=tag_text)
+    update_somd.tags.set([tag])
+
+    
+
+    return redirect("main:mainfeed", update_somd.id)
 
 
 

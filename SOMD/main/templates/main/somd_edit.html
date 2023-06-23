@@ -6,14 +6,15 @@
     <section class="mainTitle">
         <div class="historyBack"><i class="fa-solid fa-chevron-left"></i></div>
         <!-- <i class="fa-solid fa-house"></i> -->
-        <div>솜디 등록하기</div>
+        <div>솜디 수정하기 {{ somd.college }} {{ somd.department }}</div>
     </section>
 </section>
 <section class="EmptyForHeader"></section>
 
 
 <section class="somdPage">
-    <form action="{% url 'main:createSOMD' %}" method="POST" enctype="multipart/form-data">
+
+    <form action="{% url 'main:somd_update' somd.id %}" method="POST" enctype="multipart/form-data">
         <section class="somd_register">
         {% csrf_token %}
         <section class="feed_header">
@@ -35,7 +36,7 @@
         <section class = "info">
             <section>
                 <div class="label">소모임명</div>
-                <input class="text" type="text" name="somdname" required>
+                <input class="text" type="text" name="somdname" value="{{ somd.name }}" required>
             </section>
             
             <section>
@@ -68,22 +69,22 @@
 
             <section>
                 <div class="label">카테고리</div>
-                <input class="text" type="text" name = "category">
+                <input class="text" type="text" name = "category" value="{{ somd.category }}">
             </section>
 
             <section>
                 <div class="label">한줄소개</div>
-                <input class="text" type="text" name = "intro">
+                <input class="text" type="text" name = "intro" value="{{ somd.intro }}">
             </section>
             
             <section>
                 <div class="label">해시태그</div>
-                <input class="text" type="text" name = "tag">
+                <input class="text" type="text" name = "tag" value="{{ somd.tag }}">
             </section>
 
             <section>
                 <div class="label">SNS 링크</div>
-                <input class="text" type="text" name = "snslink">
+                <input class="text" type="text" name = "snslink" value="{{ somd.snslink }}">
             </section>
 
         </section>
@@ -160,6 +161,10 @@ const departmentsByCollege = {
         }
     }
 }
-</script>
 
+document.querySelector("#college").value = ("{{ somd.college }}");
+selectDepartments()
+document.querySelector("#department").value = ("{{ somd.department }}");
+
+</script>
 {% endblock %}
