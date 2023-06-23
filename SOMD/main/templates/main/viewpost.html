@@ -1,36 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
 
-<h1>{{post.title}}</h1></div>
-<div class = 'detail'>
-    작성자 : {{post.writer}}<br>
-    최종 수정 날짜 : {{post.pub_date}}
-    {% if post.images %}
-        {% for image in images %}
-            <p><img src="{{image.image.url}}" alt="사진" style="max-height: 200px; max-width: 200px;" onclick="window.open(this.src)"></p>
-        {% endfor %}
-    {% endif %}
-    <hr>
-    <p>{{post.body}}</p>
-</div>
+{% block content %}
 
-<div class="comment_container">
-    <div class="comment_form">
-        <br>
-        <h5>&nbsp;댓글 작성하기</h5>
-        <form method="POST" action="{% url 'main:viewpost' post.id %}">
-            {% csrf_token %}
-            &nbsp;&nbsp;<input type="text" name="comment">
-            <input type="submit" name="submit" value="등록">
-        </form>
-    </div>
-    <div class="comment_list">
-        {% for comment in comments %}
-            <hr>
-            <div style="display: flex; align-items: center;">
-                <h5 style="margin-right: 10px;">작성자: {{ comment.writer }}</h5>
-                
+<link rel="stylesheet" type="text/css" href="{% static 'css/viewpost.css' %}">
+
+<section class="header">
+    <section class="mainTitle">
+        <div class="historyBack"><i class="fa-solid fa-chevron-left"></i></div>
+        <!-- <i class="fa-solid fa-house"></i> -->
+        <div>{{ somd.name }}</div>
+        <a href="" class="button"><span><i class="fa-solid fa-pen"></i> 글수정</span></a>
+    </section>
+</section>
+<section class="EmptyForHeader"></section>
+
+<section class="somdPage">
+
+    <section class="viewpost">
+        <section class="viewpost_header">
+            <div class="title">{{post.title}}</div>
+            <div class="info">
+                <div class="profile">
+                    <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                    <div class="name">{{post.writer}}</div>
+                </div>
+                <div class="date">{{post.pub_date}}</div>
             </div>
-            <p>내용 : {{ comment.content }} <br></p>
-            <p>작성일 {{ comment.pub_date }}</p>
-        {% endfor %}
-    </div>
-</div>
+        </section>
+
+        <section class="viewpost_body">
+            <p>{{post.content}}</p>
+            {% if post.images %}
+                {% for image in images %}
+
+                    <!-- <div class="image" style="background-image:url( {{ image.image.url }} );"></div> -->
+                    <div class="image">
+                        <img src="{{image.image.url}}" alt="사진" onclick="window.open(this.src)">
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        <section class="viewpost_footer">
+            <div class="icon">
+                <div class="like">
+                    <i class="fa-solid fa-heart"></i>
+                    <div>10</div>
+                </div>
+                <div class="comment">
+                    <i class="fa-regular fa-message"></i>
+                    <div>10</div>
+                </div>
+            </div>
+
+            <div class="scrap">
+                <i class="fa-regular fa-bookmark"></i>
+            </div>
+
+        </section>
+       
+        <section class="viewpost_commentConatiner">
+
+            <form class="comment_form" method="POST" action="{% url 'main:viewpost' post.id %}">
+                {% csrf_token %}
+                <input class="text" type="text" name="comment" required>
+                <button class="submit" type="submit" name="submit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+
+            <div class="title">댓글 <i class="fa-solid fa-angle-right"></i> </div>
+
+            <div class="comment_list">
+                {% for comment in comments %}
+                <div class="comment">
+                    <div class="profile">
+                        <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});"></div>
+                        <div class="name">{{ comment.writer }}</div>
+                    </div>
+                    <div class="comment_body">
+                        {{ comment.content }}
+                    </div>
+                    <div class="comment_footer">
+                        {{ comment.pub_date }}
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </section>
+    </section>
+
+</section>
+
+{% endblock %}
