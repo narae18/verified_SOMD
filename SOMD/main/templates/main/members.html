@@ -15,58 +15,52 @@
     </section>
     <section class="mainForm">
         <div>
-            <section class="titlebtn">
-              <a class="button">신규회원관리</a>
-            </section>
-            <section class="newMemberForm">
-              <p class="newMemberName">노진구</p>
-              <div class="clickSpan newMemberFormTitle">가입신청서 제목1</div>
-            </section>
-            <section class="newMemberForm">
-              <p class="newMemberName">도라에몽</p>
-              <div class="clickSpan newMemberFormTitle">가입신청서 제목2</div>
-            </section>
+          <section class="titlebtn">
+            <a class="button">신규회원관리</a>
+          </section>
           
-            <div id="popup" class="popup">
-                <p>NEW JOIN REQUEST!</p>
-                <div class="popupjoinform">
-                    <p class="popupName" style="color:black; font-size: 15px; font-weight: bold; margin:0"></p>
-                    <p class="popupTitle" style="color:gray; font-size: 10px; font-weight: 500; margin:0"></p>
-                </div>
-                <div class="popupBtns">
-                    <button id="closeBtn" class="popupBtn">승인</button>
-                    <button id="closeBtn" class="popupBtn">거부</button>
-                </div>
-            </div>
+          {% for request in somd.join_requests.all %}
+          <section class="newMemberForm">
+            <p class="newMemberName">{{request.writer}}</p>
+            <div class="clickSpan newMemberFormTitle">{{request.title}}</div>
+          </section>
+
+          {% endfor %}
+          
+          <div id="popup" class="popup" style="display: none;">
+              <p>NEW JOIN REQUEST!</p>
+              <div class="popupjoinform">
+                  <p class="popupName" style="color:black; font-size: 15px; font-weight: bold; margin:0"></p>
+                  <p class="popupTitle" style="color:gray; font-size: 10px; font-weight: 500; margin:0"></p>
+              </div>
+              <div class="popupBtns">
+                  <button id="closeBtn" class="popupBtn">승인</button>
+                  <button id="closeBtn" class="popupBtn">거부</button>
+              </div>
+          </div>
         </div>
         <div>
             <section class="titlebtn">
               <a class="button">회원관리</a>
             </section>
+
+
+            {% for join_user in somd.join_members.all %}
+
             <section id="drag-drop-section1">
               <section class="existingMember draggable" draggable="true" ondragstart="drag(event)">
                 <i class="fas fa-sort"></i>
                 <div class="manageMemberForm">
                   <div class="existingMemberInfo">
-                    <span class="existingMemberName">홍길동</span>
-                    <span class="existingMemberCol">사회과학대학 사회학과</span>
+                    <span class="existingMemberName">{{join_user.profile.nickname}}</span>
+                    <span class="existingMemberCol">{{join_user.profile.college}} {{join_user.profile.department}}</span>
                   </div>
                   <button class="deleteBtn">삭제</button>
                 </div>
               </section>
             </section>
-          
-            <section id="drag-drop-section2">
-              <section class="existingMember draggable" draggable="true" ondragstart="drag(event)">
-                <i class="fas fa-sort"></i>
-                <div class="manageMemberForm">
-                  <div class="existingMemberInfo">
-                    <span class="existingMemberName">손오공</span>
-                    <span class="existingMemberCol">경영대학 경영학과</span>
-                  </div>
-                  <button class="deleteBtn">삭제</button>
-                </div>
-              </section>
+
+            {% endfor %}
             </section>
           </div>
     </section>

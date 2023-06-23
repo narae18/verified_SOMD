@@ -19,6 +19,6 @@ urlpatterns = [
     path('join/<int:id>', join, name="join"),
     path('wantTojoin/<int:id>', wantTojoin, name= 'wantTojoin'),
     
-    path('members/',members,name="members"),
+    path('members/<int:id>',members,name="members"),
 
 ]
