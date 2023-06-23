@@ -1,7 +1,4 @@
-{% extends 'base.html' %}
-{% load static %}
 
-{% block content %}
 <form action = "{% url 'main:createpost' somd.id %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div =>
@@ -14,4 +11,3 @@
     </div>
     
 </form>
-{% endblock %}

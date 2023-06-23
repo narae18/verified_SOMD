@@ -3,16 +3,18 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+<section class="header">
+    <section class="mainTitle">
+        <i class="fa-solid fa-house"></i>
+        <div>솜디게시판</div>
+        <span class="button" href="{% url 'main:register' %}">SOM D 등록</span>
+    </section>
+</section>
+<section class="EmptyForHeader"></section>
 
 <section class="somdPage_header"></section>
 
 <section class="somdPage">
-    <section class="mainTitle">
-        <i class="fa-solid fa-house"></i>
-        <div>솜디게시판</div>
-        <a href="{% url 'main:register' %}">SOM D 등록</a>
-    </section>
-
 
     <section class="somdList">
         <div class="somdList_text"><span>SOMD </span>RANK</div>
@@ -49,7 +51,9 @@
     <section class="EmptyForTitle"> </section>
     
     <section class="all_somdList">
-
+        <span class="button">우리대학</span>
+        <section class="all_somdList_for_you"></section>
+        <span class="button">다른대학</span>
     </section>
 </section>  
 
@@ -71,6 +75,7 @@ const departmentsByCollege = {
     약학대학: ['약학대학','약학과'],
     미래융합대학: ['미래융합대학','융합보안학과', '사회복지상담학과', '글로벌무역학과'],
 };
+
 
 //----유저 솜디 기본 설정하기
 
@@ -100,13 +105,18 @@ let somd = {};
 //----솜디 카테고리 출력하기
 
 const allsomdList = document.querySelector(".all_somdList");
-
+const allsomdList_forYou = document.querySelector(".all_somdList_for_you");
 
 for (const college in departmentsByCollege){
     const departments = departmentsByCollege[college]
     let collegeTitle_box = document.createElement("section");
     collegeTitle_box.className ="collegeTitle_box";
-    allsomdList.append(collegeTitle_box);
+    if(college == "{{user.profile.college}}"){
+        allsomdList_forYou.append(collegeTitle_box);
+    }
+    else{
+        allsomdList.append(collegeTitle_box);
+    }
     let collegeTitle = document.createElement("section");
     collegeTitle.classList.add('collegeTitle');
     let text = document.createElement("div");
@@ -138,6 +148,68 @@ const openCollege = { //솜디의 카테고리가 열려있는지 닫혀있는�
 };
 
 
+// console.log("{{ user.profile.college }}");
+
+function open_College(collegeTitle, toggle_college, toggle_icon){
+    let departments = departmentsByCollege[toggle_college];
+
+    let collegeSomdList = document.createElement("section");
+    collegeSomdList.className = "collegeSomdList"
+
+    collegeTitle.parentNode.append(collegeSomdList);
+
+    for(const department of departments){
+        
+        let list = document.createElement("section");
+        list.className = "list"
+
+        if(department_Somd[department].length != 0){
+            // console.log(department);
+            
+            let departmentTitle = document.createElement("div");
+            departmentTitle.className = "departmentTitle"
+            departmentTitle.innerText = "◦" + department;
+            
+            collegeSomdList.appendChild(departmentTitle);
+            collegeSomdList.appendChild(list);
+            for(const somd of department_Somd[department]){
+
+                let icon = document.createElement("a");
+                icon.href = somd.a_href;
+                icon.className = "somd icon_box";
+                
+                let iconName = document.createElement("div");
+                iconName.className = "name";
+                iconName.innerText = somd.name;
+
+                let iconImage = document.createElement("div");
+                iconImage.className = "image";
+                iconImage.style = "background-image:url("+somd.profileimage+");"
+                icon.appendChild(iconImage);
+                icon.appendChild(iconName);
+
+
+                list.appendChild(icon);
+            }
+        }
+    }
+
+    toggle_icon.className = "fa-solid fa-chevron-up";
+    openCollege[toggle_college] = true;
+
+    if(collegeTitle.parentNode.querySelector(".list") == null){
+        let warning = document.createElement("a");
+        warning.className ="warning";
+        warning.href = "{% url 'main:register' %}"
+        warning.innerText = toggle_college+"의 소모임이 아직 없습니다.\n소모임을 만들어보세요!"
+        collegeSomdList.appendChild(warning);
+
+        warningIcon = document.createElement("i");
+        warningIcon.className = "fa-solid fa-plus";
+        warning.appendChild(warningIcon);
+    }
+}
+
 function toggleButton_click(event){
     let collegeTitle = event.target;
 
@@ -145,87 +217,35 @@ function toggleButton_click(event){
         collegeTitle = event.target.parentNode;
     }
 
-    let toggle_category = collegeTitle.firstChild.innerText;
+    let toggle_college = collegeTitle.firstChild.innerText;
     let toggle_icon = collegeTitle.lastChild;
 
-    // console.log(toggle_category+toggle_icon);
+    // console.log(toggle_college+toggle_icon);
     
-    if (openCollege[toggle_category]){ //카테고리 닫을거예요
+    if (openCollege[toggle_college]){ //카테고리 닫을거예요
         toggle_icon.className = "fa-solid fa-chevron-down";
-        openCollege[toggle_category] = false;
+        openCollege[toggle_college] = false;
 
         (collegeTitle.parentNode.lastChild).remove();
     }
 
     else{ //카테고리 얼거예요
-        let departments = departmentsByCollege[toggle_category];
-
-        let collegeSomdList = document.createElement("section");
-        collegeSomdList.className = "collegeSomdList"
-
-        collegeTitle.parentNode.append(collegeSomdList);
-
-        for(const department of departments){
-            
-            let list = document.createElement("section");
-            list.className = "list"
-
-            if(department_Somd[department].length != 0){
-                // console.log(department);
-                
-                let departmentTitle = document.createElement("div");
-                departmentTitle.className = "departmentTitle"
-                departmentTitle.innerText = "◦" + department;
-                
-                collegeSomdList.appendChild(departmentTitle);
-                collegeSomdList.appendChild(list);
-                for(const somd of department_Somd[department]){
-
-                    let icon = document.createElement("a");
-                    icon.href = somd.a_href;
-                    icon.className = "somd icon_box";
-                    
-                    let iconName = document.createElement("div");
-                    iconName.className = "name";
-                    iconName.innerText = somd.name;
-
-                    let iconImage = document.createElement("div");
-                    iconImage.className = "image";
-                    iconImage.style = "background-image:url("+somd.profileimage+");"
-                    icon.appendChild(iconImage);
-                    icon.appendChild(iconName);
-
-
-                    list.appendChild(icon);
-                }
-            }
-        }
-
-        toggle_icon.className = "fa-solid fa-chevron-up";
-        openCollege[toggle_category] = true;
-
-        if(collegeTitle.parentNode.querySelector(".list") == null){
-                let warning = document.createElement("a");
-                warning.className ="warning";
-                warning.href = "{% url 'main:register' %}"
-                warning.innerText = toggle_category+"의 소모임이 아직 없습니다.\n소모임을 만들어보세요!"
-                collegeSomdList.appendChild(warning);
-
-                warningIcon = document.createElement("i");
-                warningIcon.className = "fa-solid fa-plus";
-                warning.appendChild(warningIcon);
-            }
+            open_College(collegeTitle, toggle_college, toggle_icon);
         }
     // console.log(event.target);
 }
 
 
-var toggleButtons = document.getElementsByClassName("toggle");
+var collegeTitles = document.getElementsByClassName("collegeTitle");
 // console.log(toggleButtons[2].parentElement.innerText);
-for(item of toggleButtons){
-    let category = item.parentElement;
-    // console.log(category);
-    category.addEventListener('click', toggleButton_click, {capture: true});
+for(collegeTitle of collegeTitles){
+    // console.log(collegeTitle);
+    collegeTitle.addEventListener('click', toggleButton_click);
+    if(collegeTitle.querySelector("div").innerText == "{{ user.profile.college }}"){
+        let toggle_college = collegeTitle.firstChild.innerText;
+        let toggle_icon = collegeTitle.lastChild;
+        open_College(collegeTitle, toggle_college, toggle_icon);
+    }
 }
 
 

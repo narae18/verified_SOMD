@@ -11,7 +11,7 @@
   
   z-index: 3;
   background-color: white;
-  border-bottom: solid 1px grey;
+  border-bottom: solid 1px lightgrey;
 
   display: flex;
   align-items: center;
@@ -20,15 +20,12 @@
   padding: 0px 20px;
 }
 
-.header i{
-  font-size: 25px;
-}
 
 
 .EmptyForHeader{
   z-index: 2;
   width: 100%;
-  height: 50px;
+  height: 60px;
 
   flex-shrink: 0;
 }
@@ -251,7 +248,7 @@ font-size: 20px;
   }
   @keyframes removeEmpty {
     0% {
-      height: 50px;
+      height: 60px;
     }
     100% {
       height: 0px;
@@ -282,7 +279,7 @@ font-size: 20px;
       height: 0px;
     }
     100% {
-      height: 50px;
+      height: 60px;
     }
   }
 

@@ -20,7 +20,7 @@ page.addEventListener('scroll', function(event){
     // header.innerText = maxScroll +" / " +preScroll +" -> "+nowScroll+" = "+(preScroll - nowScroll) + state;
     // console.log(maxScroll)
     // console.log(maxScroll +"/" +preScroll +"->"+nowScroll+"="+(preScroll - nowScroll) + state);
-  
+  if(maxScroll > 2){
   if(prepreScroll != nowScroll){
     if(nowScroll <-1){
         // console.log("add");
@@ -59,12 +59,6 @@ page.addEventListener('scroll', function(event){
             empty.classList.add("removeEmpty");
           }
       }
-      if(page.scrollHeight - page.clientHeight == 0){
-        header.classList.add("add");
-        header.classList.remove("remove");
-        state = "add";
-        empty.classList.add("addEmpty");
-        empty.classList.remove("removeEmpty");
     }
   } 
   prepreScroll = preScroll;

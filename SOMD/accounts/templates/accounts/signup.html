@@ -28,7 +28,7 @@
     </ul>
 {% endif %}
 
-<form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return validateForm()">
+<form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return false;">
     {% csrf_token %}
     <section class="titleSection">
         <h3 class="title">개인정보 입력</h3>
@@ -57,7 +57,7 @@
             </div>
             <div class="inputBlank">
                 <p>생년월일</p>
-                <input type="text" name="birth" placeholder="YYYYMMDD" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required maxlength="8">
+                <input type="text" id="birth" name="birth" placeholder="YYYYMMDD" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required maxlength="8">
             </div>
             <div class="inputBlank">
                 <p>단과대</p>
@@ -91,55 +91,24 @@
             </div>
             <div class="inputBlank">
                 <p>ID</p>
-                <input type="text" name="username" required>
+                <input type="text" id="username" name="username" required>
             </div>
             <div class="inputBlank">
                 <p>PW</p>
-                <input type="password" name="password" required>
+                <input type="password" id="password" name="password" required>
             </div>
             <div class="inputBlank">
                 <p>PW CONFIRM</p>
-                <input type="password" name="confirm" required>
+                <input type="password" id="confirm" name="confirm" required>
             </div>
             <div class="inputBlank">
                 <p>Email</p>
                 <input type="text" name="email" required>
             </div>
-            <!-- <div class="inputLabel1">
-                
-                
-            </div>
-            <div class="inputBox">
-                
-            </div> -->
-        
-
-        
-            <!-- <div class="inputLabel2">
-                <p>ID</p>
-                <p>PW</p>
-                <p>PW confirm</p>
-                <p>Email</p>
-            </div>
-            <div class="inputBox">
-                <input type="text" name="username" required>
-                <input type="password" name="password" required>
-                <input type="password" name="confirm" required>
-                <div class="email">
-                    <input type="text" id='email_id' name="email_id" style="width: 130px;"required> @
-                    <select id = "email_addr" name="email_addr" required>
-                        <option value="" selected disabled hidden >선택</option>
-                        <option value="dongguk.edu">dongguk.edu</option>
-                        <option value="dgu.edu">dgu.edu</option>
-                        <option value="dgu.ac.kr">dgu.ac.kr</option>
-                    </select>
-                </div>
-            </div> -->
         </div>
     </section>
-    <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="vatlidateForm()">
+    <input class="signupBtn" type="button" value="회원가입" style="color:white" onclick="validateForm() ">
     <!-- <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button> -->
-    
 </form>
 
 <script>
@@ -182,72 +151,90 @@
     }
 }
 
-function isBirthday() {
+// function isBirthday() {
 
-    var year = document.getElementById('year').value;
-    var month = document.getElementById('month').value;
-    var day = document.getElementById('day').value;
-    var today = new Date(); // 날짜 변수 선언
-    var yearNow = today.getFullYear(); // 올해 연도 가져옴
+//     var year = document.getElementById('year').value;
+//     var month = document.getElementById('month').value;
+//     var day = document.getElementById('day').value;
+//     var today = new Date(); // 날짜 변수 선언
+//     var yearNow = today.getFullYear(); // 올해 연도 가져옴
 
     
-    // 연도 1900 보다 작거나 yearNow 보다 크다면 false를 반환
-        if (year.length == 4 && (1900 > year || year > yearNow)){
-            alert('년도를 확인하세요');
-            return false;
-        } else if (month && (month < 1 || month > 12)) {
-            alert('달은 01월부터 12월까지 입력 가능합니다.');
-            return false;
-        } else if (day && (day < 1 || day > 31)) {
-            alert('일은 1일부터 31일까지 입력가능합니다.');
-            return false;
-        } else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
-            alert(month+"월은 31일이 존재하지 않습니다.");
-            return false;
-        } else if (month == 2) {
+//     // 연도 1900 보다 작거나 yearNow 보다 크다면 false를 반환
+//         if (year.length == 4 && (1900 > year || year > yearNow)){
+//             alert('년도를 확인하세요');
+//             return false;
+//         } else if (month && (month < 1 || month > 12)) {
+//             alert('달은 01월부터 12월까지 입력 가능합니다.');
+//             return false;
+//         } else if (day && (day < 1 || day > 31)) {
+//             alert('일은 1일부터 31일까지 입력가능합니다.');
+//             return false;
+//         } else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+//             alert(month+"월은 31일이 존재하지 않습니다.");
+//             return false;
+//         } else if (month == 2) {
 
-            var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
-            if (day>29 || (day==29 && !isleap)) {
-                alert(year + "년 2월은  " + day + "일이 없습니다.");
-                return false;
-            } else {
-                return true;
-            } //end of if (day>29 || (day==29 && !isleap))
-        } else {
-            return true;
-        }//end of if
-}
+//             var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+//             if (day>29 || (day==29 && !isleap)) {
+//                 alert(year + "년 2월은  " + day + "일이 없습니다.");
+//                 return false;
+//             } else {
+//                 return true;
+//             } //end of if (day>29 || (day==29 && !isleap))
+//         } else {
+//             return true;
+//         }//end of if
+// }
 
 function validateForm() {
+
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     var confirm_password = document.getElementById('confirm').value;
-    var isValidBirthday = isBirthday();
+    var isValidBirthday = true;
+
+    var isValidUsername = false;
+    var isValidPassword = false;
+    var isEqualPassword = false;
 
     // 생년월일 확인
-    if (!isValidBirthday){
+    if (!isValidBirthday) {
         alert("생년월일이 올바르지 않습니다.");
+        document.getElementById('birth').value = '';
         return false;
     }
 
     // 아이디 형식 확인
     if (!/^[a-zA-Z0-9_-]{4,16}$/.test(username)) {
         alert('아이디는 영문자, 숫자, 대시(-), 밑줄(_)로 구성되며 4자 이상 16자 이하여야 합니다.');
-        return false;
-    }
+        // return false;
+    } else isValidUsername = true;
 
     // 비밀번호 형식 확인
-    else if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+    if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
         alert('비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상이어야 합니다.');
-        return false;
-    }
+        // return false;
+    } else isValidPassword = true;
 
     // 비밀번호 일치 여부 확인
-    else if (password !== confirm_password) {
+    if (password !== confirm_password) {
         alert('비밀번호가 일치하지 않습니다.');
+        // return false;
+    } else isEqualPassword = true;
+
+    // 입력한 정보가 유효하지 않을 경우
+    // if (!isValidBirthday || !/^[a-zA-Z0-9_-]{4,16}$/.test(username) || !/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password) || password !== confirm_password) {
+    if (!isValidBirthday ) {
+        document.getElementById('birthday').value = '';
         return false;
-    }
+    } else if (!isValidUsername) document.getElementById('username').value = '';
+    else if (!isValidPassword) {
+        document.getElementById('password').value = '';
+        document.getElementById('confirm').value = '';
+    } else if (!isEqualPassword) document.getElementById('confirm').value = ''; 
     else {
+        document.querySelector("form").submit();
         return true;
     }
 }

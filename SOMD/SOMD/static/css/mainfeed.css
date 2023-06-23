@@ -88,11 +88,15 @@
 }
 
 .view{
+    width: 60px;
     height: 100%;
     display: flex;
-    border:solid 2px grey;
-    padding: 3px;
+    justify-content: space-between;
+    align-items: center;
+    border:solid 1px lightgrey;
+    padding: 5px;
     border-radius: 5px;
+    font-size: 20px;
 }
 
 .view>select{
@@ -109,7 +113,7 @@
     align-items: center;
     
 
-    border:solid 2px grey;
+    border:solid 1px lightgrey;
     padding: 3px;
     border-radius: 5px;
 }
@@ -124,4 +128,25 @@
 .search> i{
     padding: 0px 5px;
     font-size: 20px;
+}
+
+/* ----글쓰기버튼---- */
+.writeButton{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #0ECC87;
+    /* border: 2px white solid; */
+    color: white;
+    box-shadow: 0 0px 2px 1px rgba(169, 169, 169, 0.299);;;
+}
+
+.writeButton:hover{
+    color: white;
 }

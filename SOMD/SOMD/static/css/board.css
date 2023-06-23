@@ -210,3 +210,20 @@
     width: 100%;
     z-index: 1;
 }
+
+
+.button{
+    /* width: 120px;
+    height: 40px; */
+    padding: 7px 25px;
+    /* background-color: lightgrey; */
+    color: lightgrey;
+    margin: 0px 0px;
+
+    border: solid 2px #0ECC87;
+    background-color: white;
+    color: #0ECC87;
+    display:inline-block;
+    border-radius: 20px;
+    font-size: 15px;
+}
