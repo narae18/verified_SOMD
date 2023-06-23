@@ -19,6 +19,11 @@ class SOMD(models.Model):
     admin = models.ForeignKey(User, related_name="somd_admin", on_delete=models.CASCADE, blank=False, null=False, default=1)
     bookmark = models.ManyToManyField(User, related_name='bookmark', blank=True)
 
+    join_members = models.ManyToManyField(User, related_name="join_members", blank=True)
+    
+    waitTojoin_members = models.ManyToManyField(User, related_name="join_members", blank=True)
+    join_requests = models.ManyToManyField(User, related_name="join_requests", blank=True)
+
     def __str__(self):
         return self.name
     

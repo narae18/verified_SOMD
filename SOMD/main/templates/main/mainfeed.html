@@ -10,11 +10,17 @@
         <div class="historyBack"><i class="fa-solid fa-chevron-left"></i></div>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
+
         <div class="button_case">
-            <a class="button" href="{% url 'main:join' %}">가입하기</a>
-            <a class="button" href="{% url 'main:members' %}">관리하기</a>
-            <a class="button" href="{% url 'main:somd_edit' somd.id %}">수정하기</a>
+            {% if somd.admin.id == user.id %}
+                <a class="button" href="{% url 'main:members' %}">관리하기</a>
+                <a class="button" href="{% url 'main:somd_edit' somd.id %}">수정하기</a>
+            {% endif %}
+            {%if not user in somd.join_members.all %}
+                <a class="button" href="{% url 'main:join' %}">가입하기</a>
+            {% endif %}
         </div>
+        
     </section>
 </section>
 <section class="EmptyForHeader"></section>
