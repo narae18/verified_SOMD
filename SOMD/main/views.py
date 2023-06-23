@@ -65,7 +65,8 @@ def createSOMD(request):
         member.somds.add(new_somd)
         new_somd.admins.set([request.user])
         
-
+        new_somd.join_members.add(request.user)
+        
         return redirect("main:mainfeed", new_somd.id)
     else:
         return redirect('accounts:login')
