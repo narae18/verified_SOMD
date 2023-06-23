@@ -17,10 +17,10 @@
                 <a class="button" href="{% url 'main:somd_edit' somd.id %}">수정하기</a>
             {% endif %}
             {%if not user in somd.join_members.all %}
-                <a class="button" href="{% url 'main:join' %}">가입하기</a>
+                <a class="button" href="{% url 'main:join' somd.id %}">가입하기</a>
             {% endif %}
         </div>
-        
+
     </section>
 </section>
 <section class="EmptyForHeader"></section>

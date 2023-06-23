@@ -5,6 +5,12 @@ from accounts.models import Profile
 class Tag(models.Model):
     name = models.CharField(max_length=30,null=False,blank=False)
 
+class JoinRequest(models.Model):
+    title =  models.CharField(max_length=50,blank=False,null=False)
+    motivation = models.TextField()
+    created_at = models.DateTimeField()
+    writer = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE, default="")
+
 class SOMD(models.Model):
     name = models.CharField(max_length=30)
     profileimage = models.ImageField(upload_to="somd/", blank=True, null=True)
@@ -21,8 +27,8 @@ class SOMD(models.Model):
 
     join_members = models.ManyToManyField(User, related_name="join_members", blank=True)
     
-    waitTojoin_members = models.ManyToManyField(User, related_name="join_members", blank=True)
-    join_requests = models.ManyToManyField(User, related_name="join_requests", blank=True)
+    waitTojoin_members = models.ManyToManyField(User, related_name="waitTojoin_members", blank=True)
+    join_requests = models.ManyToManyField(JoinRequest, related_name="join_requests", blank=True)
 
     def __str__(self):
         return self.name
@@ -61,12 +67,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.post.title+" : "+self.content[:20]
-    
-class JoinRequest(models.Model):
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    title =  models.CharField(max_length=50,blank=False,null=False)
-    motivation = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-        return f'{self.user.user.username}'
