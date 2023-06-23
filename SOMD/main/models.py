@@ -10,6 +10,7 @@ class SOMD(models.Model):
     profileimage = models.ImageField(upload_to="somd/", blank=True, null=True)
     backgroundimage = models.ImageField(upload_to="somd/", blank=True, null=True)
     department = models.CharField(max_length=100, blank=True, null=True)
+    college = models.CharField(max_length=100, blank=True, null=True)
     category = models.CharField(max_length=50, blank=True, null=True)
     intro = models.CharField(max_length=50, blank=True)
     tags = models.ManyToManyField(Tag, related_name='somds', blank=True)

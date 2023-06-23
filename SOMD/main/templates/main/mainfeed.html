@@ -11,9 +11,9 @@
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
         <div class="button_case">
-            <!-- <a class="button">가입하기</a>
-            <a class="button">관리하기</a>
-            <a class="button">수정하기</a> -->
+            <a class="button" href="{% url 'main:join' %}">가입하기</a>
+            <a class="button" href="{% url 'main:members' %}">관리하기</a>
+            <a class="button" href="{% url 'main:somd_edit' somd.id %}">수정하기</a>
         </div>
     </section>
 </section>
