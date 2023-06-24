@@ -45,18 +45,28 @@
         <section class="viewpost_footer">
             <div class="icon">
                 <div class="like">
-                    <i class="fa-solid fa-heart"></i>
-                    <div>10</div>
+                    {% if user.is_authenticated %}
+                        {% if user in post.like.all %}
+                            <a href="{% url 'main:like_post' post_id=post.id %}">
+                                <i class="fa-solid fa-heart"></i>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'main:like_post' post_id=post.id %}">
+                                <i class="fa-regular fa-heart"></i>
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <i class="fa-regular fa-heart"></i>
+                    {% endif %}
+                    <div>{{ post.like_count }}</div>
                 </div>
                 <div class="comment">
                     <i class="fa-regular fa-message"></i>
                     <div>10</div>
                 </div>
             </div>
-
-            <div class="scrap">
-                <i class="fa-regular fa-bookmark"></i>
-            </div>
+            
+            
 
         </section>
        
@@ -71,7 +81,7 @@
             </form>
 
             <div class="title">댓글 <i class="fa-solid fa-angle-right"></i> </div>
-            {{post.comments.count}}}개
+            {{ num_comments }} 개
             <div class="comment_list">
                 {% for comment in comments %}
                 <div class="comment">
