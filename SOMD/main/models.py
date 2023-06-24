@@ -60,7 +60,7 @@ class Member(models.Model):
 
 
 class Post(models.Model):
-    somd = models.ForeignKey(SOMD, null=False, blank=False, on_delete=models.CASCADE,related_name='somds')
+    somd = models.ForeignKey(SOMD, null=False, blank=False, on_delete=models.CASCADE,related_name='posts')
 
     title = models.CharField(max_length=200)
     writer = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
@@ -68,7 +68,6 @@ class Post(models.Model):
     content = models.TextField()
 
     like = models.ManyToManyField(User, related_name='like', blank=True)
-    # num_comments = models.IntegerField(default=0) #댓글 개수
 
     scrap = models.ManyToManyField(User, related_name='scrap', blank=True)
     
@@ -83,9 +82,6 @@ class Post(models.Model):
         else:
             return self.content
         
-    # def update_num_comments(self): #댓글 개수 카운트
-    #     self.num_comments = self.comment.count()  
-    #     self.save()
     class Meta:
         ordering = ['-pub_date']
 
