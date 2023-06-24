@@ -14,7 +14,7 @@
 
 <section class="somdPage">
 
-    <form action="{% url 'main:somd_update' somd.id %}" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+    <form action="{% url 'main:somd_update' somd.id %}" method="POST" enctype="multipart/form-data">
         <section class="somd_register">
         {% csrf_token %}
         <section class="feed_header">
@@ -36,7 +36,7 @@
         <section class = "info">
             <section>
                 <div class="label">소모임명</div>
-                <input class="text" type="text" name="somdname" value="{{ somd.name }}" required>
+                <input class="text" type="text" name="somdname" required value="{{ somd.name }}">
             </section>
             
             <section>
@@ -68,19 +68,28 @@
             </section>
 
             <section>
-                <div class="label">카테고리</div>
-                <input class="text" type="text" name = "category" value="{{ somd.category }}">
-            </section>
-
-            <section>
                 <div class="label">한줄소개</div>
                 <input class="text" type="text" name = "intro" value="{{ somd.intro }}">
             </section>
             
             <section>
-                <div class="label">해시태그</div>
-                <input class="text" type="text" name = "tag" value="{{ somd.tag }}">
+                <div class="label">카테고리</div>
+                <div class="tag">
+                    <div class="tag_box">
+                        {% for tag in tags %} 
+                        <label><input id="tag{{tag.id}}" type="checkbox" name="tags" value="{{ tag.name }}" onclick="tag_selected(event)"  style="display: none;" >{{ tag.name }}</label>
+                        {% endfor %}
+                    </div>
+                    <div class="input_tag">
+                        <input id="add_tag" type="text" name="add_tag" placeholder="원하는 태그가 없다면 추가해보세요!">
+                    <button type="button" id="add_tag_button" onclick="addTag(event)"> <i class="fa-solid fa-plus"></i> </button>
+                    </div>
+    
+                </div>
+
             </section>
+
+    
 
             <section>
                 <div class="label">SNS 링크</div>
@@ -122,6 +131,7 @@
 
     reader.readAsDataURL(file);
 });
+
 
 const departmentsByCollege = {
     동국대학교: ['-'],
@@ -166,5 +176,90 @@ document.querySelector("#college").value = ("{{ somd.college }}");
 selectDepartments()
 document.querySelector("#department").value = ("{{ somd.department }}");
 
+let now_label =""
+
+{% for somd_tag in somd.tags.all %}
+    {% for tag in tags.all %}
+        {% if tag == somd_tag %}
+            document.getElementById("tag{{tag.id}}").checked = true;
+            
+            now_label = document.getElementById("tag{{tag.id}}").parentNode;
+            
+            now_label.style.backgroundColor = "#0ECC87"
+            now_label.style.color = "white"
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+
+let new_tag_num = 0
+
+function addTag(event){
+    let add_tag_vlaue = document.querySelector("#add_tag").value
+
+    if(add_tag_vlaue != ""){
+        let new_label = document.createElement("label");
+        let new_checkbox = document.createElement("input");
+        new_checkbox.type ="checkbox";
+
+        new_checkbox.name = "tags";
+        new_checkbox.value =  add_tag_vlaue;
+        new_checkbox.checked = true;
+
+        let id = "new_tag"+ new_tag_num
+
+        new_checkbox.id = id;
+        new_label.htmlFor = id;
+        new_label.id = "label"+id;
+        
+        new_label.style.backgroundColor = "#0ECC87"
+        new_label.style.color = "white"
+
+        new_checkbox.addEventListener('click',function(event){
+            // console.log("label"+id);
+            let label = document.getElementById("label"+id)
+            // console.log(label)
+
+            let tag = event.target
+            if(tag.checked){
+                label.style.backgroundColor = "#0ECC87"
+                label.style.color = "white"
+            }
+            else{
+                label.style.backgroundColor = "white"
+                label.style.color = "#0ECC87"
+            }
+        })
+
+        new_tag_num = new_tag_num+1;
+
+        document.querySelector(".tag_box").appendChild(new_checkbox);
+        document.querySelector(".tag_box").appendChild(new_label);
+        
+        new_label.innerText = add_tag_vlaue;
+
+        document.querySelector("#add_tag").value = ""
+        new_checkbox.style.display ="none";
+    }
+}
+
+
+function tag_selected(event){
+    // console.log(event)
+    let tag = event.target
+    let label = tag.parentNode
+
+    if(tag.checked){
+        label.style.backgroundColor = "#0ECC87"
+        label.style.color = "white"
+    }
+    else{
+        label.style.backgroundColor = "white"
+        label.style.color = "#0ECC87"
+    }
+}
+
 </script>
+
+
 {% endblock %}

@@ -16,7 +16,7 @@ class Profile(models.Model):
     
     profile_pic = models.ImageField(upload_to='user_profile/', default='user_profile/usrDefaultImage.png')
     
-    intro = models.CharField(max_length=100, blank=True, null=True)
+    intro = models.CharField(max_length=100, blank=True, null=True, default="")
     email = models.CharField(max_length=100, blank=True, null=True)
     #없앨거에요?
     nickname = models.CharField(max_length=10)

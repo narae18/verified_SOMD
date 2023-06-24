@@ -14,13 +14,14 @@
 <section class="EmptyForHeader"></section>
 
 <section class="somdPage">
-{% if user.id == 13 %}
+{% if user.id == 13 %} <!--1. 로그인안함 -->
+
     <div class="NEED_TO_LOGIN"><a class="logout" href="{% url 'accounts:logout' %}">로그인하세요</div>
 
-{% else %}
-        <section class="somdList">
-    {%if somds%}
-            {% for somd in somds %}
+{% else %} <!--1. 로그인 했음 -->
+    <section class="somdList">
+    {%if somds%} <!--2. 소모임이 있을 경우 -->
+        {% for somd in somds %}
         <a class="somd" href="{% url 'main:mainfeed' somd.id %}">
             <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
             <div class="information">
@@ -39,11 +40,37 @@
             </div>
         </a>
             {% endfor %}
-    {% else %}
+     {% else %} <!--2. 소모임이 없을 경우 -->
         <section class="warning">아직 가입된 소모임이 없습니다!<br>소모임을 가입해보세요!</section>
     {%endif%}
-        </section>
-{% endif %}        
+    </section>
+
+    <section class="somdList">
+    {%if waiting_somds %} <!--3. 가입 대기 중인 소모임이 있을 경우 -->
+        <div>가입대기중인 소모임</div>
+        {% for somd in waiting_somds %}
+        <a class="somd" href="{% url 'main:mainfeed' somd.id %}">
+            <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
+            <div class="information">
+                <div class="name">{{ somd.name }}</div>
+                <div class="intro">{{ somd.intro }}</div>
+                <div class="tag"> 
+                    {%if somd.tags %}
+                    <i class="fa-solid fa-hashtag"></i>
+                    {% for tag in somd.tags.all %}
+                        {{ tag.name }}
+                    {% endfor %}
+                    {% else %}
+                        #없음
+                    {%endif%}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    {%endif%} <!-- 3. 가입 대기 중인 소모임이 있을 경우 -->
+    </section>
+
+{% endif %} <!--1. 로그인 여부 -->
 </section>
     
 {% endblock %}
