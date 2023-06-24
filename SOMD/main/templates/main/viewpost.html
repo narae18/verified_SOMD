@@ -59,7 +59,7 @@
             </div>
 
         </section>
-       
+    
         <section class="viewpost_commentConatiner">
 
             <form class="comment_form" method="POST" action="{% url 'main:viewpost' post.id %}">
@@ -71,25 +71,8 @@
             </form>
 
             <div class="title">댓글 <i class="fa-solid fa-angle-right"></i> </div>
-
-            <div class="comment_list">
-                {% for comment in comments %}
-                <div class="comment">
-                    <div class="profile">
-                        <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});"></div>
-                        <div class="name">{{ comment.writer }}</div>
-                    </div>
-                    <div class="comment_body">
-                        {{ comment.content }}
-                    </div>
-                    <div class="comment_footer">
-                        {{ comment.pub_date }}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
             
-            <!-- 20230624 22:20 댓글 클릭시 정보 팝업 띄우기 작업중 -->
+            <!-- 20230624 22:20 댓글 클릭시 정보 팝업 띄우기 작업중 > 작업완료 -->
             <div class="comment_list">
                 {% for comment in comments %}
                 <div class="comment">

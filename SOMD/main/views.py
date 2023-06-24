@@ -188,8 +188,8 @@ def createpost(request, somd_id):
                 new_image = Images.objects.create(post=new_post, image=image)
 
             return render(request, 'main/viewpost.html', {'post': new_post, 'images': new_post.images.all()})
-        
-       
+
+
 def join(request, id):
     somd = SOMD.objects.get(id=id)
     return render(request, "main/join.html", {
