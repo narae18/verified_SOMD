@@ -26,7 +26,10 @@ def board(request):
 
 
 def register(request):
-    return render(request,'main/register.html')
+    tags = Tag.objects.all()
+    return render(request,'main/register.html',{
+        "tags":tags,
+    })
 
 def createSOMD(request):
     if request.user.is_authenticated:
@@ -53,15 +56,16 @@ def createSOMD(request):
         new_somd.department = request.POST["department"]
         new_somd.college = request.POST["college"]
 
-        new_somd.category = request.POST["category"]
+        # new_somd.category = request.POST["category"]
         new_somd.intro = request.POST["intro"]
         new_somd.snslink = request.POST["snslink"]
         new_somd.admin = request.user
         new_somd.save()
 
-        tag_text = request.POST.get("tag")  # 선택된 태그 텍스트
-        tag, created = Tag.objects.get_or_create(name=tag_text)
-        new_somd.tags.set([tag])
+        tags = request.POST.getlist("tags")  # 선택된 태그 텍스트
+        for tag in tags :
+            tag, created = Tag.objects.get_or_create(name=tag)
+            new_somd.tags.add(tag)
 
         member, created = Member.objects.get_or_create(user=user)
         member.somds.add(new_somd)
@@ -74,9 +78,13 @@ def createSOMD(request):
         return redirect('accounts:login')
 
 def somd_edit(request, id):
+
     somd = SOMD.objects.get(id=id)
+    tags = Tag.objects.all()
+
     return render(request, "main/somd_edit.html", {
             'somd': somd,
+            'tags' : tags,
     })
 
 def somd_update(request, id):
@@ -104,16 +112,21 @@ def somd_update(request, id):
     update_somd.college = request.POST["college"]
 
 
-    update_somd.category = request.POST["category"]
+    # update_somd.category = request.POST["category"]
     update_somd.intro = request.POST["intro"]
     update_somd.snslink = request.POST["snslink"]
     update_somd.admin = request.user
+
+    tags = request.POST.getlist("tags")  # 선택된 태그 텍스트
+    for tag in update_somd.tags.all() :
+        update_somd.tags.remove(tag)
+
+    for tag in tags :
+        tag, created = Tag.objects.get_or_create(name=tag)
+        update_somd.tags.add(tag)
+
+
     update_somd.save()
-
-    tag_text = request.POST.get("tag")  # 선택된 태그 텍스트
-    tag, created = Tag.objects.get_or_create(name=tag_text)
-    update_somd.tags.set([tag])
-
     return redirect("main:mainfeed", update_somd.id)
 
 
@@ -137,10 +150,13 @@ def mysomd(request):
         
     member = Member.objects.get(user=user)
     somds = member.somds.all()
-    tags = Tag.objects.all()
+    # tags = Tag.objects.all()
+
+    waiting_somds = member.waiting_somds.all()
     return render(request, "main/mysomd.html", {
         'somds': somds,
-        'tags':tags,
+        'waiting_somds':waiting_somds,
+        # 'tags':tags,
     })
     
 def new(request,somd_id):
