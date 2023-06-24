@@ -22,7 +22,11 @@ def mainpage(request):
     
 def board(request):
     somds = SOMD.objects.all()
-    return render(request, 'main/board.html', {"somds": somds})
+    tags = Tag.objects.all()
+    return render(request, 'main/board.html', {
+        "somds": somds,
+        "tags": tags,
+    })
 
 
 def register(request):

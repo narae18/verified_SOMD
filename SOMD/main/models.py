@@ -20,11 +20,11 @@ class SOMD(models.Model):
     intro = models.CharField(max_length=50, blank=True)
     #관리자
     admin = models.ForeignKey(User, related_name="somd_admin", on_delete=models.CASCADE, blank=False, null=False, default=1)
-    admins = models.ManyToManyField(User, related_name="somd_admins") #얘는 왜 있는건가요?
+    # admins = models.ManyToManyField(User, related_name="somd_admins") #얘는 왜 있는건가요?
 
     #이미지관련
-    profileimage = models.ImageField(upload_to="somd/", blank=True, null=True)
-    backgroundimage = models.ImageField(upload_to="somd/", blank=True, null=True)
+    profileimage = models.ImageField(upload_to="somd/", blank=True, null=True, default='somd/somdDefaultImage.png')
+    backgroundimage = models.ImageField(upload_to="somd/", blank=True, null=True, default='somd/somdbackDefaultImage.png')
 
     #대학/학과
     college = models.CharField(max_length=100, blank=True, null=True)
@@ -35,7 +35,7 @@ class SOMD(models.Model):
     snslink = models.CharField(max_length=200, blank=True,null=True)
     
     #없앨듯..?
-    category = models.CharField(max_length=50, blank=True, null=True)
+    # category = models.CharField(max_length=50, blank=True, null=True)
 
     #솜디 정회원
     join_members = models.ManyToManyField(User, related_name="join_members", blank=True)
