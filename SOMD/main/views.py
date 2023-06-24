@@ -7,6 +7,8 @@ import re
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
+
+
 # Create your views here.
 
 
@@ -189,7 +191,7 @@ def createpost(request, somd_id):
 
             return render(request, 'main/viewpost.html', {'post': new_post, 'images': new_post.images.all()})
         
-       
+
 def join(request, id):
     somd = SOMD.objects.get(id=id)
     return render(request, "main/join.html", {
@@ -287,9 +289,9 @@ def viewpost(request, post_id):
             new_comment.content = request.POST["comment"]
             new_comment.pub_date = timezone.now()
             new_comment.save()
-            # post.comment.count()
-            # post.update_num_comments()
-
+            post.comment_count -=1
+            post.save()
+            
             return redirect('main:viewpost', post.id)
 
 def bookmark(request,SOMD_id):
