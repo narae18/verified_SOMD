@@ -59,7 +59,7 @@
             </div>
 
         </section>
-
+       
         <section class="viewpost_commentConatiner">
 
             <form class="comment_form" method="POST" action="{% url 'main:viewpost' post.id %}">
@@ -73,7 +73,6 @@
             <div class="title">댓글 <i class="fa-solid fa-angle-right"></i> </div>
 
             <div class="comment_list">
-
                 {% for comment in comments %}
                 <div class="comment">
                     <div class="profile">

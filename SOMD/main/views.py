@@ -289,7 +289,7 @@ def viewpost(request, post_id):
             new_comment.content = request.POST["comment"]
             new_comment.pub_date = timezone.now()
             new_comment.save()
-            post.comment_count -=1
+            post.comment_count += 1
             post.save()
             
             return redirect('main:viewpost', post.id)
