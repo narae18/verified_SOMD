@@ -72,6 +72,7 @@ class Post(models.Model):
 
     scrap = models.ManyToManyField(User, related_name='scrap', blank=True)
     
+    is_fix = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
