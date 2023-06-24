@@ -23,11 +23,27 @@
             <div class="image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
         </section>
 
+        <section class="middle">
+            <div class="fixinfo">{{ user.profile.email }}</div>
+            <div class="fixinfo">{{ user.profile.birth }} / {{ user.profile.gender }}</div>
+        </section>
+
+        <section class="item">
+            <div class="label">ID</div>
+            <div class="text">{{ user.username}}</div>
+        </section>
+
         <section class="item">
             <div class="label">닉네임</div>
             <input class="text" type="text" name="nickname" value="{{ user.profile.nickname }}" required>
             <!-- <div class="text">{{ user.profile.nickname }}</div> -->
         </section>
+
+        <section class="item">
+            <div class="label">자기소개</div>
+            <input class="long text" type="text" name="intro" value="{{ user.profile.intro }}" >
+        </section>
+
 
         <section class="item">
             
@@ -55,11 +71,6 @@
                 <option value="" selected disabled>학과</option>
             </select>
             </div>
-        </section>
-
-        <section class="item">
-            <div class="label">자기소개</div>
-            <div class="long text"></div>
         </section>
 
         <section class="bottom item">

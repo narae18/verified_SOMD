@@ -77,6 +77,10 @@ const departmentsByCollege = {
     미래융합대학: ['-','융합보안학과', '사회복지상담학과', '글로벌무역학과'],
 };
 
+if("{{ user.profile.college }}" != ""){
+    departmentsByCollege["{{ user.profile.college}}"].splice(1,0,"{{ user.profile.department }}");
+
+}
 
 //----유저 솜디 기본 설정하기
 var college_somd ={};

@@ -36,7 +36,7 @@ def mypage_update(request):
     update_user.profile.nickname = request.POST['nickname']
     # update_user.profile.gender = request.POST['gender']
     # update_user.profile.birth = request.POST['birth']
-
+    update_user.profile.intro= request.POST['intro']
     # update_user.profile.birth = f'{year}-{month}-{day}'
     update_user.profile.college = request.POST['college']
     update_user.profile.department = request.POST['department']
