@@ -128,7 +128,6 @@ label{
     background-color: grey;
     opacity: 0.5;
     background-blend-mode: multiply;
-
 }
 
 .profile>label{
@@ -146,6 +145,5 @@ button{
     background-color: #0ECC87;
     color: white;
     border-radius: 5px;
-
-
+    margin-bottom: 0;
 }

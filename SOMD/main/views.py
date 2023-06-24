@@ -109,7 +109,7 @@ def createpost(request, somd_id):
     # if request.user in SOMD.members:
         if request.method == 'POST':
             title = request.POST.get('title')
-            content = request.POST.get('content')
+            content = request.POST.get('content', '')
             writer = request.user
             somd = SOMD.objects.get(id=somd_id)
 

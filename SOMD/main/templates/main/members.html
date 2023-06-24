@@ -159,39 +159,8 @@
   });
 });
 
-
-// 팝업 관련 내용(현재 팝업 기능만 나오게 해놨고, 상황에 따른 것은 TEST필요 #20230622 15:28)
-// span 요소를 클릭했을 때 실행되는 함수
-    // function showPopup() {
-    //   // 팝업 창 표시
-    //   var popup = document.getElementById("popup");
-    //   popup.style.display = "block";
-    // }
-
-    // function memberPopup() {
-    //   // 팝업 창 표시
-    //   var popup = document.getElementById("popup");
-    //   var paragraph = popup.querySelector("p");
-    //   paragraph.innerText = target.innerText;
-    //   popup.style.display = "block";
-    // }
-
-    // // 닫기 버튼을 클릭했을 때 실행되는 함수
-    // function closePopup() {
-    //   // 팝업 창 숨김
-    //   var popup = document.getElementById("popup");
-    //   popup.style.display = "none";
-    // }
-
-    // // span 요소에 클릭 이벤트 리스너 추가
-    // var clickSpan = document.getElementsByClassName("clickSpan");
-    // clickSpan.addEventListener("click", memberPopup);
-
-    // // 닫기 버튼에 클릭 이벤트 리스너 추가
-    // var closeBtn = document.getElementById("closeBtn");
-    // closeBtn.addEventListener("click", closePopup);
-
 function memberPopup(event) {
+  event.preventDefault();
   // 클릭된 요소의 내용을 가져옴
   var target = event.target;
   var name = target.previousElementSibling.innerText;

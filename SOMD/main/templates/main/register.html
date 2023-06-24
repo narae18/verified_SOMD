@@ -98,7 +98,7 @@
         });
     
         reader.readAsDataURL(file);
-    });
+        });
         const backPicInput = document.getElementById('back-pic-input');
         const backPicPreview = document.querySelector('.back-pic-preview');
         backPicInput.addEventListener('change', function(event) {
@@ -109,8 +109,8 @@
                 backPicPreview.style.backgroundImage = `url(${event.target.result})`;
         });
 
-    reader.readAsDataURL(file);
-});
+            reader.readAsDataURL(file);
+        });
 
 const departmentsByCollege = {
         불교대학: ['불교학부', '문화재학과'],

@@ -10,6 +10,15 @@
     border-radius: 5px;
 }
 
+a {
+    margin-left: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+}
+
 .titlebtn {
     margin-bottom: 20px;
 }
