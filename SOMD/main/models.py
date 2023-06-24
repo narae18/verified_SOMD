@@ -72,6 +72,7 @@ class Post(models.Model):
 
     scrap = models.ManyToManyField(User, related_name='scrap', blank=True)
     
+    is_fixed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -85,7 +86,8 @@ class Post(models.Model):
     # def update_num_comments(self): #댓글 개수 카운트
     #     self.num_comments = self.comment.count()  
     #     self.save()
-        
+    class Meta:
+        ordering = ['-pub_date']
 
 class Comment(models.Model):
     content = models.TextField()
