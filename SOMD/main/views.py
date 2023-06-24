@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Count 
 from .models import Post, Comment, Tag, SOMD, Member, Images, JoinRequest
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -17,6 +18,7 @@ def mainpage(request):
         if somds:
             return render(request, 'main/mainpage.html', {'somds': somds})
     return render(request, 'main/mainpage.html')
+
     
 def board(request):
     somds = SOMD.objects.all()
@@ -183,10 +185,12 @@ def wantTojoin(request, id):
     new_join_request = JoinRequest()
 
     if request.method == 'POST':
+        new_join_request.writer = (request.user)
+
         new_join_request.title = request.POST.get('title')
         new_join_request.motivation = request.POST.get('motivation')
-        new_join_request.created_at = timezone.now()
-        new_join_request.writer = (request.user)
+        new_join_request.pub_date = timezone.now()
+        
         new_join_request.save()
     
     somd.waitTojoin_members.add(request.user)
@@ -206,11 +210,13 @@ def viewpost(request, post_id):
     if request.method == 'GET':
         images = post.images.all()
         comments = Comment.objects.filter(post=post)
+        num_likes = post.like.count()
         return render(request, 'main/viewpost.html', {
             'post': post,
             'images': images,
-            'comments': comments
-            })
+            'comments': comments,
+            'num_likes': num_likes,
+        })
     elif request.method == 'POST':
         if request.user.is_authenticated:
             new_comment = Comment()
@@ -219,6 +225,8 @@ def viewpost(request, post_id):
             new_comment.content = request.POST["comment"]
             new_comment.pub_date = timezone.now()
             new_comment.save()
+            # post.comment.count()
+            # post.update_num_comments()
 
             return redirect('main:viewpost', post.id)
 
@@ -257,7 +265,20 @@ def Scrap(request, post_id):
     return redirect('main:viewpost', post.id)
 
 
+def like_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    user = request.user
+    if user.is_authenticated:
+        if post.like.filter(id=user.id).exists():
+            post.like.remove(user)
+        else:
+            post.like.add(user)
+    return redirect('main:viewpost', post_id)
 
+
+def CountSomdMember(request):
+    somds = SOMD.objects.annotate(num_members=Count('members')).all()
+    return render(request, 'main/board.html', {"somds": somds})
 
 # def JoinRequest(request):
 #         new_join_request = JoinRequest()
