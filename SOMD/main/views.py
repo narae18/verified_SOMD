@@ -114,8 +114,6 @@ def somd_update(request, id):
     tag, created = Tag.objects.get_or_create(name=tag_text)
     update_somd.tags.set([tag])
 
-    
-
     return redirect("main:mainfeed", update_somd.id)
 
 
@@ -193,8 +191,12 @@ def wantTojoin(request, id):
         
         new_join_request.save()
     
+    member, created = Member.objects.get_or_create(user=request.user)
+    member.waiting_somds.add(somd)
+
     somd.waitTojoin_members.add(request.user)
     somd.join_requests.add(new_join_request)
+
     return redirect("main:mainfeed", somd.id)
 
 
@@ -204,6 +206,46 @@ def members(request, id):
     return render(request, "main/members.html", {
         'somd': somd,
     })
+
+def members_wantTojoin(request, somd_id, request_id):
+    somd = SOMD.objects.get(id=somd_id)
+    joinrequest = JoinRequest.objects.get(id=request_id)
+
+    member = Member.objects.get(user = joinrequest.writer)
+
+    if request.method == 'POST':
+        if "accept" == request.POST["wantTojoin_result"] :
+            somd.join_members.add(joinrequest.writer)
+            somd.waitTojoin_members.remove(joinrequest.writer)
+            member.somds.add(somd)
+            
+        elif "reject" == request.POST["wantTojoin_result"] :
+            somd.waitTojoin_members.remove(joinrequest.writer)
+            member.rejected_somds.add(somd)
+
+        somd.join_requests.remove(joinrequest)
+        joinrequest.delete()
+
+        member.waiting_somds.remove(somd)
+
+    return render(request, "main/members.html", {
+        'somd': somd,
+    })
+
+
+def members_delete(request, somd_id, join_user_id):
+    somd = SOMD.objects.get(id=somd_id)
+    join_user = User.objects.get(id=join_user_id)
+    member = Member.objects.get(user = join_user)
+
+    member.somds.remove(somd)
+    somd.join_members.remove(join_user)
+    member.rejected_somds.add(somd)
+
+    return render(request, "main/members.html", {
+        'somd': somd,
+    })
+
 
 def viewpost(request, post_id):
     post = get_object_or_404(Post, id=post_id)

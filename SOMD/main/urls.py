@@ -20,5 +20,6 @@ urlpatterns = [
     path('wantTojoin/<int:id>', wantTojoin, name= 'wantTojoin'),
     
     path('members/<int:id>',members,name="members"),
-
+    path('members_wantTojoin/<int:somd_id>/<int:request_id>',members_wantTojoin,name="members_wantTojoin"),
+    path('members_delete/<int:somd_id>/<int:join_user_id>',members_delete,name="members_delete"),
 ]
