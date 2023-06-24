@@ -7,6 +7,8 @@ import re
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
+
+
 # Create your views here.
 
 
@@ -188,7 +190,7 @@ def createpost(request, somd_id):
                 new_image = Images.objects.create(post=new_post, image=image)
 
             return render(request, 'main/viewpost.html', {'post': new_post, 'images': new_post.images.all()})
-
+        
 
 def join(request, id):
     somd = SOMD.objects.get(id=id)
@@ -273,11 +275,16 @@ def viewpost(request, post_id):
         images = post.images.all()
         comments = Comment.objects.filter(post=post)
         num_likes = post.like.count()
+        
+        # 댓글수!!!!!!!!!;;
+        num_comments = comments.count()
+        
         return render(request, 'main/viewpost.html', {
             'post': post,
             'images': images,
             'comments': comments,
             'num_likes': num_likes,
+            'num_comments': num_comments,
         })
     elif request.method == 'POST':
         if request.user.is_authenticated:
@@ -287,9 +294,7 @@ def viewpost(request, post_id):
             new_comment.content = request.POST["comment"]
             new_comment.pub_date = timezone.now()
             new_comment.save()
-            # post.comment.count()
-            # post.update_num_comments()
-
+            
             return redirect('main:viewpost', post.id)
 
 def bookmark(request,SOMD_id):
@@ -339,8 +344,9 @@ def like_post(request, post_id):
 
 
 def CountSomdMember(request):
-    somds = SOMD.objects.annotate(num_members=Count('members')).all()
+    somds = SOMD.objects.annotate(num_members=Count('members')).order_by('-num_members')[:7]
     return render(request, 'main/board.html', {"somds": somds})
+
 
 # def JoinRequest(request):
 #         new_join_request = JoinRequest()
