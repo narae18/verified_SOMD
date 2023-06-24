@@ -41,19 +41,11 @@ def createSOMD(request):
         new_somd = SOMD()
         if "back_pic" in request.FILES:
             new_somd.backgroundimage = request.FILES["back_pic"]
-        else:
-            default_image_path = "somd/somdbackDefaultImage.png"
-            default_image_content = default_storage.open(default_image_path).read()
-            default_image_file = ContentFile(default_image_content)
-            new_somd.backgroundimage.save("somdbackDefaultImage.png", default_image_file)
+        
         
         if "profile_pic" in request.FILES:
             new_somd.profileimage = request.FILES["profile_pic"]
-        else:
-            default_profile_image_path = "somd/somdDefaultImage.png"
-            default_profile_image_content = default_storage.open(default_profile_image_path).read()
-            default_profile_image_file = ContentFile(default_profile_image_content)
-            new_somd.profileimage.save("somdDefaultImage.png", default_profile_image_file)
+        
     
         new_somd.name = request.POST["somdname"]
 
@@ -73,7 +65,7 @@ def createSOMD(request):
 
         member, created = Member.objects.get_or_create(user=user)
         member.somds.add(new_somd)
-        new_somd.admins.set([request.user])
+        # new_somd.admins.set([request.user])
         
         new_somd.join_members.add(request.user)
         
@@ -96,19 +88,11 @@ def somd_update(request, id):
     
     if "back_pic" in request.FILES:
         update_somd.backgroundimage = request.FILES["back_pic"]
-    else:
-        default_image_path = "somd/somdbackDefaultImage.png"
-        default_image_content = default_storage.open(default_image_path).read()
-        default_image_file = ContentFile(default_image_content)
-        update_somd.backgroundimage.save("somdbackDefaultImage.png", default_image_file)
+    
 
     if "profile_pic" in request.FILES:
         update_somd.profileimage = request.FILES["profile_pic"]
-    else:
-        default_profile_image_path = "somd/somdDefaultImage.png"
-        default_profile_image_content = default_storage.open(default_profile_image_path).read()
-        default_profile_image_file = ContentFile(default_profile_image_content)
-        update_somd.profileimage.save("somdDefaultImage.png", default_profile_image_file)
+   
 
     update_somd.name = request.POST["somdname"]
 
