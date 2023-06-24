@@ -115,13 +115,13 @@
 <script>
     // 팝업을 열기 위한 함수
     // user.profile.profile_pic.url
-function openPopup(nickname, college, department, intro, profileImg) {
+    function openPopup(nickname, college, department, intro, profileImg) {
     // 팝업 내용을 구성하는 HTML 코드
     var popupContent = `
         <div class="popup">
             <section class="popupinfo">
-                <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }}); width=30px;">
-                    ${profileImg}
+                <div class="image">
+                    <img class="popupProfileImg" src="{{ post.writer.profile.profile_pic.url }}" alt="프로필 이미지" width="30px">
                 </div>
                 <div>
                     <p>${nickname}</p>
