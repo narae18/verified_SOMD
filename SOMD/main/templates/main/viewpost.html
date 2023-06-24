@@ -86,12 +86,100 @@
                         {{ comment.pub_date }}
                     </div>
                 </div>
-
                 {% endfor %}
             </div>
+            
+            <!-- 20230624 22:20 댓글 클릭시 정보 팝업 띄우기 작업중 -->
+            <div class="comment_list">
+                {% for comment in comments %}
+                <div class="comment">
+                    <div class="profile">
+                        <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});"></div>
+                        <div class="name">{{ comment.writer }}</div>
+                    </div>
+                    <div class="comment_body">
+                        {{ comment.content }}
+                    </div>
+                    <div class="comment_footer">
+                        {{ comment.pub_date }}
+                        <button class="profile_info" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileImg="{{ comment.writer.profile.profile_pic.url }}">작성자 정보</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
         </section>
     </section>
-
 </section>
+
+<script>
+    // 팝업을 열기 위한 함수
+    // user.profile.profile_pic.url
+function openPopup(nickname, college, department, intro, profileImg) {
+    // 팝업 내용을 구성하는 HTML 코드
+    var popupContent = `
+        <div class="popup">
+            <section class="popupinfo">
+                <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }}); width=30px;">
+                    ${profileImg}
+                </div>
+                <div>
+                    <p>${nickname}</p>
+                    <p>${college}</p>
+                    <p>${department}</p>
+                </div>
+            </section>
+            <section class="popupintro">
+                <p>${intro}</p>
+            </section>
+            <section>
+                <button onclick="closePopup()">닫기</button>
+            </section>
+        </div>
+    `;
+
+    // 팝업을 표시할 요소를 생성하고 내용을 설정
+    var popupElement = document.createElement("div");
+    popupElement.classList.add("popup-container");
+    popupElement.innerHTML = popupContent;
+
+    // body에 팝업을 추가
+    document.body.appendChild(popupElement);
+    centerPopup();
+}
+
+// 팝업을 중앙에 위치시키는 함수
+function centerPopup() {
+    var popupContainer = document.querySelector(".popup-container");
+    var popup = document.querySelector(".popup");
+
+    var windowHeight = window.innerHeight;
+    var popupHeight = popup.offsetHeight;
+
+    var top = Math.max((windowHeight - popupHeight) / 2, 0);
+
+    popupContainer.style.justifyContent = top + "px";
+}
+
+// 팝업을 닫기 위한 함수
+function closePopup() {
+    // 팝업을 닫을 요소를 찾아 제거합니다.
+    var popupElement = document.querySelector(".popup-container");
+    popupElement.remove();
+}
+
+// 작성자 정보 버튼 클릭 시 팝업을 열기 위한 이벤트 처리
+var profileInfoButtons = document.querySelectorAll(".profile_info");
+profileInfoButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        var nickname = this.dataset.nickname;
+        var college = this.dataset.college;
+        var department = this.dataset.department;
+        var intro = this.dataset.intro;
+        var profileImg = this.dataset.profileImg;
+        openPopup(nickname, college, department, intro, profileImg);
+    });
+});
+</script>
 
 {% endblock %}
