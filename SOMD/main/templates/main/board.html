@@ -34,23 +34,40 @@
     </section>
 
     <section class="option">
-        <form class="search">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text">
-        </form>
-    
-        <form class="view">
-            <select name="view_option" id="lang">
-                <option value="feed">피드형</option>
-                <option value="list">리스트형</option>
-            </select>
-        </form>
-    </section>
+        <div class="row_tag_box">
+            <div class="row_tag_box_for_scroll">
 
+            </div>
+        </div>
+        <button onclick="filterBtn_click(event)"><i class="fa-solid fa-filter"></i></button>
+    </section>
 
     <section class="EmptyForTitle"> </section>
     
+
+    <div class="tag_popup" style="display: none;">
+        <div class="tag_popup_header">
+            <div class="title"><i class="fa-solid fa-filter"></i>소모임 필터</div>
+            <button class="closeBtn" onclick="filterBtn_close(event)"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <section class="tag_popup_for_scroll">
+            
+            <div class="tag_box">
+                {% for tag in tags %} 
+                <label><input id="tag{{tag.id}}" type="checkbox" name="tags" value="{{ tag.name }}" onclick="tag_selected(event)"  style="display: none;" >{{ tag.name }}</label>
+                {% endfor %}
+            </div>
+        
+        </section>
+        <section class="button_box">
+            <button id="resetBtn" class="resetBtn" onclick = "location.href = '{% url 'main:board' %}' "><i class="fa-solid fa-rotate-right"></i>초기화</button>
+            <button id="searchBtn" class="searchBtn" onclick="searchBtn_click(event)"><i class="fa-solid fa-magnifying-glass"></i> 찾기</button>
+        </section>
+    </div>
+
+
     <section class="all_somdList">
+        <section class="search_somdList_for_you  middleSomdList"></section>
         <span class="button">우리대학</span>
         <section class="all_somdList_for_you"></section>
         <span class="button">다른대학</span>
@@ -102,10 +119,15 @@ let somd = {};
     somd['college'] = "{{ somd.college }}";
     somd['department'] = "{{ somd.department }}";
     somd['a_href'] = "{% url 'main:mainfeed' somd.id %}"
-    somd['profileimage'] = "{{somd.profileimage.url}}"
+    somd['profileimage'] = "{{somd.profileimage.url}}";
+    somd['tags'] = [];
+    {% for tag in somd.tags.all %}
+        somd['tags'].push( "{{ tag.name }}" );
+    {% endfor %}
     somds.push(somd);
     
-    (college_somd[somd['college']])[somd['department']].push(somd)
+    (college_somd[somd['college']])[somd['department']].push(somd);
+
 {% endfor %}
 
 // console.log(somds)
@@ -163,7 +185,7 @@ function open_College(collegeTitle, toggle_college, toggle_icon){
     let college = collegeTitle.innerText;
 
     let collegeSomdList = document.createElement("section");
-    collegeSomdList.className = "collegeSomdList"
+    collegeSomdList.className = "collegeSomdList middleSomdList"
 
     collegeTitle.parentNode.append(collegeSomdList);
     
@@ -259,6 +281,114 @@ for(collegeTitle of collegeTitles){
     }
 }
 
+let search_tag =[];
+
+function tag_selected(event){
+    // console.log(event)
+    let tag = event.target
+    let label = tag.parentNode
+
+    if(tag.checked){
+        label.style.backgroundColor = "#0ECC87"
+        label.style.color = "white"
+        search_tag.push(label.innerText);
+    }
+    else{
+        label.style.backgroundColor = "white"
+        label.style.color = "#0ECC87"
+
+        for(let i = 0; i < search_tag.length; i++) {
+            if (search_tag[i] === label.innerText) {
+                search_tag.splice(i, 1);
+            }
+        }
+    }
+    // console.log(search_tag);
+
+}
+
+function isTagincluded(tag,target_somds){
+    search_results = []
+    for(somd of target_somds){
+        if(somd['tags'].includes(tag)){
+            search_results.push(somd)
+        }
+    }
+    return search_results
+}
+
+function filterBtn_click(event){
+    // search_tag =[]
+    let tag_popup = document.querySelector(".tag_popup");
+    tag_popup.style.display = "flex";
+}
+
+function filterBtn_close(event){
+    let tag_popup = document.querySelector(".tag_popup");
+    tag_popup.style.display = "none";
+}
+
+function searchBtn_click(event){
+    let search_results = somds;
+    let row_tag_box = document.querySelector(".row_tag_box_for_scroll");
+    row_tag_box.replaceChildren();
+
+    let search_somdList_for_you =document.querySelector(".search_somdList_for_you");
+    search_somdList_for_you.replaceChildren();
+
+    for(tag of search_tag){ 
+        let tag_label = document.createElement("div");
+        tag_label.className ="tag_label";
+        tag_label.innerText = tag;
+        search_results = isTagincluded(tag,search_results)
+        row_tag_box.appendChild(tag_label);
+    }
+
+    // console.log(search_results)
+
+    let tag_popup = document.querySelector(".tag_popup");
+    tag_popup.style.display = "none";
+
+    let list = document.createElement("section");
+    list.className = "list"
+
+    if(search_results.length != 0){
+        // console.log(department);
+
+        search_somdList_for_you.appendChild(list);
+        for(const somd of search_results){
+
+            let icon = document.createElement("a");
+            icon.href = somd.a_href;
+            icon.className = "somd icon_box";
+            
+            let iconName = document.createElement("div");
+            iconName.className = "name";
+            iconName.innerText = somd.name;
+
+            let iconImage = document.createElement("div");
+            iconImage.className = "image";
+            iconImage.style = "background-image:url("+somd.profileimage+");"
+            icon.appendChild(iconImage);
+            icon.appendChild(iconName);
+
+
+            list.appendChild(icon);
+        }
+    }
+    else{
+        let warning = document.createElement("a");
+        warning.className ="warning";
+        warning.href = "{% url 'main:register' %}"
+        warning.innerText = "그런 소모임은 아직 없습니다.\n소모임을 만들어보세요!"
+        search_somdList_for_you.appendChild(warning);
+
+        warningIcon = document.createElement("i");
+        warningIcon.className = "fa-solid fa-plus";
+        warning.appendChild(warningIcon);
+    }
+
+}
 
 
 

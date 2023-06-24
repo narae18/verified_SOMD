@@ -42,13 +42,7 @@
             {% endif %}
                 <a class="bookmark"><i class="fa-regular fa-star"></i></a>
                 <div class="info">
-
-                    {% if somd.tags %}
-                        {%for tag in somd.tags.all%}
-                        <div>#{{ tag.name }}</div>
-                        {%endfor%}
-                    {%endif%}
-                    
+                    <div>{{somd.college}}</div>
                     <div>{{ somd.department }}</div>
                 </div>
             </div>
@@ -69,6 +63,15 @@
             </div>
         </section>
 
+        <div class="row_tag_box">
+            <div class="row_tag_box_for_scroll">
+                {% if somd.tags %}
+                    {%for tag in somd.tags.all%}
+                        <div class="tag_label">{{ tag.name }}</div>
+                    {%endfor%}
+                {%endif%}
+            </div>
+        </div>
 
         <section class="option">
             <form class="search">
