@@ -85,7 +85,8 @@ class Post(models.Model):
     # def update_num_comments(self): #댓글 개수 카운트
     #     self.num_comments = self.comment.count()  
     #     self.save()
-        
+    class Meta:
+        ordering = ['-pub_date']
 
 class Comment(models.Model):
     content = models.TextField()
