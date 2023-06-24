@@ -16,13 +16,17 @@ def mainpage(request):
         members = Member.objects.filter(user=user)
         somds = SOMD.objects.filter(members__in=members)
         if somds:
+            for somd in somds:
+                somd.posts.set(somd.posts.order_by('-pub_date'))
             return render(request, 'main/mainpage.html', {'somds': somds})
     return render(request, 'main/mainpage.html')
 
     
 def board(request):
-    somds = SOMD.objects.all()
+    #somds = SOMD.objects.all()
+    somds = SOMD.objects.annotate(totalMember=Count('members')).order_by('-totalMember')
     tags = Tag.objects.all()
+    
     return render(request, 'main/board.html', {
         "somds": somds,
         "tags": tags,
@@ -92,7 +96,6 @@ def somd_update(request, id):
 
     if "profile_pic" in request.FILES:
         update_somd.profileimage = request.FILES["profile_pic"]
-   
 
     update_somd.name = request.POST["somdname"]
 
@@ -120,23 +123,14 @@ def somd_update(request, id):
 
 def mainfeed(request, id):
     somd = SOMD.objects.get(id=id)
-    posts = somd.somds.filter(is_fixed=False)
-    fixed_posts = somd.somds.filter(is_fixed=True)
+    posts = somd.posts.filter(is_fixed=False)
+    fixed_posts = somd.posts.filter(is_fixed=True)
 
     return render(request, "main/mainfeed.html", {
         'somd': somd,
         'posts': posts,
         'fixed_posts': fixed_posts,
     })
-# def mainfeed(request, id):
-#     # user = request.user
-#     # member = Member.objects.get(user=user)
-#     somd = SOMD.objects.get(id=id)
-#     posts = somd.somds.all()
-#     return render(request, "main/mainfeed.html", {
-#         'somd': somd,
-#         'posts':posts
-#     })
 
 def mysomd(request):
     user = request.user
@@ -331,9 +325,9 @@ def like_post(request, post_id):
     return redirect('main:viewpost', post_id)
 
 
-def CountSomdMember(request):
-    somds = SOMD.objects.annotate(num_members=Count('members')).all()
-    return render(request, 'main/board.html', {"somds": somds})
+# def CountSomdMember(request):
+#     somds = SOMD.objects.annotate(num_members=Count('members')).all()
+#     return render(request, 'main/board.html', {"somds": somds})
 
 # def JoinRequest(request):
 #         new_join_request = JoinRequest()
