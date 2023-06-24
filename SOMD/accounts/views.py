@@ -74,7 +74,8 @@ def signup(request):
                 gender=gender,
                 birthday=birth,
                 college=college,
-                department=department
+                department=department,
+                email = email,
             )
             profile.save()
 

@@ -15,58 +15,58 @@
     </section>
     <section class="mainForm">
         <div>
-            <section class="titlebtn">
-              <a class="button">신규회원관리</a>
-            </section>
-            <section class="newMemberForm">
-              <p class="newMemberName">노진구</p>
-              <div class="clickSpan newMemberFormTitle">가입신청서 제목1</div>
-            </section>
-            <section class="newMemberForm">
-              <p class="newMemberName">도라에몽</p>
-              <div class="clickSpan newMemberFormTitle">가입신청서 제목2</div>
-            </section>
+          <section class="titlebtn">
+            <a class="button">신규회원관리</a>
+          </section>
           
-            <div id="popup" class="popup">
-                <p>NEW JOIN REQUEST!</p>
-                <div class="popupjoinform">
-                    <p class="popupName" style="color:black; font-size: 15px; font-weight: bold; margin:0"></p>
-                    <p class="popupTitle" style="color:gray; font-size: 10px; font-weight: 500; margin:0"></p>
-                </div>
-                <div class="popupBtns">
-                    <button id="closeBtn" class="popupBtn">승인</button>
-                    <button id="closeBtn" class="popupBtn">거부</button>
-                </div>
+          {% for request in somd.join_requests.all %}
+          <section class="clickSpan newMemberForm">
+            <p class="newMemberName">{{request.writer.profile.nickname}}</p>
+            <div class="newMemberFormTitle">{{request.title}}</div>
+            <div class = "newMemberFormAction" style="display: none;">
+              {% url 'main:members_wantTojoin' somd.id request.id%}
             </div>
+          </section>
+          {% endfor %}
+          
+          <form id="popup" class="popup" style="display: none;"  method="POST" enctype="multipart/form-data" onsubmit="return false;">
+            {% csrf_token %}  
+            <p>NEW JOIN REQUEST!</p>
+              <div class="popupjoinform">
+                  <p class="popupName" style="color:black; font-size: 15px; font-weight: bold; margin:0"></p>
+                  <p class="popupTitle" style="color:gray; font-size: 10px; font-weight: 500; margin:0"></p>
+              </div>
+              <div class="popupBtns">
+                  <button id="acceptBtn" class="popupBtn" onclick="wantTojoin(event)">승인</button>
+                  <button id="rejectBtn" class="popupBtn" onclick="wantTojoin(event)">거부</button>
+                  <input id="wantTojoin_result" type="text" name="wantTojoin_result" style="display: none;">
+
+              </div>
+            </from>
         </div>
+
         <div>
             <section class="titlebtn">
               <a class="button">회원관리</a>
             </section>
+
+
+            {% for join_user in somd.join_members.all %}
+
             <section id="drag-drop-section1">
               <section class="existingMember draggable" draggable="true" ondragstart="drag(event)">
                 <i class="fas fa-sort"></i>
                 <div class="manageMemberForm">
                   <div class="existingMemberInfo">
-                    <span class="existingMemberName">홍길동</span>
-                    <span class="existingMemberCol">사회과학대학 사회학과</span>
+                    <span class="existingMemberName">{{join_user.profile.nickname}}</span>
+                    <span class="existingMemberCol">{{join_user.profile.college}} {{join_user.profile.department}}</span>
                   </div>
-                  <button class="deleteBtn">삭제</button>
+                  <a class="deleteBtn" href= "{% url 'main:members_delete' somd.id join_user.id %}">삭제</a>
                 </div>
               </section>
             </section>
-          
-            <section id="drag-drop-section2">
-              <section class="existingMember draggable" draggable="true" ondragstart="drag(event)">
-                <i class="fas fa-sort"></i>
-                <div class="manageMemberForm">
-                  <div class="existingMemberInfo">
-                    <span class="existingMemberName">손오공</span>
-                    <span class="existingMemberCol">경영대학 경영학과</span>
-                  </div>
-                  <button class="deleteBtn">삭제</button>
-                </div>
-              </section>
+
+            {% endfor %}
             </section>
           </div>
     </section>
@@ -163,8 +163,17 @@ function memberPopup(event) {
   event.preventDefault();
   // 클릭된 요소의 내용을 가져옴
   var target = event.target;
-  var name = target.previousElementSibling.innerText;
-  var title = target.innerText;
+
+  // 클릭된 요소의 내용을 가져옴
+  if(!target.classList.contains("clickSpan")){
+    target = target.parentNode;
+  }
+  
+  // console.log(target)
+  var name = target.querySelector(".newMemberName").innerText;
+  var title = target.querySelector(".newMemberFormTitle").innerText;
+  // console.log(target.querySelector(".newMemberFormAction"))
+  var formAction = target.querySelector(".newMemberFormAction").innerText;
 
   // 팝업 창 표시
   var popup = document.getElementById("popup");
@@ -174,14 +183,15 @@ function memberPopup(event) {
   popupName.innerText = name;
   popupTitle.innerText = title;
   popup.style.display = "block";
+  popup.action =formAction;
 }
 
-// 닫기 버튼을 클릭했을 때 실행되는 함수
-function closePopup() {
-  // 팝업 창 숨김
-  var popup = document.getElementById("popup");
-  popup.style.display = "none";
-}
+// // 닫기 버튼을 클릭했을 때 실행되는 함수
+// function closePopup() {
+//   // 팝업 창 숨김
+//   var popup = document.getElementById("popup");
+//   popup.style.display = "none";
+// }
 
 // 각 clickSpan 요소에 클릭 이벤트 리스너 추가
 var clickSpans = document.getElementsByClassName("clickSpan");
@@ -190,9 +200,24 @@ for (var i = 0; i < clickSpans.length; i++) {
 }
 
 // 닫기 버튼에 클릭 이벤트 리스너 추가
-var closeBtn = document.getElementById("closeBtn");
-closeBtn.addEventListener("click", closePopup);
+// var closeBtn = document.getElementById("closeBtn");
+// closeBtn.addEventListener("click", closePopup);
   
+function wantTojoin(event){
+  wantTojoin_result = document.getElementById("wantTojoin_result")
+
+  if(event.target.id == "acceptBtn"){
+    wantTojoin_result.value = "accept"
+    
+  }
+  else if(event.target.id == "rejectBtn"){
+    wantTojoin_result.value = "reject"
+  }
+  else{
+
+  }
+  document.getElementById("popup").submit();
+}
 </script>
 
 {% endblock %}

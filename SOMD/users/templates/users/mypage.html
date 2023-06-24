@@ -9,7 +9,7 @@
         <div class="historyBack"><i class="fa-solid fa-chevron-left"></i></div>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
-        <a href="" class="button"><span><i class="fa-solid fa-pen"></i> 수정</span></a>
+         <a href="{% url 'users:mypage_edit' %}" class="button"><span><i class="fa-solid fa-pen"></i> 수정</span></a>
     </section>
 </section>
 <section class="EmptyForHeader"></section>
@@ -22,9 +22,24 @@
             <div class="image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
         </section>
 
+        <section class="middle">
+            <div class="fixinfo">{{ user.profile.email }}</div>
+            <div class="fixinfo">{{ user.profile.birth }} / {{ user.profile.gender }}</div>
+        </section>
+
+        <section class="item">
+            <div class="label">ID</div>
+            <div class="text">{{ user.username}}</div>
+        </section>
+
         <section class="item">
             <div class="label">닉네임</div>
-            <div class="text">{{ user.profile.nickname }}</div>
+            <div class="text" style="justify-content: start;">{{ user.profile.nickname }}  <p style="color:lightgrey; margin-bottom:0px; margin-left: 5px;">  ({{ user.profile.name }})</p></div>
+        </section>
+
+        <section class="item">
+            <div class="label">자기소개</div>
+            <div class="long text">{{ user.profile.intro }}</div>
         </section>
 
         <section class="item">
@@ -36,10 +51,6 @@
             </div>
         </section>
 
-        <section class="item">
-            <div class="label">자기소개</div>
-            <div class="long text"></div>
-        </section>
 
         <section class="bottom item">
             <div class="label">내 소모임</div>
@@ -62,6 +73,5 @@
         </section>
     </section>
 
-    <a href="{% url 'accounts:deleteUser' %}">탈퇴</a>
 </section>
 {% endblock %}

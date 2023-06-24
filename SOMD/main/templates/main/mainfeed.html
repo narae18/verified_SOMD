@@ -10,11 +10,21 @@
         <div class="historyBack"><i class="fa-solid fa-chevron-left"></i></div>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
+
         <div class="button_case">
-            <!-- <a class="button">가입하기</a>
-            <a class="button">관리하기</a>
-            <a class="button">수정하기</a> -->
+            {% if somd.admin.id == user.id %}
+                <a class="button" href="{% url 'main:members' somd.id %}">관리하기</a>
+                <a class="button" href="{% url 'main:somd_edit' somd.id %}">수정하기</a>
+            {% endif %}
+
+            {% if user in somd.waitTojoin_members.all %}
+            <a class="button" href="">가입대기중</a>
+            {% elif not user in somd.join_members.all %}
+                <a class="button" href="{% url 'main:join' somd.id %}">가입하기</a>
+            {% endif %}
+            
         </div>
+
     </section>
 </section>
 <section class="EmptyForHeader"></section>
@@ -32,7 +42,13 @@
             {% endif %}
                 <a class="bookmark"><i class="fa-regular fa-star"></i></a>
                 <div class="info">
-                    <div>#{{ somd.category }}</div>
+
+                    {% if somd.tags %}
+                        {%for tag in somd.tags.all%}
+                        <div>#{{ tag.name }}</div>
+                        {%endfor%}
+                    {%endif%}
+                    
                     <div>{{ somd.department }}</div>
                 </div>
             </div>
@@ -170,6 +186,7 @@ if(event.target == postContainer_control ||event.target  == postContainer_contro
     // console.log(postContainer_control_state);
 }
 });
+
 </script>
 
 {% endblock %}

@@ -14,18 +14,25 @@
         <i class="fas fa-sign-in-alt"></i>
         가입하기
     </section>
-    <div class="titlebtn">
-        <a class="button">회원정보</a>
-    </div>
 
-    <div class="mainForm">
-        <section class="joinForm">
-            <input type="text" name="title" class="titleForm" placeholder="TITLE">
-            <textarea type="text" name="text" class="textForm" placeholder="TEXT"></textarea>
-        </section>
-    </div>
-</section>
+    <form action="{% url 'main:wantTojoin' somd.id  %}" class="wantTojoin" method="POST" enctype="multipart/form-data">
+       {% csrf_token %}
+        <div class="titlebtn">
+            <a class="button">회원정보</a>
+        </div>
+    
+        <div class="mainForm">
+            <section class="joinForm">
+                <input type="text" name="title" class="titleForm" placeholder="TITLE">
+                <textarea type="text" name="motivation" class="textForm" placeholder="TEXT"></textarea>
+            </section>
+        </div>
+        <button type="submit" class="button">제출하기</button>
+    </section>
 
-<button type="submit" class="button">제출하기</button>
+    </form>
+    
+
+
 
 {% endblock %}

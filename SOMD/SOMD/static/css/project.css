@@ -167,3 +167,26 @@ select{
 *::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
 }
+
+
+input{
+    border: none;
+}
+input:hover{
+    outline: 0;
+}
+input:focus{
+    outline: 0;
+}
+
+select{
+    outline: 0;
+}
+
+section:hover{
+    outline: 0;
+}
+
+select:focus{
+    outline: 0;
+}

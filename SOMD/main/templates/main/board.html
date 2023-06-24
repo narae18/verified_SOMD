@@ -60,47 +60,55 @@
 
 <script>
 const departmentsByCollege = {
-    불교대학: ['불교대학', '불교학부', '문화재학과'],
-    문과대학: ['문과대학','국어국문문예창작학부', '영어영문학전공', '영어통번역학전공', '일본학과', '중어중문학과', '철학과', '사학과'],
-    이과대학: ['이과대학','수학과', '화학과', '통계학과', '물리반도체과학부'],
-    법과대학: ['법과대학','법학과'],
-    사회과학대학: ['사회과학대학','정치외교학전공', '행정학전공', '북한학전공', '경제학과', '국제통상학과', '사회학전공', '미디어커뮤니케이션학전공', '식품산업관리학과', '광고홍보학과', '사회복지학과'],
-    경찰사법대학: ['경찰사법대학','경찰행정학부'],
-    경영대학: ['경영대학','경영학과', '회계학과', '경영정보학과'],
-    바이오시스템대학: ['바이오시스템대학','바이오환경학과', '생명과학과', '식품생명공학과', '의생명공학과'],
-    공과대학: ['공과대학','전자전기공학부', '정보통신공학과', '건설환경공학과', '화공생물공학과', '기계로봇에너지공학과', '건축공학전공', '건축학전공', '산업시스템공학과', '융합에너지신소재공학과'],
-    AI융합대학: ['AI융합대학','AI소프트웨어융합학부', '컴퓨터공학전공', '멀티미디어소프트웨어공학전공', '인공지능전공', '데이터사이언스전공', '엔터테인먼트테크놀로지전공'],
-    사범대학: ['사범대학','교육학과', '국어교육과', '역사교육과', '지리교육과', '수학교육과', '가정교육과', '체육교육과'],
-    예술대학: ['예술대학','미술학부', '연극학부', '영화영상학과', '스포츠문화학과', '한국음악과'],
-    약학대학: ['약학대학','약학과'],
-    미래융합대학: ['미래융합대학','융합보안학과', '사회복지상담학과', '글로벌무역학과'],
+    동국대학교: ['-'],
+    불교대학: ['-', '불교학부', '문화재학과'],
+    문과대학: ['-','국어국문문예창작학부', '영어영문학전공', '영어통번역학전공', '일본학과', '중어중문학과', '철학과', '사학과'],
+    이과대학: ['-','수학과', '화학과', '통계학과', '물리반도체과학부'],
+    법과대학: ['-','법학과'],
+    사회과학대학: ['-','정치외교학전공', '행정학전공', '북한학전공', '경제학과', '국제통상학과', '사회학전공', '미디어커뮤니케이션학전공', '식품산업관리학과', '광고홍보학과', '사회복지학과'],
+    경찰사법대학: ['-','경찰행정학부'],
+    경영대학: ['-','경영학과', '회계학과', '경영정보학과'],
+    바이오시스템대학: ['-', '바이오환경학과', '생명과학과', '식품생명공학과', '의생명공학과'],
+    공과대학: ['-','전자전기공학부', '정보통신공학과', '건설환경공학과', '화공생물공학과', '기계로봇에너지공학과', '건축공학전공', '건축학전공', '산업시스템공학과', '융합에너지신소재공학과'],
+    AI융합대학: ['-','AI소프트웨어융합학부', '컴퓨터공학전공', '멀티미디어소프트웨어공학전공', '인공지능전공', '데이터사이언스전공', '엔터테인먼트테크놀로지전공'],
+    사범대학: ['-','교육학과', '국어교육과', '역사교육과', '지리교육과', '수학교육과', '가정교육과', '체육교육과'],
+    예술대학: ['-','미술학부', '연극학부', '영화영상학과', '스포츠문화학과', '한국음악과'],
+    약학대학: ['-','약학과'],
+    미래융합대학: ['-','융합보안학과', '사회복지상담학과', '글로벌무역학과'],
 };
 
+if("{{ user.profile.college }}" != ""){
+    departmentsByCollege["{{ user.profile.college}}"].splice(1,0,"{{ user.profile.department }}");
 
-//----유저 솜디 기본 설정하기
-
-var department_Somd = {}; //솜디를 과별로 구분하기 위해, 미리 박스를 만들어둔다.
-for (const key in departmentsByCollege){
-    for(const item in departmentsByCollege[key]){
-        department_Somd[ departmentsByCollege[key][item] ] = [];
-    }
 }
 
+//----유저 솜디 기본 설정하기
+var college_somd ={};
+//솜디를 과별로 구분하기 위해, 미리 박스를 만들어둔다.
+for (const key in departmentsByCollege){
+    college_somd[ key ] = {};
+    var department_Somd = {}; 
+    for(const item of departmentsByCollege[key]){
+        department_Somd[ item ] = [];
+        college_somd[key] = department_Somd;
+    }
+}
+// console.log(college_somd);
 let somds = [];
 let somd = {};
 {% for somd in somds %}
     somd ={};
     somd['name'] = "{{ somd.name }}";
+    somd['college'] = "{{ somd.college }}";
     somd['department'] = "{{ somd.department }}";
     somd['a_href'] = "{% url 'main:mainfeed' somd.id %}"
     somd['profileimage'] = "{{somd.profileimage.url}}"
     somds.push(somd);
-
-    if(somd['department'] in department_Somd){
-        department_Somd[somd['department']].push(somd)
-    }
+    
+    (college_somd[somd['college']])[somd['department']].push(somd)
 {% endfor %}
 
+// console.log(somds)
 
 //----솜디 카테고리 출력하기
 
@@ -152,27 +160,30 @@ const openCollege = { //솜디의 카테고리가 열려있는지 닫혀있는�
 
 function open_College(collegeTitle, toggle_college, toggle_icon){
     let departments = departmentsByCollege[toggle_college];
+    let college = collegeTitle.innerText;
 
     let collegeSomdList = document.createElement("section");
     collegeSomdList.className = "collegeSomdList"
 
     collegeTitle.parentNode.append(collegeSomdList);
-
+    
     for(const department of departments){
         
         let list = document.createElement("section");
         list.className = "list"
 
-        if(department_Somd[department].length != 0){
+        if(college_somd[college][department].length != 0){
             // console.log(department);
             
-            let departmentTitle = document.createElement("div");
-            departmentTitle.className = "departmentTitle"
-            departmentTitle.innerText = "◦" + department;
-            
-            collegeSomdList.appendChild(departmentTitle);
+            if(department != '-'){
+                let departmentTitle = document.createElement("div");
+                departmentTitle.className = "departmentTitle"
+                departmentTitle.innerText = "◦" + department;
+                collegeSomdList.appendChild(departmentTitle);
+            }
+
             collegeSomdList.appendChild(list);
-            for(const somd of department_Somd[department]){
+            for(const somd of college_somd[college][department]){
 
                 let icon = document.createElement("a");
                 icon.href = somd.a_href;

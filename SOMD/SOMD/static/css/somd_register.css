@@ -63,6 +63,7 @@
     color: #0ECC87;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .info .text{
@@ -117,7 +118,7 @@ input[type="file"] {
     display: none;
 }
 
-label{
+.somd_register>.feed_header label{
     position: absolute;
     top: 0px;
     left: 0px;
@@ -146,4 +147,47 @@ button{
     color: white;
     border-radius: 5px;
     margin-bottom: 0;
+}
+
+
+/* ----태그용---- */
+
+.somd_register>.info .tag_box{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-grow: 0;
+}
+
+.somd_register>.info .tag_box>label{
+    border: solid 3px #0ECC87;
+    color: #0ECC87;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+
+.somd_register>.info .tag{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.somd_register>.info .tag>.input_tag{
+    display: flex;
+    /* width: 100%; */
+    margin: 5px;
+}
+
+.somd_register>.info .tag>.input_tag>input{
+    flex-grow: 1;
+    background-color: rgb(250, 250, 250);
+    margin-right: 3px;
+    padding: 5px;
+    border-radius: 5px;
+}
+.somd_register>.info .tag>.input_tag>.button{
+
 }
