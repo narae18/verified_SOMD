@@ -143,13 +143,17 @@ select{
     padding: 5px 15px;
     margin-bottom: 10px;
     background-color:#0ECC87 ;
-    border-radius: 3px;
+    border-radius: 5px;
     color: white;
     font-size: 20px;
     font-weight: 500;
 
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.subTitle>i{
+    margin-right: 10px;
 }
 
 * {
@@ -181,4 +185,11 @@ section:hover{
 
 select:focus{
     outline: 0;
+}
+
+.warning:focus{
+    color: grey;
+}
+.warning:hover{
+    color: grey;
 }

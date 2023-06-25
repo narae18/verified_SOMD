@@ -27,7 +27,7 @@ urlpatterns = [
     path('scrap_view/',scrap_view,name="scrap_view"),
 
     path('like/<int:post_id>',post_like,name="post_like"),
-    
+    path('bookmark/<int:somd_id>',bookmark,name="bookmark"),
     path('join/<int:id>', join, name="join"),
     path('wantTojoin/<int:id>', wantTojoin, name= 'wantTojoin'),
     

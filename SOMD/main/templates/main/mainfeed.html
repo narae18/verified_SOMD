@@ -7,17 +7,21 @@
 
 <section class="header">
     <section class="mainTitle">
-        <a href="{% url 'main:board' %}"><i class="fa-solid fa-chevron-left"></i></a>
-        <!-- <i class="fa-solid fa-house"></i> -->
+        <a href="{% url 'main:mysomd' %}"><i class="fa-solid fa-chevron-left"></i></a>
         <div>{{ somd.name }}</div>
     </section>
 </section>
+
 <section class="EmptyForHeader"></section>
 
+
+
 <section class="somdPage">
-    {% if user in somd.join_members.all %}
-    <a class="writeButton" href="{% url 'main:new' somd.id%}"><i class="fa-solid fa-pen"></i></a>
-    {%endif%}
+            {% if user in somd.join_members.all %}
+            <a class="writeButton" href="{% url 'main:new' somd.id%}"><i class="fa-solid fa-pen"></i></a>
+            {%endif%}
+
+
     <section class="mainfeed">
         <section class="feed_header">
             {% if somd.backgroundimage %}
@@ -26,41 +30,48 @@
             {% else %}
             <div class="background image">
             {% endif %}
-                <a class="bookmark"><i class="fa-regular fa-star"></i></a>
-                <div class="info">
-                    <div>{{somd.college}}</div>
-                    <div>
-                        {% if somd.department != "-" %} 
-                            {{ somd.department}}
-                        {% endif %} 
-                    </div>
-                </div>
+    
+    <div class="info">
+        <div>
+            {% if somd.department != "-" %} 
+                {{ somd.department}}
+            {% endif %} 
+        </div>
+        <div>{{somd.college}}</div>
+    </div>
             </div>
 
             <div class="profile">
-            {% if somd.profileimage %}
-            <div class="image" 
-                style="background-image:url({{somd.profileimage.url}});"></div>
-            {% else %}
-            <div class="basic somd image">somd</div>
-            {% endif %}
-            </div>
+    {% if somd.profileimage %}
+    <div class="image" 
+        style="background-image:url({{somd.profileimage.url}});"></div>
+    {% else %}
+    <div class="basic somd image">somd</div>
+    {% endif %}
+    </div>
 
-            <div class="info">
-                <div class="name">{{ somd.name }}</div>
-                <div class="intro">{{ somd.intro }}</div>
-                <!-- <div>{{ somd.admin.username }}</div> -->
-            </div>
-            
-            {% if somd.tags.all|length != 0 %}
-            <div class="row_tag_box">
-                <div class="row_tag_box_for_scroll">
-                        {%for tag in somd.tags.all%}
-                            <div class="tag_label">{{ tag.name }}</div>
-                        {%endfor%}
-                </div>
-            </div>
-            {%endif%}
+    {% if user in somd.bookmark.all %}
+    <!-- <i class="fa-solid fa-star"></i> -->
+    <a class="bookmark" href="{% url 'main:bookmark' somd.id %}"><i class="fa-solid fa-star"></i></a>
+    {%else%} 
+    <a class="bookmark" href="{% url 'main:bookmark' somd.id %}"><i class="fa-regular fa-star"></i></a>
+    {%endif%}
+
+    <div class="info">
+        <div class="name">{{ somd.name }}</div>
+        <div class="intro">{{ somd.intro }}</div>
+        <!-- <div>{{ somd.admin.username }}</div> -->
+    </div>
+    
+    {% if somd.tags.all|length != 0 %}
+    <div class="row_tag_box">
+        <div class="row_tag_box_for_scroll">
+                {%for tag in somd.tags.all%}
+                    <div class="tag_label">{{ tag.name }}</div>
+                {%endfor%}
+        </div>
+    </div>
+    {%endif%}
 
             <div class="button_case">
                 {% if somd.admin.id == user.id %}
@@ -134,7 +145,7 @@
                             </div>
                             <div class="comment">
                                 <i class="fa-regular fa-message"></i>
-                                <div>10</div>
+                                <div>{{ post.comment_count }}</div>
                             </div>
                         </div>
 
@@ -190,7 +201,7 @@
                             </div>
                             <div class="comment">
                                 <i class="fa-regular fa-message"></i>
-                                <div>{{ post.like_count }}</div>
+                                <div>{{ post.comment_count }}</div>
                             </div>
                         </div>
 

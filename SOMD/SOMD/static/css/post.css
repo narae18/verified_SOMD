@@ -1,3 +1,20 @@
+.about_post>.text>.title{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap:break-word;
+    /* white-space:nowrap; */
+    height: 22.5px;
+    /* white-space: nowrap; */
+    width: 100%;
+    /* flex-grow: 1    ; */
+    -webkit-box-orient: vertical;
+
+    color:#282828
+}
+
+
+
 .about_post:hover{
     color: #282828;
 }
@@ -19,7 +36,7 @@
 }
 
 .name>.somdname{
-    font-size: 10px;
+    font-size: 15px;
     color:lightgrey;
 }
 

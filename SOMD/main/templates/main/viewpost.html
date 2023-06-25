@@ -10,17 +10,22 @@
         <a href="{% url 'main:mainfeed' post.somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
-        <a href="{% url 'main:post_edit' post.id %}" class="button"><span><i class="fa-solid fa-pen"></i> 글수정</span></a>
-        <a href="{% url 'main:post_delete' post.id %}" class="button"><span><i class="fa-solid fa-trash"></i> 삭제하기</span></a>
+        <div class="header_button_case">
+            <a class="header_button" href="{% url 'main:post_edit' post.id %}" class="button"><i class="fa-solid fa-pen"></i> 글수정</a>
+            <a class="header_button" href="{% url 'main:post_delete' post.id %}" class="button"><i class="fa-solid fa-trash"></i> 삭제하기</a>
+        </div>
     </section>
 </section>
 <section class="EmptyForHeader"></section>
 
 <section class="somdPage">
-
     <section class="viewpost">
         <section class="viewpost_header">
-            <div class="title">{{post.title}}</div>
+            <div class="title">
+                <div class="content">
+                    {{post.title}}
+                </div>
+            </div>
             <div class="info">
                 <div class="profile">
                     <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
@@ -46,7 +51,11 @@
         <section class="viewpost_footer">
             <div class="icon">
                 <div class="like">
-                    <i class="fa-solid fa-heart" onClick="location.href='{% url 'main:post_like' post.id %}'"></i>
+                    {% if request.user in post.like.all %}
+                    <i class="fa-solid fa-heart" style="color:#0ecc87" onClick="location.href='{% url 'main:post_like' post.id %}'"></i>
+                    {% else %} 
+                    <i class="fa-regular fa-heart" onClick="location.href='{% url 'main:post_like' post.id %}'"></i>
+                    {% endif %} 
                     <div>{{ post.like_count }}</div>
                 </div>
                 <div class="comment">
@@ -54,23 +63,18 @@
                     <div>{{ post.comment_count }}</div>
                 </div>
             </div>
-
+            
             <div class="scrap">
+                {% if request.user in post.scrap.all %}
+                <i class="fa-solid fa-bookmark" style="color: #0ecc87;" onClick="location.href='{% url 'main:scrap' post.id %}'"></i>
+                {% else %} 
                 <i class="fa-regular fa-bookmark" onClick="location.href='{% url 'main:scrap' post.id %}'"></i>
+                {% endif %}    
             </div>
 
         </section>
     
         <section class="viewpost_commentConatiner">
-
-            <form class="comment_form" method="POST" action="{% url 'main:viewpost' post.id %}">
-                {% csrf_token %}
-                <textarea class="text" type="text" name="comment" required></textarea>
-                <button class="submit" type="submit" name="submit">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </form>
-
             <div class="title">댓글 <i class="fa-solid fa-angle-right"></i> </div>
             
             <!-- 20230624 22:20 댓글 클릭시 정보 팝업 띄우기 작업중 > 작업완료 -->
@@ -78,11 +82,11 @@
                 {% for comment in comments %}
                 <div class="comment">
                     <div class="profile">
-                        <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});"></div>
+                        <div class="profile_info image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileImg="{{ comment.writer.profile.profile_pic.url }}"></div>
                         <div class="name">{{ comment.writer }}</div>
-                        {% if comment.writer == request.user %}
-                        <div><a href="{% url 'main:comment_update' post.id comment.id %}">수정</a>
-                        <a href="{% url 'main:comment_delete' post.id comment.id %}">삭제</a></div>
+                        <!-- 삭제버튼 -->
+                        {% if comment.writer == request.user or  request.user == post.somd.admin %}
+                        <a href="{% url 'main:comment_delete' post.id comment.id %}"><i class="fa-solid fa-trash"></i></a>
                         {% endif %}
                     </div>
                     <div class="comment_body">
@@ -90,7 +94,7 @@
                     </div>
                     <div class="comment_footer">
                         {{ comment.pub_date }}
-                        <button class="profile_info" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileImg="{{ comment.writer.profile.profile_pic.url }}">작성자 정보</button>
+                        <!-- <button class="profile_info" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileImg="{{ comment.writer.profile.profile_pic.url }}">작성자 정보</button> -->
                     </div>
                 </div>
                 {% endfor %}
@@ -98,7 +102,16 @@
 
         </section>
     </section>
+
 </section>
+
+<form class="comment_form" method="POST" action="{% url 'main:viewpost' post.id %}">
+    {% csrf_token %}
+    <textarea class="text" type="text" name="comment" required></textarea>
+    <button class="submit" type="submit" name="submit">
+        <i class="fa-solid fa-paper-plane"></i>
+    </button>
+</form>
 
 <script>
     // 팝업을 열기 위한 함수
@@ -169,5 +182,7 @@ profileInfoButtons.forEach(function(button) {
     });
 });
 </script>
+
+
 
 {% endblock %}
