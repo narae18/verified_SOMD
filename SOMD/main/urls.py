@@ -17,6 +17,8 @@ urlpatterns = [
     path('mainfeed/<int:somd_id>/new/',new, name="new"),
     path('mainfeed/<int:somd_id>/createpost/',createpost,name="createpost"),
     path('mainfeed/viewpost/<int:post_id>',viewpost,name="viewpost"),
+    path('mainfeed/post_edit/<int:post_id>', post_edit, name="post_edit"),
+    path('mainfeed/post_update/<int:post_id>',post_update,name="post_update"),
 
     path('scrap/<int:post_id>',scrap,name="scrap"),
     path('scrap_view/',scrap_view,name="scrap_view"),
