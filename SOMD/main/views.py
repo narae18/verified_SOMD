@@ -287,12 +287,12 @@ def viewpost(request, post_id):
     if request.method == 'GET':
         images = post.images.all()
         comments = Comment.objects.filter(post=post)
-        num_likes = post.like.count()
+        
         return render(request, 'main/viewpost.html', {
             'post': post,
             'images': images,
             'comments': comments,
-            'num_likes': num_likes,
+
         })
     elif request.method == 'POST':
         if request.user.is_authenticated:
@@ -302,30 +302,28 @@ def viewpost(request, post_id):
             new_comment.content = request.POST["comment"]
             new_comment.pub_date = timezone.now()
             new_comment.save()
-            # post.comment.count()
-            # post.update_num_comments()
+            post.comment_count += 1
+            post.save()
 
             return redirect('main:viewpost', post.id)
 
-def bookmark(request,SOMD_id):
-    bookmarked_somd = get_object_or_404(SOMD, pk=id)
+def bookmark(request, somd_id):
+    somd = SOMD.objects.get(id=somd_id)
     user = request.user
-    is_user_bookmarked = user.bookmark.filter(id=bookmarked_somd.id).exists()
-    
+    is_user_bookmarked = user.bookmark.filter(id=somd.id).exists()
+
     if is_user_bookmarked:
-        user.bookmark.add(bookmarked_somd) 
-        bookmarked = True
-    
+        user.bookmark.remove(somd)
+        is_user_bookmarked = False
     else:
-        user.bookmark.remove(bookmarked_somd)
-        bookmarked = False
-        
-    return redirect('main:mysomd', bookmarked_somd.id) #??어디로 redirect??
+        user.bookmark.add(somd)
+        is_user_bookmarked = True
+
+    user.save()
+
+    return redirect('main:mainfeed', somd.id)
 
 
-
-    
-    
 def scrap(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     user = request.user
@@ -344,14 +342,16 @@ def scrap_view(request):
     return render(request, 'main/scrappedPost_view.html', {'posts':posts})
 
 
-def like_post(request, post_id):
+def post_like(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     user = request.user
-    if user.is_authenticated:
-        if post.like.filter(id=user.id).exists():
-            post.like.remove(user)
-        else:
-            post.like.add(user)
+    if user in post.like.all():
+        post.like.remove(request.user)
+        post.like_count -= 1
+    else:
+        post.like.add(request.user)
+        post.like_count += 1
+    post.save()
     return redirect('main:viewpost', post_id)
 
 
@@ -389,3 +389,31 @@ def alram(request):
     return render(request, "main/alram.html", {
         'alrams': alrams,
     })
+
+def post_edit(request, post_id):
+    edit_post = Post.objects.get(id=post_id)
+    return render(request, "main/post_update.html", {"post": edit_post})
+
+def post_update(request, post_id):
+    user = request.user
+    update_post = get_object_or_404(Post, id=post_id)
+    if request.method == 'POST':
+        if user == update_post.writer:
+            update_post.title = request.POST['title']
+            update_post.content = request.POST['content']
+            update_post.pub_date = timezone.now()
+            if request.FILES.getlist('images'):
+                images = request.FILES.getlist('images')
+                for image in images:
+                    new_image = Images.objects.create(post=update_post, image=image)
+            
+            update_post.save()
+            return render(request, 'main/viewpost.html', {'post': update_post, 'images': update_post.images.all()})
+    return render(request, 'main/viewpost.html', {'post': update_post, 'images': update_post.images.all()})
+
+
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.user == post.writer:
+        post.delete()
+    return redirect('main:mainfeed', post.somd.id)
