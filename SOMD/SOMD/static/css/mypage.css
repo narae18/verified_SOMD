@@ -250,3 +250,14 @@ textarea:focus {
   color: red;
   text-align: center;
 }
+
+
+
+.secession{
+    position: fixed;
+    bottom:10px;
+    right:10px;
+
+
+    color:lightgrey;
+}

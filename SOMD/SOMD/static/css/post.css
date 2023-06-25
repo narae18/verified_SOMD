@@ -1,3 +1,10 @@
+.about_post:hover{
+    color: #282828;
+}
+
+.about_post:focus{
+    color: #282828;
+}
 .postContainer .postContainer_title{
     color: grey;
     font-size: 25px;
