@@ -287,12 +287,12 @@ def viewpost(request, post_id):
     if request.method == 'GET':
         images = post.images.all()
         comments = Comment.objects.filter(post=post)
-        num_likes = post.like.count()
+        
         return render(request, 'main/viewpost.html', {
             'post': post,
             'images': images,
             'comments': comments,
-            'num_likes': num_likes,
+
         })
     elif request.method == 'POST':
         if request.user.is_authenticated:
@@ -302,8 +302,8 @@ def viewpost(request, post_id):
             new_comment.content = request.POST["comment"]
             new_comment.pub_date = timezone.now()
             new_comment.save()
-            # post.comment.count()
-            # post.update_num_comments()
+            post.comment_count += 1
+            post.save()
 
             return redirect('main:viewpost', post.id)
 
@@ -342,14 +342,16 @@ def scrap_view(request):
     return render(request, 'main/scrappedPost_view.html', {'posts':posts})
 
 
-def like_post(request, post_id):
+def post_like(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     user = request.user
-    if user.is_authenticated:
-        if post.like.filter(id=user.id).exists():
-            post.like.remove(user)
-        else:
-            post.like.add(user)
+    if user in post.like.all():
+        post.like.remove(request.user)
+        post.like_count -= 1
+    else:
+        post.like.add(request.user)
+        post.like_count += 1
+    post.save()
     return redirect('main:viewpost', post_id)
 
 
@@ -408,3 +410,10 @@ def post_update(request, post_id):
             update_post.save()
             return render(request, 'main/viewpost.html', {'post': update_post, 'images': update_post.images.all()})
     return render(request, 'main/viewpost.html', {'post': update_post, 'images': update_post.images.all()})
+
+
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.user == post.writer:
+        post.delete()
+    return redirect('main:mainfeed', post.somd.id)

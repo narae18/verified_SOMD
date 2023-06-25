@@ -68,6 +68,9 @@ class Post(models.Model):
     content = models.TextField()
 
     like = models.ManyToManyField(User, related_name='like', blank=True)
+    like_count = models.IntegerField(default=0)
+    
+    comment_count = models.IntegerField(default=0)
 
     scrap = models.ManyToManyField(User, related_name='scrap', blank=True)
     
