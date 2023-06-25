@@ -11,16 +11,16 @@
 
 <section class="header">
     <section class="mainTitle">
-        
-        <div>
-            스크랩한 게시물
-        </div>
+        <a href="{% url 'main:mainpage' %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <!-- <i class="fa-solid fa-house"></i> -->
+        <div>스크랩한 게시물</div>
     </section>
 </section>
 <section class="EmptyForHeader"></section>
 
+<section class="subTitle"><i class="fa-solid fa-bookmark"></i>Scrap Post</section>
 <section class="somdPage">
-    <section class="subTitle">Scrap Post</section>
+
     {% if user.id == 13 %}
         <div class="NEED_TO_LOGIN"><a class="logout" href="{% url 'accounts:logout' %}">로그인하세요</div>
     {% else %}
@@ -56,23 +56,19 @@
                             <div class="text">
                                 <div class="title">{{ post.title }}</div>
                                 <div class="body">{{ post.summary }}</div>
-                                <div class="date">{{post.pub_date}}</div>
+                                <!-- <div class="date">{{post.pub_date}}</div> -->
                             </div>
                         </a>
                         <section class="post_footer">
                             <div class="icon">
                                 <div class="like">
                                     <i class="fa-solid fa-heart"></i>
-                                    <div>10</div>
+                                    <div>{{ post.like_count }}</div>
                                 </div>
                                 <div class="comment">
                                     <i class="fa-regular fa-message"></i>
-                                    <div>10</div>
+                                    <div>{{ post.comment_count }}</div>
                                 </div>
-                            </div>
-
-                            <div class="scrap">
-                                <i class="fa-regular fa-bookmark"></i>
                             </div>
 
                         </section>

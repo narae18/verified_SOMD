@@ -1,5 +1,12 @@
 /* ---- 헤더 ---- */
 
+.header>.mainTitle>a>.fa-chevron-left:focus{
+  color:#0ecc87;
+}
+.header>.mainTitle>a>.fa-chevron-left:hover{
+  color:#0ecc87;
+}
+
 .header {
   position: fixed;
   top: 0px;
@@ -62,12 +69,23 @@
   font-size: 20px;
 }
 
+.header_button_case{
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+
+.header_button_case> .header_button:nth-child(1){
+  margin-right: 5px;
+}
+
 .header_button {
   font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 10px;
   border: #0ecc87 2px solid;
   background-color: #0ecc87;
@@ -110,7 +128,7 @@
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 50%;
+  width: 100%;
   height: 100%;
   background-color: grey;
   background-blend-mode: multiply;

@@ -19,7 +19,7 @@
     flex-direction: column;
     position: absolute;
     right: 0px;
-    bottom: 0px;
+    top: 0px;
     text-align: end;
     font-size: 12px;
 } 
@@ -63,8 +63,14 @@
     padding: 10px;
     display: flex;
     align-items: center;
-    font-size: 30px;
-    color: white;
+    font-size: 20px;
+    color: #0ECC87;
+}
+.bookmark:hover{
+    color: #0ECC87;
+}
+.bookmark:focus{
+    color:#0ECC87;
 }
 
 .button_case{
