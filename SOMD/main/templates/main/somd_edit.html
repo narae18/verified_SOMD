@@ -5,8 +5,10 @@
 <section class="header">
     <section class="mainTitle">
         <a href="{% url 'main:mainfeed' somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
-        <!-- <i class="fa-solid fa-house"></i> -->
-        <div>{{ somd.name }}</div>
+        <!-- <div>{{ somd.name }}</div> -->
+        <button class="header_button-2" button type="submit" form="somd_edit">
+            <i class="fa-solid fa-check"></i> 솜디수정완료
+        </button>
     </section>
 </section>
 <section class="EmptyForHeader"></section>
@@ -14,7 +16,7 @@
 
 <section class="somdPage">
 
-    <form action="{% url 'main:somd_update' somd.id %}" method="POST" enctype="multipart/form-data">
+    <form id="somd_edit" action="{% url 'main:somd_update' somd.id %}" method="POST" enctype="multipart/form-data">
         <section class="somd_register">
         {% csrf_token %}
         <section class="feed_header">
@@ -97,8 +99,6 @@
             </section>
 
         </section>
-        
-        <button type="submit">등록</button>
     </section>
     </section> 
     </form>

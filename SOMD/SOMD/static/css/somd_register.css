@@ -197,3 +197,15 @@ button {
 }
 .somd_register > .info .tag > .input_tag > .button {
 }
+.button_a {
+  /* margin: 5px; */
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: #0ecc87 2px solid;
+  background-color: #0ecc87;
+  color: white;
+}

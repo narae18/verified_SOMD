@@ -136,27 +136,7 @@ select{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.mainTitle{
-    width: 100%;
-    /* margin:15px 0px 5px 0px; */
-    padding: 0px 5px;
-    color: #0ECC87;
-    font-size: 20px;
-    font-weight: 500;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.mainTitle>i{
-    padding-right: 5px;
-    font-size: 15px;
-
-}
-.mainTitle>div{
-    flex-grow: 1;
-}
 
 .subTitle{
     width: 100%;
