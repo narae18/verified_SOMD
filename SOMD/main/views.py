@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count 
-from .models import Post, Comment, Tag, SOMD, Member, Images, JoinRequest
+from .models import Post, Comment, Tag, SOMD, Member, Images, JoinRequest, UserAlram, Alram
 from django.contrib.auth.models import User
 from django.utils import timezone
 import re
@@ -18,8 +18,7 @@ def mainpage(request):
 
         posts = Post.objects.filter(somd__in =somds)
         if somds:
-            for somd in somds:
-                somd.posts.set(somd.posts.order_by('-pub_date'))
+            posts = posts.order_by('-pub_date')
             return render(request, 'main/mainpage.html', {
                 'somds': somds,
                 'posts' : posts
@@ -231,19 +230,44 @@ def members_wantTojoin(request, somd_id, request_id):
             somd.join_members.add(joinrequest.writer)
             somd.waitTojoin_members.remove(joinrequest.writer)
             member.somds.add(somd)
+
+            receiveUser, created = UserAlram.objects.get_or_create(user=joinrequest.writer)
+            
+            alram = Alram()
+            alram.type ="somdAccept"
+            alram.sendUser = (request.user)
+            alram.somd = (somd)
+            alram.date = timezone.now()
+
+            alram.save()
+
+            receiveUser.alrams.add(alram)
             
         elif "reject" == request.POST["wantTojoin_result"] :
             somd.waitTojoin_members.remove(joinrequest.writer)
             member.rejected_somds.add(somd)
+
+            #유저에게 알람 전달
+            receiveUser, created = UserAlram.objects.get_or_create(user=joinrequest.writer)
+            
+            alram = Alram()
+            alram.type ="somdReject"
+            alram.sendUser = (request.user)
+            alram.somd = (somd)
+            alram.date = timezone.now()
+
+            alram.save()
+
+            receiveUser.alrams.add(alram)
+
+
 
         somd.join_requests.remove(joinrequest)
         joinrequest.delete()
 
         member.waiting_somds.remove(somd)
 
-    return render(request, "main/members.html", {
-        'somd': somd,
-    })
+    return redirect("main:members", somd.id)
 
 
 def members_delete(request, somd_id, join_user_id):
@@ -255,9 +279,7 @@ def members_delete(request, somd_id, join_user_id):
     somd.join_members.remove(join_user)
     member.rejected_somds.add(somd)
 
-    return render(request, "main/members.html", {
-        'somd': somd,
-    })
+    return redirect("main:members", somd.id)
 
 
 def viewpost(request, post_id):
@@ -304,20 +326,22 @@ def bookmark(request,SOMD_id):
 
     
     
-def Scrap(request, post_id):
+def scrap(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     user = request.user
     is_user_scraped = user.scrap.filter(id=post.id).exists()
     
     if is_user_scraped:
-        user.scrap.add(post) 
-        scraped = True
-    
+        user.scrap.remove(post) 
     else:
-        user.scrap.remove(post)
-        scraped = False
-        
+        user.scrap.add(post)
+    user.save()
     return redirect('main:viewpost', post.id)
+
+def scrap_view(request):
+    user = request.user
+    posts = user.scrap.all()
+    return render(request, 'main/scrappedPost_view.html', {'posts':posts})
 
 
 def like_post(request, post_id):
@@ -359,3 +383,9 @@ def fix(request, post_id, somd_id):
     post.save()
     
     return redirect('main:mainfeed', id = somd_id)
+
+def alram(request):
+    alrams, created = UserAlram.objects.get_or_create(user=request.user)
+    return render(request, "main/alram.html", {
+        'alrams': alrams,
+    })

@@ -101,3 +101,17 @@ class Comment(models.Model):
 class Images(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to="post/", blank=True, null=True)    
+
+
+class Alram(models.Model):
+    somd = models.ForeignKey(SOMD, null=True, blank=True, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE)
+    sendUser = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    
+    date = models.DateTimeField(null=True, blank=True)
+
+    type = models.TextField(blank=False)
+
+class UserAlram(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    alrams = models.ManyToManyField(Alram, related_name="alram", blank=True)
