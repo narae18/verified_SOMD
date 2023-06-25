@@ -20,7 +20,33 @@
   padding: 0px 3px;
 }
 
+.mainTitle{
+  width: 100%;
+  /* margin:15px 0px 5px 0px; */
+  padding: 0px 5px;
+  color: #0ECC87;
+  font-weight: 500;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainTitle i{
+  padding-right: 10px;
+  font-size: 25px;
+  font-weight: 800;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.mainTitle>div{
+  flex-grow: 1;
+  font-weight: 800;
+  font-size: 20px;
+}
 
 .EmptyForHeader{
   z-index: 2;
@@ -35,6 +61,51 @@ text-decoration: none;
 color:#0ECC87;
 font-size: 20px;
 }
+
+
+
+.header_button{
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  border: #0ECC87 2px solid;
+  background-color: #0ECC87;
+  color: white;
+}
+
+.header_button>i{
+  padding-right: 5px;
+  font-size: 15px;
+}
+
+.header_button:hover{
+  color: white;
+}
+
+.header_button-2{
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  border: #0ECC87 2px solid;
+  background-color: white;
+  color: #0ECC87;
+}
+
+.header_button-2>i{
+  padding-right: 5px;
+  font-size: 15px;
+}
+
+.header_button-2:hover{
+  color:#0ECC87;
+}
+
 
 /* ---- 사이드 바 ---- */
 
@@ -286,24 +357,3 @@ font-size: 20px;
 /* <section class="header"></section>
     <section class="EmptyForHeader"></section> */
 
-
-
-.header_button{
-  font-size: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  border-radius: 10px;
-  border: #0ECC87 2px solid;
-  background-color: #0ECC87;
-  color: white;
-}
-
-.header_button>i{
-  padding-right: 5px;
-}
-
-.header_button:hover{
-  color: white;
-}

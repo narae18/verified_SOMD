@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/alram.css' %}">
+
 <section class="header">
     <section class="mainTitle">
         <a href="{% url 'main:mysomd' %}"><i class="fa-solid fa-chevron-left"></i></a>
@@ -15,6 +17,7 @@
 
 <section class="somdPage">
 <section class="alrampage">
+    <section class="alram">
     {% if alrams %}
     {%for alram in alrams.alrams.all %}
         {% if alram.type == "somdReject" %}
@@ -24,6 +27,7 @@
         {%endif%}
     {%endfor%}
     {%endif%}
+    </section>
 </section>
 </section>
     
