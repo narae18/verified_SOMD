@@ -108,7 +108,7 @@ var historyBack = document.querySelector(".historyBack");
 if(historyBack != null){
   historyBack.addEventListener('click',function(event){
     if(event.target == historyBack || event.target.parentNode == historyBack){
-      window.history.back();
+      window.history.go(-1);
     }
   });
 }
