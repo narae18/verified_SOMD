@@ -443,3 +443,25 @@ def post_delete(request, post_id):
     if request.user == post.writer:
         post.delete()
     return redirect('main:mainfeed', post.somd.id)
+
+def comment_update(request, post_id, comment_id):
+    post = get_object_or_404(Post, id=post_id)
+    update_comment = get_object_or_404(Comment, id=comment_id)
+    user = request.user
+    if request.method == 'POST':
+        if update_comment.writer == user:
+            update_comment.post = post
+            update_comment.content = request.POST['content']
+            update_comment.pub_date = timezone.now()
+            update_comment.save()
+            return redirect('main:viewpost', update_comment.post.id)
+    return render(request, 'main/viewpost.html', {'post': update_comment.post})
+
+def comment_delete(request, post_id, comment_id):
+    post = get_object_or_404(Post, id=post_id)
+    delete_comment = get_object_or_404(Comment, id=comment_id)
+    if request.user == delete_comment.writer:
+        post.comment_count -= 1
+        delete_comment.delete()
+        post.save()
+    return redirect('main:viewpost', post.id)

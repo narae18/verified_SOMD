@@ -47,11 +47,11 @@
             <div class="icon">
                 <div class="like">
                     <i class="fa-solid fa-heart" onClick="location.href='{% url 'main:post_like' post.id %}'"></i>
-                    <div>{{ post.like_count }}개</div>
+                    <div>{{ post.like_count }}</div>
                 </div>
                 <div class="comment">
                     <i class="fa-regular fa-message"></i>
-                    <div>10</div>
+                    <div>{{ post.comment_count }}</div>
                 </div>
             </div>
 
@@ -80,6 +80,10 @@
                     <div class="profile">
                         <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});"></div>
                         <div class="name">{{ comment.writer }}</div>
+                        {% if comment.writer == request.user %}
+                        <div><a href="{% url 'main:comment_update' post.id comment.id %}">수정</a>
+                        <a href="{% url 'main:comment_delete' post.id comment.id %}">삭제</a></div>
+                        {% endif %}
                     </div>
                     <div class="comment_body">
                         {{ comment.content }}

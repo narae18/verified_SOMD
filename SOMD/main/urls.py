@@ -20,6 +20,8 @@ urlpatterns = [
     path('mainfeed/post_edit/<int:post_id>', post_edit, name="post_edit"),
     path('mainfeed/post_update/<int:post_id>',post_update,name="post_update"),
     path('mainfeed/post_delete/<int:post_id>',post_delete,name="post_delete"),
+    path('mainfeed/comment_update/<int:post_id>/<int:comment_id>',comment_update,name="comment_update"),
+    path('mainfeed/comment_delete/<int:post_id>/<int:comment_id>',comment_delete,name="comment_delete"),
 
     path('scrap/<int:post_id>',scrap,name="scrap"),
     path('scrap_view/',scrap_view,name="scrap_view"),
