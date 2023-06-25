@@ -18,8 +18,7 @@ def mainpage(request):
 
         posts = Post.objects.filter(somd__in =somds)
         if somds:
-            for somd in somds:
-                somd.posts.set(somd.posts.order_by('-pub_date'))
+            posts = posts.order_by('-pub_date')
             return render(request, 'main/mainpage.html', {
                 'somds': somds,
                 'posts' : posts
@@ -304,20 +303,22 @@ def bookmark(request,SOMD_id):
 
     
     
-def Scrap(request, post_id):
+def scrap(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     user = request.user
     is_user_scraped = user.scrap.filter(id=post.id).exists()
     
     if is_user_scraped:
-        user.scrap.add(post) 
-        scraped = True
-    
+        user.scrap.remove(post) 
     else:
-        user.scrap.remove(post)
-        scraped = False
-        
+        user.scrap.add(post)
+    user.save()
     return redirect('main:viewpost', post.id)
+
+def scrap_view(request):
+    user = request.user
+    posts = user.scrap.all()
+    return render(request, 'main/scrappedPost_view.html', {'posts':posts})
 
 
 def like_post(request, post_id):
