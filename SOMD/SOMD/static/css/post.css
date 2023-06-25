@@ -1,6 +1,31 @@
+.about_post:hover{
+    color: #282828;
+}
+
+.about_post:focus{
+    color: #282828;
+}
+.postContainer .postContainer_title{
+    color: grey;
+    font-size: 25px;
+    /* margin-top: 20px; */
+    margin-bottom: 20px;
+    padding: 0px 10px 10px 10px;
+    border-bottom: solid lightgrey 1px;
+}
+
+.postContainer .list{
+    padding-bottom: 25px;
+}
+
+.name>.somdname{
+    font-size: 10px;
+    color:lightgrey;
+}
+
 /* ----리스트형---- */
 
-.linebyline_post{
+.linebyline_post .post_box{
     /* width:180%; */
     color: #282828;
 }
@@ -11,12 +36,15 @@
     color:grey;
 }
 
-.linebyline_post .postContainer> .list{
+.linebyline_post .postContainer .list{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 }
+
+
+
 /* ----리스트형 헤더---- */
 .linebyline_post .post_header{
     display: flex;
@@ -27,6 +55,8 @@
     
 }
 .linebyline_post .post_header>.profile{
+    width: 100%;
+    padding: 0px 5px;
     display: flex;
 }
 .linebyline_post .post_header>.profile>.image{
@@ -36,9 +66,10 @@
     border-radius: 50%;
 }
 .linebyline_post .post_header>.profile>.name{
+    flex-grow: 1;
     padding: 0px 5px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -65,17 +96,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    border: 2px solid lightgrey;
+    /* width: 100%; */
+    border: 1px solid lightgrey;
     padding: 5px;
     border-radius: 5px;
-    margin-bottom: 5px;
+    margin: 10px 0px 5px 0;
 }
 
 .linebyline_post .about_post>.image{
     background-size: contain;
     background-repeat: no-repeat;
-    box-shadow: 0 0px 2px 1px rgba(214, 214, 214, 0.299);
+    box-shadow: 0 0px 2px 1px rgba(77, 77, 77, 0.3);
     width: 80px;
     height: 80px;
     margin: 5px;
@@ -93,7 +124,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(214, 214, 214, 0.299);
+    background-color:rgba(77, 77, 77, 0.3);
 
     background-blend-mode: multiply;
     color: white;
@@ -129,7 +160,7 @@
 
 .linebyline_post .post_footer{
     margin:  0px 5px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
 }
@@ -161,9 +192,9 @@
 
 /* ----피드형---- */
 
-.album_post{
+.album_post .post_box{
     display: inline-block;
-    width:180px;
+    width:176px;
     color: #282828;
 }
 
@@ -173,11 +204,11 @@
     color:grey;
 }
 
-.album_post .postContainer> .list{
+.album_post>.list{
+    /* background-color: #0ECC87; */
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 /* ----피드형 헤더---- */
@@ -185,12 +216,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin:5px 5px;
     
 }
 
 .album_post .post_header>.profile{
     padding: 0px 5px;
     display: flex;
+    width: 100%;
 }
 .album_post .post_header>.profile>.image{
     width: 35px;
@@ -199,14 +232,30 @@
     border-radius: 50%;
 }
 .album_post .post_header>.profile>.name{
+    flex-grow: 1;
     padding: 0px 5px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
 .album_post .post_header>i{
     padding: 5px;
+}
+.album_post .post_header>.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:grey;
+}
+.album_post .post_header>.icon>i{
+    width: 16px;
+    height: 16px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 5px;
 }
 
 /* ----피드형 내용---- */
@@ -216,17 +265,17 @@
     justify-content: center;
     align-items: center;
 
-    border: 2px solid #000000;
+    border: 1px solid lightgrey;
     border-radius: 5px;
     padding:10px 0px 5px 0px;
-    margin:10px 0px 15px 0;
+    margin:10px 0px 5px 0;
 }
 
 .album_post .about_post>.image{
     position: relative;
     background-size: contain;
     background-repeat: no-repeat;
-    box-shadow: 0 0px 2px 1px rgba(214, 214, 214, 0.299);
+    box-shadow: 0 0px 2px 1px rgba(77, 77, 77, 0.3);
     width: 160px;
     height: 160px;
 }
@@ -240,7 +289,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(214, 214, 214, 0.299);
+    background-color: rgba(77, 77, 77, 0.3);
 
     background-blend-mode: multiply;
     color: white;
@@ -283,7 +332,7 @@
 
 .album_post .post_footer{
     margin:  0px 5px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
 }

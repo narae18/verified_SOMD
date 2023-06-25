@@ -3,40 +3,63 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+
+<section class="header">
+    <section class="mainTitle">
+        <a href="{% url 'main:mainpage' %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <!-- <i class="fa-solid fa-house"></i> -->
+        <div>{{ somd.name }}</div>
+         <a class="header_button" href="{% url 'users:mypage_edit' %}" class="button">
+            <i class="fa-solid fa-pen"></i> 수정
+        </a>
+    </section>
+</section>
+<section class="EmptyForHeader"></section>
+
+
 <section class="somdPage">
     <section class="mypage">
-        <section class="first">
-            <div class="label">프로필 사진</div>
-            <div class="box">
-                <div class="image" style="background-image:url({{user.profile.profile_pic.url}});">
-                </div>
-                <a href="" class="button"><span><i class="fa-solid fa-pen"></i> 수정</span></a>
+        <section class="top">
+            <div class="profile-pic-preview profile image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
+        </section>
+        <section class="middle">
+            <div class="fixinfo">{{ user.profile.email }}</div>
+            <div class="fixinfo">{{ user.profile.birth }} / {{ user.profile.gender }}</div>
+        </section>
+
+        <section class="item">
+            <div class="label">ID</div>
+            <div class="text">{{ user.username}}</div>
+        </section>
+
+        <section class="item">
+            <div class="label">닉네임</div>
+            <div class="text" style="justify-content: start;">{{ user.profile.nickname }}  <p style="color:lightgrey; margin-bottom:0px; margin-left: 5px;">  ({{ user.profile.name }})</p></div>
+        </section>
+
+        <section class="item">
+            <div class="label">자기소개</div>
+            <div class="long text">{{ user.profile.intro }}</div>
+        </section>
+
+        <section class="item">
+            <div class="label">소속대학</div>
+            <div class="text">
+                {{ user.profile.college }}
+                <br>
+                {{ user.profile.department }}
             </div>
         </section>
 
-        <section>
-            <div class="label">닉네임</div>
-            <div class="text">{{ user.profile.nickname }}</div>
-        </section>
 
-        <section>
-            <div class="label">소속학과</div>
-            <div class="text">{{ user.profile.department }}</div>
-        </section>
-
-        <section>
-            <div class="label">자기소개</div>
-            <div class="long text"></div>
-        </section>
-
-        <section>
-
-            <div class="label">활동중인 소모임</div>
+        <section class="bottom item">
+            <div class="label">내 소모임</div>
 {%if somds%}
     <div class="somd_list">
         {% for somd in somds %}
         <div class="text">
             <div class="name">{{ somd.name }}</div>
+            <!-- <i class="fa-regular fa-star"></i> -->
         </div>
         {% endfor %}
     </div>
@@ -50,6 +73,5 @@
         </section>
     </section>
 
-    <a href="{% url 'accounts:deleteUser' %}">탈퇴</a>
 </section>
 {% endblock %}

@@ -1,36 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
 
-<h1>{{post.title}}</h1></div>
-<div class = 'detail'>
-    작성자 : {{post.writer}}<br>
-    최종 수정 날짜 : {{post.pub_date}}
-    {% if post.images %}
-        {% for image in images %}
-            <p><img src="{{image.image.url}}" alt="사진" style="max-height: 200px; max-width: 200px;" onclick="window.open(this.src)"></p>
-        {% endfor %}
-    {% endif %}
-    <hr>
-    <p>{{post.body}}</p>
-</div>
+{% block content %}
 
-<div class="comment_container">
-    <div class="comment_form">
-        <br>
-        <h5>&nbsp;댓글 작성하기</h5>
-        <form method="POST" action="{% url 'main:viewpost' post.id %}">
-            {% csrf_token %}
-            &nbsp;&nbsp;<input type="text" name="comment">
-            <input type="submit" name="submit" value="등록">
-        </form>
-    </div>
-    <div class="comment_list">
-        {% for comment in comments %}
-            <hr>
-            <div style="display: flex; align-items: center;">
-                <h5 style="margin-right: 10px;">작성자: {{ comment.writer }}</h5>
-                
+<link rel="stylesheet" type="text/css" href="{% static 'css/viewpost.css' %}">
+
+<section class="header">
+    <section class="mainTitle">
+        <a href="{% url 'main:mainfeed' post.somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <!-- <i class="fa-solid fa-house"></i> -->
+        <div>{{ somd.name }}</div>
+        <a href="{% url 'main:post_edit' post.id %}" class="button"><span><i class="fa-solid fa-pen"></i> 글수정</span></a>
+        <a href="{% url 'main:post_delete' post.id %}" class="button"><span><i class="fa-solid fa-trash"></i> 삭제하기</span></a>
+    </section>
+</section>
+<section class="EmptyForHeader"></section>
+
+<section class="somdPage">
+
+    <section class="viewpost">
+        <section class="viewpost_header">
+            <div class="title">{{post.title}}</div>
+            <div class="info">
+                <div class="profile">
+                    <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                    <div class="name">{{post.writer}}</div>
+                </div>
+                <div class="date">{{post.pub_date}}</div>
             </div>
-            <p>내용 : {{ comment.content }} <br></p>
-            <p>작성일 {{ comment.pub_date }}</p>
-        {% endfor %}
-    </div>
-</div>
+        </section>
+
+        <section class="viewpost_body">
+            <p>{{post.content}}</p>
+            {% if post.images %}
+                {% for image in images %}
+
+                    <!-- <div class="image" style="background-image:url( {{ image.image.url }} );"></div> -->
+                    <div class="image">
+                        <img src="{{image.image.url}}" alt="사진" onclick="window.open(this.src)">
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        <section class="viewpost_footer">
+            <div class="icon">
+                <div class="like">
+                    <i class="fa-solid fa-heart" onClick="location.href='{% url 'main:post_like' post.id %}'"></i>
+                    <div>{{ post.like_count }}</div>
+                </div>
+                <div class="comment">
+                    <i class="fa-regular fa-message"></i>
+                    <div>{{ post.comment_count }}</div>
+                </div>
+            </div>
+
+            <div class="scrap">
+                <i class="fa-regular fa-bookmark" onClick="location.href='{% url 'main:scrap' post.id %}'"></i>
+            </div>
+
+        </section>
+    
+        <section class="viewpost_commentConatiner">
+
+            <form class="comment_form" method="POST" action="{% url 'main:viewpost' post.id %}">
+                {% csrf_token %}
+                <textarea class="text" type="text" name="comment" required></textarea>
+                <button class="submit" type="submit" name="submit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+
+            <div class="title">댓글 <i class="fa-solid fa-angle-right"></i> </div>
+            
+            <!-- 20230624 22:20 댓글 클릭시 정보 팝업 띄우기 작업중 > 작업완료 -->
+            <div class="comment_list">
+                {% for comment in comments %}
+                <div class="comment">
+                    <div class="profile">
+                        <div class="image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});"></div>
+                        <div class="name">{{ comment.writer }}</div>
+                        {% if comment.writer == request.user %}
+                        <div><a href="{% url 'main:comment_update' post.id comment.id %}">수정</a>
+                        <a href="{% url 'main:comment_delete' post.id comment.id %}">삭제</a></div>
+                        {% endif %}
+                    </div>
+                    <div class="comment_body">
+                        {{ comment.content }}
+                    </div>
+                    <div class="comment_footer">
+                        {{ comment.pub_date }}
+                        <button class="profile_info" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileImg="{{ comment.writer.profile.profile_pic.url }}">작성자 정보</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </section>
+    </section>
+</section>
+
+<script>
+    // 팝업을 열기 위한 함수
+    // user.profile.profile_pic.url
+    function openPopup(nickname, college, department, intro, profileImg) {
+    // 팝업 내용을 구성하는 HTML 코드
+    var popupContent = `
+        <div class="popup">
+            <section class="popupinfo">
+                <div class="image">
+                    <img class="popupProfileImg" src="{{ post.writer.profile.profile_pic.url }}" alt="프로필 이미지" width="30px">
+                </div>
+                <div>
+                    <p>${nickname}</p>
+                    <p>${college}</p>
+                    <p>${department}</p>
+                </div>
+            </section>
+            <section class="popupintro">
+                <p>${intro}</p>
+            </section>
+            <section>
+                <button onclick="closePopup()">닫기</button>
+            </section>
+        </div>
+    `;
+
+    // 팝업을 표시할 요소를 생성하고 내용을 설정
+    var popupElement = document.createElement("div");
+    popupElement.classList.add("popup-container");
+    popupElement.innerHTML = popupContent;
+
+    // body에 팝업을 추가
+    document.body.appendChild(popupElement);
+    centerPopup();
+}
+
+// 팝업을 중앙에 위치시키는 함수
+function centerPopup() {
+    var popupContainer = document.querySelector(".popup-container");
+    var popup = document.querySelector(".popup");
+
+    var windowHeight = window.innerHeight;
+    var popupHeight = popup.offsetHeight;
+
+    var top = Math.max((windowHeight - popupHeight) / 2, 0);
+
+    popupContainer.style.justifyContent = top + "px";
+}
+
+// 팝업을 닫기 위한 함수
+function closePopup() {
+    // 팝업을 닫을 요소를 찾아 제거합니다.
+    var popupElement = document.querySelector(".popup-container");
+    popupElement.remove();
+}
+
+// 작성자 정보 버튼 클릭 시 팝업을 열기 위한 이벤트 처리
+var profileInfoButtons = document.querySelectorAll(".profile_info");
+profileInfoButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        var nickname = this.dataset.nickname;
+        var college = this.dataset.college;
+        var department = this.dataset.department;
+        var intro = this.dataset.intro;
+        var profileImg = this.dataset.profileImg;
+        openPopup(nickname, college, department, intro, profileImg);
+    });
+});
+</script>
+
+{% endblock %}
