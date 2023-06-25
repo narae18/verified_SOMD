@@ -15,35 +15,7 @@
 
 <section class="somdPage">
     <section class="mainfeed">
-        <section class="feed_header">
-            {% if somd.backgroundimage %}
-            <div class="background image" 
-                style="background-image:url({{somd.backgroundimage.url}});">
-            {% else %}
-            <div class="background image">
-            {% endif %}
-                <a class="bookmark"><i class="fa-regular fa-star"></i></a>
-                <div class="info">
-                    <div>#{{ somd.category }}</div>
-                    <div>{{ somd.department }}</div>
-                </div>
-            </div>
-
-            <div class="profile">
-            {% if somd.profileimage %}
-            <div class="image" 
-                style="background-image:url({{somd.profileimage.url}});"></div>
-            {% else %}
-            <div class="basic somd image">somd</div>
-            {% endif %}
-            </div>
-
-            <div class="info">
-                <div class="name">{{ somd.name }}</div>
-                <div>{{ somd.intro }}</div>
-                <!-- <div>{{ somd.admin.username }}</div> -->
-            </div>
-        </section>
+        
 
         <!-- <div class="titlebtn">
             <a class="button">글 쓰기</a>
