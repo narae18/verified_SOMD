@@ -209,6 +209,19 @@ def wantTojoin(request, id):
     somd.waitTojoin_members.add(request.user)
     somd.join_requests.add(new_join_request)
 
+    #유저에게 알람 전달
+    receiveUser, created = UserAlram.objects.get_or_create(user=somd.admin)
+    
+    alram = Alram()
+    alram.type ="userJoin"
+    alram.sendUser = (request.user)
+    alram.somd = (somd)
+    alram.date = timezone.now()
+
+    alram.save()
+
+    receiveUser.alrams.add(alram)
+
     return redirect("main:mainfeed", somd.id)
 
 
@@ -278,6 +291,19 @@ def members_delete(request, somd_id, join_user_id):
     member.somds.remove(somd)
     somd.join_members.remove(join_user)
     member.rejected_somds.add(somd)
+
+    #유저에게 알람 전달
+    receiveUser, created = UserAlram.objects.get_or_create(user=join_user)
+    
+    alram = Alram()
+    alram.type ="userDelete"
+    alram.sendUser = (request.user)
+    alram.somd = (somd)
+    alram.date = timezone.now()
+
+    alram.save()
+
+    receiveUser.alrams.add(alram)
 
     return redirect("main:members", somd.id)
 
@@ -417,3 +443,25 @@ def post_delete(request, post_id):
     if request.user == post.writer:
         post.delete()
     return redirect('main:mainfeed', post.somd.id)
+
+def comment_update(request, post_id, comment_id):
+    post = get_object_or_404(Post, id=post_id)
+    update_comment = get_object_or_404(Comment, id=comment_id)
+    user = request.user
+    if request.method == 'POST':
+        if update_comment.writer == user:
+            update_comment.post = post
+            update_comment.content = request.POST['content']
+            update_comment.pub_date = timezone.now()
+            update_comment.save()
+            return redirect('main:viewpost', update_comment.post.id)
+    return render(request, 'main/viewpost.html', {'post': update_comment.post})
+
+def comment_delete(request, post_id, comment_id):
+    post = get_object_or_404(Post, id=post_id)
+    delete_comment = get_object_or_404(Comment, id=comment_id)
+    if request.user == delete_comment.writer:
+        post.comment_count -= 1
+        delete_comment.delete()
+        post.save()
+    return redirect('main:viewpost', post.id)

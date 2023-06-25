@@ -30,9 +30,11 @@
   justify-content: space-between;
   align-items: center;
 }
-
-.mainTitle i {
-  padding-right: 10px;
+.mainTitle i:nth-child(1){
+  padding-right: 10px;}
+  
+.mainTitle i{
+  /* padding-right: 10px; */
   font-size: 25px;
   font-weight: 800;
 
