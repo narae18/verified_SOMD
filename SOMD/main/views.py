@@ -15,10 +15,16 @@ def mainpage(request):
         user = request.user
         members = Member.objects.filter(user=user)
         somds = SOMD.objects.filter(members__in=members)
+
+        posts = Post.objects.filter(somd__in =somds)
         if somds:
             for somd in somds:
                 somd.posts.set(somd.posts.order_by('-pub_date'))
-            return render(request, 'main/mainpage.html', {'somds': somds})
+            return render(request, 'main/mainpage.html', {
+                'somds': somds,
+                'posts' : posts
+                
+            })
     return render(request, 'main/mainpage.html')
 
     

@@ -24,64 +24,65 @@
     {% if user.id == 13 %}
         <div class="NEED_TO_LOGIN"><a class="logout" href="{% url 'accounts:logout' %}">로그인하세요</div>
     {% else %}
-        
-            {% if somds %}
-            <section class="postContainer linebyline_post">
-                <div class="list">
-                {% for somd in somds %}
-                    {% if somd.posts %}
-                    <section class="Post">
-                        {% for post in somd.posts.all %}
-                        <a class="post_box" href="{% url 'main:viewpost' post.id %}">
-                            <section class="post_header">
-                                <div class="profile">
-                                    <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
-                                    <div class="name">{{ post.writer.profile.nickname }}</div>
-                                </div>
-                            </section>
-                            <div class="about_post">
-
-                                {% if post.images.all %}
-                                    
-                                    <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
-                                    {% if post.images.all|length > 1 %}
-                                        <div class="image_more">
-                                            <i class="fa-solid fa-plus"></i>
-                                        </div>
-                                {% endif %}
-                            </div>
-                                {% else %}
-                                    <div class="nonimage"></div>
-                                {% endif %}
-                                <div class="text">
-                                    <div class="title">{{ post.title }}</div>
-                                    <div class="body">{{ post.summary }}</div>
+        {% if somds %}
+        <section class="postContainer linebyline_post">
+            <div class="list">
+                {% if posts %}
+                <section class="Post">
+                    {% for post in posts %}
+                    <div class="post_box">
+                        <section class="post_header">
+                            <div class="profile">
+                                <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                                <div class="name">
+                                    <div class="username">{{ post.writer.profile.nickname }}</div>
+                                    <div class="somdname">{{post.somd.name}}</div>
                                 </div>
                             </div>
-                            <section class="post_footer">
-                                <div class="icon">
-                                    <div class="like">
-                                        <i class="fa-solid fa-heart"></i>
-                                        <div>10</div>
-                                    </div>
-                                    <div class="comment">
-                                        <i class="fa-regular fa-message"></i>
-                                        <div>10</div>
-                                    </div>
-                                </div>
+                        </section>
+                        <a class="about_post" href="{% url 'main:viewpost' post.id %}">
 
-                                <div class="scrap">
-                                    <i class="fa-regular fa-bookmark"></i>
-                                </div>
-
-                            </section>
+                            {% if post.images.all %}
+                                
+                                <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
+                                {% if post.images.all|length > 1 %}
+                                    <div class="image_more">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                            {% endif %}
+                        </div>
+                            {% else %}
+                                <div class="nonimage"></div>
+                            {% endif %}
+                            <div class="text">
+                                <div class="title">{{ post.title }}</div>
+                                <div class="body">{{ post.summary }}</div>
+                                <div class="date">{{post.pub_date}}</div>
+                            </div>
                         </a>
-                        {% endfor %}
-                        {% else %}
-                        <section class="warning">아직 포스트가 없습니다!</section>
-                        {% endif %}
+                        <section class="post_footer">
+                            <div class="icon">
+                                <div class="like">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <div>10</div>
+                                </div>
+                                <div class="comment">
+                                    <i class="fa-regular fa-message"></i>
+                                    <div>10</div>
+                                </div>
+                            </div>
+
+                            <div class="scrap">
+                                <i class="fa-regular fa-bookmark"></i>
+                            </div>
+
+                        </section>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <section class="warning">아직 포스트가 없습니다!</section>
+                    {% endif %}
             </section>
-            {% endfor %}
             {% endif %}
             </div>
             </section>
@@ -99,5 +100,8 @@
         <a class="button" href="{% url 'accounts:signup' %}">회원가입</a>
     </section>
 {% endif %}
+
+
+<script src="{% static 'js/postContainer.js' %}"></script>
 
 {% endblock %}
