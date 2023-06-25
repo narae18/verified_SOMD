@@ -9,7 +9,9 @@
         <a href="{% url 'main:mainpage' %}"><i class="fa-solid fa-chevron-left"></i></a>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
-         <a href="{% url 'users:mypage_edit' %}" class="button"><span><i class="fa-solid fa-pen"></i> 수정</span></a>
+         <a class="header_button" href="{% url 'users:mypage_edit' %}" class="button">
+            <i class="fa-solid fa-pen"></i> 수정
+        </a>
     </section>
 </section>
 <section class="EmptyForHeader"></section>
@@ -57,7 +59,7 @@
         {% for somd in somds %}
         <div class="text">
             <div class="name">{{ somd.name }}</div>
-            <i class="fa-regular fa-star"></i>
+            <!-- <i class="fa-regular fa-star"></i> -->
         </div>
         {% endfor %}
     </div>

@@ -159,6 +159,7 @@
 
 /* ----글쓰기버튼---- */
 .writeButton{
+    z-index: 100;
     position: absolute;
     display: flex;
     justify-content: center;
