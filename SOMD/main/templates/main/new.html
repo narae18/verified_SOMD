@@ -21,7 +21,6 @@
             <a class="button">글 쓰기</a>
         </div> -->
     
-<!-- url을 main:createSOMD 말고 어디로 보내야 하는지? -->
         <form action = "{% url 'main:createpost' somd.id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mainForm">
