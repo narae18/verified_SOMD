@@ -16,14 +16,14 @@
 
 <section class="somdPage">
     <section class="mainTitle">
-        <i class="fas fa-sign-in-alt"></i>
-        가입하기
+            <i class="far fa-handshake"></i>
+            <p>가입하기</p>
     </section>
 
     <form action="{% url 'main:wantTojoin' somd.id  %}" class="wantTojoin" method="POST" enctype="multipart/form-data">
        {% csrf_token %}
         <div class="titlebtn">
-            <a class="button">회원정보</a>
+            <div class="button">가입신청서</div>
         </div>
     
         <div class="mainForm">
@@ -32,7 +32,9 @@
                 <textarea type="text" name="motivation" class="textForm" placeholder="TEXT"></textarea>
             </section>
         </div>
-        <button type="submit" class="button">제출하기</button>
+        <section class="submitButtonSection">
+            <button type="submit" class="button">제출하기</button>
+        </section>
     </section>
 
     </form>

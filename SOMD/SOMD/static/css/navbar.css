@@ -1,10 +1,10 @@
 /* ---- 헤더 ---- */
 
-.header>.mainTitle>a>.fa-chevron-left:focus{
-  color:#0ecc87;
+.header > .mainTitle > a > .fa-chevron-left:focus {
+  color: #0ecc87;
 }
-.header>.mainTitle>a>.fa-chevron-left:hover{
-  color:#0ecc87;
+.header > .mainTitle > a > .fa-chevron-left:hover {
+  color: #0ecc87;
 }
 
 .header {
@@ -37,10 +37,11 @@
   justify-content: space-between;
   align-items: center;
 }
-.mainTitle i:nth-child(1){
-  padding-right: 10px;}
-  
-.mainTitle i{
+.mainTitle i:nth-child(1) {
+  padding-right: 10px;
+}
+
+.mainTitle i {
   /* padding-right: 10px; */
   font-size: 25px;
   font-weight: 800;
@@ -69,14 +70,13 @@
   font-size: 20px;
 }
 
-.header_button_case{
+.header_button_case {
   display: flex;
   justify-content: end;
   align-items: end;
 }
 
-
-.header_button_case> .header_button:nth-child(1){
+.header_button_case > .header_button:nth-child(1) {
   margin-right: 5px;
 }
 
