@@ -130,11 +130,26 @@ def somd_update(request, id):
 
 def mainfeed(request, id):
     somd = SOMD.objects.get(id=id)
-    posts = somd.posts.filter(is_fixed=False)
-    fixed_posts = somd.posts.filter(is_fixed=True)
+
+    Posts = somd.posts.filter(is_fixed=False)
+    fixedPosts= somd.posts.filter(is_fixed=True)
+
+    if(somd.join_members.filter(id = request.user.id).exists()):
+        posts = Posts
+        fixed_posts = fixedPosts
+    else:
+        posts = Posts.filter(is_secret = False)
+        fixed_posts = fixedPosts.filter(is_secret = True)
+
+    image_fixedPosts = fixedPosts.filter(images__isnull= False)
+    image_Posts = Posts.filter(images__isnull = False)
 
     return render(request, "main/mainfeed.html", {
+        'image_fixedPosts' :image_fixedPosts,
+        'image_Posts' :image_Posts,
         'somd': somd,
+        'fixedPosts':fixedPosts,
+        'Posts':Posts,
         'posts': posts,
         'fixed_posts': fixed_posts,
     })

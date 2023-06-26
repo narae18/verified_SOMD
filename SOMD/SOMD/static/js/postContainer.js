@@ -9,6 +9,14 @@ let postContainer_control_state = "리스트";
 postContainer_control_feed.style.color = "lightgrey";
 // console.log("dd" + postContainer_control);
 
+let admin_linebyline = document.getElementsByClassName("admin_linebyline")
+let admin_album = document.getElementsByClassName("admin_album")
+let Post_image;
+let fixedPost_image;
+
+console.log(Post_image)
+console.log(fixedPost_image)
+
 postContainer_control.addEventListener('click', function(event){
     if(event.target == postContainer_control ||event.target  == postContainer_control_list || event.target == postContainer_control_feed){
         // console.log(event.target);
@@ -20,10 +28,31 @@ postContainer_control.addEventListener('click', function(event){
             postContainer_control_feed.style.color = "grey";
             postContainer_control_list.style.color = "lightgrey";
             postContainer.className = "postContainer album_post"
+
+
+            if(document.querySelector("#Post_image") !=null){
+                Post_image = document.querySelector("#Post_image");
+                Post_image.className ="album_post warning"
+                Post_image.style.display = "flex";
+            }
+            
+            if(document.querySelector("#fixedPost_image")!=null ){
+                fixedPost_image = document.querySelector("#fixedPost_image");
+                fixedPost_image.className ="album_post warning"
+                fixedPost_image.style.display= "flex";
+            }
+
             // postContainer_control_icon.className = "fa-solid fa-list";
 
             for(image of nonImages){
                 image.parentNode.parentNode.style.display = "none";
+            }
+
+            for(admin of admin_album){
+                admin.style.display = "block";
+            }
+            for(admin of admin_linebyline){
+                admin.style.display = "none";
             }
         }
         else if (postContainer_control_state == "피드"){
@@ -34,9 +63,31 @@ postContainer_control.addEventListener('click', function(event){
             
             // postContainer_control_icon.className = "fa-solid fa-image";
 
+
+            if(document.querySelector("#Post_image") !=null){
+                Post_image = document.querySelector("#Post_image");
+                Post_image.className ="linebyline_post warning"
+                Post_image.style.display ="none";
+            }
+            
+            if(document.querySelector("#fixedPost_image")!=null ){
+                fixedPost_image = document.querySelector("#fixedPost_image");
+                fixedPost_image.className ="linebyline_post warning"
+                fixedPost_image.style.display="none";
+            }
+
+
             for(image of nonImages){
                 image.parentNode.parentNode.style.display = "block";
             }
+            for(admin of admin_album){
+                admin.style.display = "none";
+            }
+
+            for(admin of admin_linebyline){
+                admin.style.display = "block";
+            }
+            
         }
         
         // console.log(postContainer_control_state);
