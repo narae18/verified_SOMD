@@ -6,6 +6,7 @@ from accounts.models import Profile
 from uuid import uuid4
 from datetime import datetime
 
+
 # Create your models here.
 def get_file_path(instance, filename):
     ymd_path = datetime.now().strftime('%Y/%m/%d')
@@ -106,6 +107,7 @@ class Post(models.Model):
         else:
             return self.content
         
+
     class Meta:
         ordering = ['-pub_date']
 
