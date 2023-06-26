@@ -159,11 +159,13 @@ def somd_update(request, id):
 def mainfeed(request, id):
     somd = SOMD.objects.get(id=id)
     user = request.user
+    # 소모임 가입 여부 확인
     is_member = somd.join_members.filter(id=user.id).exists()
-
+    # posts : 가입자 - 고정글 제외 / 미가입자 - 고정글, 비밀글 제외
     posts = somd.posts.filter(is_fixed=False) if is_member else somd.posts.filter(is_fixed=False, is_secret=False)
+    # fixed_posts : 가입자, 미가입자 모두 고정글에 접근 가능
     fixed_posts = somd.posts.filter(is_fixed=True)
-
+    # 이하 동일
     image_fixed_posts = fixed_posts.filter(images__isnull=False)
     image_posts = posts.filter(images__isnull=False)
 
@@ -621,20 +623,22 @@ def comment_delete(request, post_id, comment_id):
 
 def page_list(request, posts_list, num_per_page):
     paginator = Paginator(posts_list, num_per_page)
-    page_num = request.GET.get('page')  # 현재 페이지 번호를 가져옴
+    page_num = request.GET.get('page')  # 현재 페이지 번호
     try:
         page_obj = paginator.page(page_num)
-    except PageNotAnInteger:
-        page_num = 1
+    except PageNotAnInteger:            # url로 intger 값 아닌 값이 넘어올 때
+        page_num = 1                    # 페이지를 1로 설정
         page_obj = paginator.page(page_num)
-    except EmptyPage:
-        page_num = paginator.num_pages
+    except EmptyPage:                   # 해당 페이지에 개체가 없을 때
+        page_num = paginator.num_pages  # 페이지를 마지막 페이지로 설정
         page_obj = paginator.page(page_num)
-    left_index = int(page_num) - 2
-    if left_index < 1:
+
+    left_index = int(page_num) - 2      # 현재 페이지 기준으로 왼쪽에 보여줄 페이지 개수
+    if left_index < 1:                  # 왼쪽에 보여줄 페이지 개수가 1보다 작으면 1로 설정
         left_index = 1
-    right_index = int(page_num) + 2
-    if right_index > paginator.num_pages:
-        right_index = paginator.num_pages
-    custom_range = range(left_index, right_index+1)
+
+    right_index = int(page_num) + 2     # 현재 페이지 기준으로 오른쪽에 보여줄 페이지 개수
+    if right_index > paginator.num_pages:   # 오른쪽에 보여줄 페이지 개수가 전체 페이지 개수보다 크면전체 페이지 개수로 설정
+        right_index = paginator.num_pages   
+    custom_range = range(left_index, right_index+1) # 페이지 범위 설정
     return page_obj, custom_range
