@@ -11,16 +11,20 @@
 .somdStart>.SomDLogo{
     width: 170px;
     height: 170px;
-    margin: 10px;
+    margin: 5px;
 }
 
 .somdStart>.title{
     color: #0ECC87;
-    font-size: 40px
+    font-size: 40px;
+    font-weight: 900;
+
 }
 
 .somdStart>.title.sub{
     font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 15px;
 }
 
 .buttons {
