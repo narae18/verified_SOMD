@@ -42,9 +42,19 @@
 /* ----뷰포스트,헤더---- */
 .viewpost_header .title {
   font-size: 30px;
-  margin: 10px 0px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.viewpost_header>i {
+  width: 100%;
+  /* text-align: right; */
+  /* font-size: 20px; */
+  color: lightgrey;
+  /* padding: 0px 10px; */
+  /* padding-left: 10px;
+  padding-top: 3px; */
 }
 
 .viewpost_header .content{

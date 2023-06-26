@@ -26,11 +26,12 @@
             {% csrf_token %}
             <div class="mainForm">
                 <section class="joinForm">
+                    <input type="text" id="is_secret" name="is_secret" value="0" style="display: none;">
                     <input type="text" name="title" class="titleForm" placeholder="TITLE">
                     <textarea type="text" name="content" class="textForm" placeholder="TEXT"></textarea>
                     <section class="textFormInnerBtn">
                         <button type="button" onclick="chooseImage()"><i class="far fa-image"></i></button><br>
-                        <i class="fas fa-unlock-alt"></i>
+                        <i id ="id_secret" class="fas fa-unlock-alt" onclick="isitSecret(event)"></i>
                     </section>
                 </section>
             </div>
@@ -102,6 +103,35 @@
         } else {
             preview.src = "";
         }
+    }
+
+    let id_secret = document.querySelector("#id_secret");
+    let is_secret =document.querySelector("#is_secret");
+
+    if(is_secret.value == "1"){
+        id_secret.className = "fas fa-solid fa-lock";
+    }
+    else{
+        id_secret.className = "fas fa-solid fa-unlock";
+    }
+    
+    // console.log(is_secret.value)
+    function isitSecret(event){
+        if(is_secret.value == "1"){
+            // console.log(is_secret.value)
+            // console.log("-")
+            id_secret.className = "fas fa-solid fa-unlock";
+            is_secret.value = "0"
+            // console.log(is_secret.value)
+        }
+        else{
+            // console.log(is_secret.value)
+            // console.log("-")
+            id_secret.className = "fas fa-solid fa-lock";
+            is_secret.value = "1";
+            // console.log(is_secret.value)
+        }
+        // console.log(is_secret.value)
     }
 </script>
 

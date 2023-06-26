@@ -5,6 +5,13 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/new.css' %}">
 
+<section class="header">
+    <section class="mainTitle">
+        <a href="{% url 'main:mainfeed' post.somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <!-- <i class="fa-solid fa-house"></i> -->
+        <div>{{ somd.name }}</div>
+    </section>
+</section>
 
 <section class="somdPage">
     <section class="mainfeed">
@@ -12,11 +19,12 @@
             {% csrf_token %}
             <div class="mainForm">
                 <section class="joinForm">
+                    <input type="text" id="is_secret" name="is_secret" value="0" style="display: none;">
                     <input type="text" name="title" class="titleForm" value="{{ post.title }}">
                     <textarea type="text" name="content" class="textForm">{{post.content}}</textarea>
                     <section class="textFormInnerBtn">
                         <button type="button" onclick="chooseImage()"><i class="far fa-image"></i></button><br>
-                        <i class="fas fa-unlock-alt"></i>
+                        <i id ="id_secret" class="fas fa-unlock-alt" onclick="isitSecret(event)"></i>
                     </section>
                 </section>
             </div>
@@ -61,6 +69,41 @@
         } else {
             preview.src = "";
         }
+    }
+
+
+    let id_secret = document.querySelector("#id_secret");
+    let is_secret =document.querySelector("#is_secret");
+
+
+    console.log('{{ post.is_secret }}')
+    
+    if('{{ post.is_secret }}' == "True"){
+        id_secret.className = "fas fa-solid fa-lock";
+        is_secret.value = "1"
+    }  
+    else{
+        id_secret.className = "fas fa-solid fa-unlock";
+        is_secret.value = "0"
+    }
+    
+    // console.log(is_secret.value)
+    function isitSecret(event){
+        if(is_secret.value == "1"){
+            // console.log(is_secret.value)
+            // console.log("-")
+            id_secret.className = "fas fa-solid fa-unlock";
+            is_secret.value = "0"
+            // console.log(is_secret.value)
+        }
+        else{
+            // console.log(is_secret.value)
+            // console.log("-")
+            id_secret.className = "fas fa-solid fa-lock";
+            is_secret.value = "1";
+            // console.log(is_secret.value)
+        }
+        // console.log(is_secret.value)
     }
 </script>
 

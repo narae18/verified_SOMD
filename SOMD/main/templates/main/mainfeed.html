@@ -100,84 +100,189 @@
         
         <section class="postContainer linebyline_post">
             {% if fixed_posts %} <!--고정한 포스트가 있을 경우-->
-            <div class="postContainer_title">notice</div>
-            <div class="list">
-                {% for post in fixed_posts %}
-                <div class="post_box">
-                    <section class="post_header">
-                        <div class="profile">
-                            <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
-                            <div class="name">{{ post.writer.profile.nickname }}</div>
-                        </div>
-                        <div class="icon">
-                            {% if somd.admin.id == user.id %}
-                            <i class="fa-solid fa-thumbtack" style="color: #0ECC87;" onClick="location.href='{% url 'main:fix' post.id somd.id %}'"></i>
-                            {% else %}
-                            <i class="fa-solid fa-thumbtack" style="color: #0ECC87;"></i>
-                            {% endif %}
-                            <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
-                        </div>
-                    </section>
+                <div class="postContainer_title">notice</div>
+                <div class="list">
+                    {% for post in fixed_posts %}
+                    {%if post.is_secret and user in somd.join_members.all %}
+                    <div class="post_box">
+                        <section class="post_header">
+                            <div class="profile">
+                                <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                                <div class="name">{{ post.writer.profile.nickname }}</div>
+                            </div>
+                            <div class="icon">
+                                {% if somd.admin.id == user.id %}
+                                <i class="fa-solid fa-thumbtack" style="color: #0ECC87;" onClick="location.href='{% url 'main:fix' post.id somd.id %}'"></i>
+                                {% else %}
+                                <i class="fa-solid fa-thumbtack" style="color: #0ECC87;"></i>
+                                {% endif %}
+                                <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
+                            </div>
+                        </section>
 
-                    <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
+                        <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
 
-                        {% if post.images.all %}
-                            <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
-                            {% if post.images.all|length > 1 %}
-                                <div class="image_more">
-                                    <i class="fa-solid fa-plus"></i>
+                            {% if post.images.all %}
+                                <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
+                                {% if post.images.all|length > 1 %}
+                                    <div class="image_more">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                {% endif %}
                                 </div>
+                            {% else %}
+                                <div class="nonimage"></div>
                             {% endif %}
+                            <div class="text">
+                                <div class="title">{{ post.title }}</div>
+                                <div class="body">{{ post.summary }}</div>
                             </div>
-                        {% else %}
-                            <div class="nonimage"></div>
-                        {% endif %}
-                        <div class="text">
-                            <div class="title">{{ post.title }}</div>
-                            <div class="body">{{ post.summary }}</div>
-                        </div>
-                    </a>
-                    <section class="post_footer">
-                        <div class="icon">
-                            <div class="like">
-                                <i class="fa-solid fa-heart"></i>
-                                <div>{{post.like_count}}</div>
+                        </a>
+                        <section class="post_footer">
+                            <div class="icon">
+                                <div class="like">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <div>{{post.like_count}}</div>
+                                </div>
+                                <div class="comment">
+                                    <i class="fa-regular fa-message"></i>
+                                    <div>{{ post.comment_count }}</div>
+                                </div>
                             </div>
-                            <div class="comment">
-                                <i class="fa-regular fa-message"></i>
-                                <div>{{ post.comment_count }}</div>
-                            </div>
-                        </div>
 
 
-                    </section>
+                        </section>
+                    </div>
+                    {%endif%}
+                    {%if not post.is_secret %}
+                    <div class="post_box">
+                        <section class="post_header">
+                            <div class="profile">
+                                <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                                <div class="name">{{ post.writer.profile.nickname }}</div>
+                            </div>
+                            <div class="icon">
+                                {% if somd.admin.id == user.id %}
+                                <i class="fa-solid fa-thumbtack" style="color: #0ECC87;" onClick="location.href='{% url 'main:fix' post.id somd.id %}'"></i>
+                                {% else %}
+                                <i class="fa-solid fa-thumbtack" style="color: #0ECC87;"></i>
+                                {% endif %}
+                                <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
+                            </div>
+                        </section>
+
+                        <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
+
+                            {% if post.images.all %}
+                                <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
+                                {% if post.images.all|length > 1 %}
+                                    <div class="image_more">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                {% endif %}
+                                </div>
+                            {% else %}
+                                <div class="nonimage"></div>
+                            {% endif %}
+                            <div class="text">
+                                <div class="title">{{ post.title }}</div>
+                                <div class="body">{{ post.summary }}</div>
+                            </div>
+                        </a>
+                        <section class="post_footer">
+                            <div class="icon">
+                                <div class="like">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <div>{{post.like_count}}</div>
+                                </div>
+                                <div class="comment">
+                                    <i class="fa-regular fa-message"></i>
+                                    <div>{{ post.comment_count }}</div>
+                                </div>
+                            </div>
+
+
+                        </section>
+                    </div>
+                    {%endif%}
+                    {% endfor %}
+                    
                 </div>
-                {% endfor %}
-            </div>
             {% endif %}  <!--고정한 포스트가 있을 경우-->
 
             {% if posts %} <!--고정 안한 포스트가 없을 경우-->
-            <div class="postContainer_title">post</div>
+                <div class="postContainer_title">post</div>
             <div class="list">
                 {% for post in posts %}
-                <div class="post_box">
-                    <section class="post_header">
-                        <div class="profile">
-                            <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
-                            <div class="name">{{ post.writer.profile.nickname }}</div>
-                        </div>
-                        <div class="icon">
-                            {% if somd.admin.id == user.id %}
-                            <i class="fa-solid fa-thumbtack" onClick="location.href='{% url 'main:fix' post.id somd.id %}'"></i>
+                    {%if post.is_secret and user in somd.join_members.all %}
+                    <div class="post_box">
+                        <section class="post_header">
+                            <div class="profile">
+                                <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                                <div class="name">{{ post.writer.profile.nickname }}</div>
+                            </div>
+                            <div class="icon">
+                                {% if somd.admin.id == user.id %}
+                                <i class="fa-solid fa-thumbtack" onClick="location.href='{% url 'main:fix' post.id somd.id %}'"></i>
+                                {% endif %}
+                                <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
+                            </div>
+                        </section>
+
+                        <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
+
+                            {% if post.images.all %}
+                                
+                                <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
+                                {% if post.images.all|length > 1 %}
+                                    <div class="image_more">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </div>
+                                {% endif %}
+                                </div>
+                            {% else %}
+                                <div class="nonimage"></div>
                             {% endif %}
-                            <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
-                        </div>
-                    </section>
+                            <div class="text">
+                                <div class="title">{{ post.title }}</div>
+                                <div class="body">{{ post.summary }}</div>
+                            </div>
+                        </a>
+                        <section class="post_footer">
+                            <div class="icon">
+                                <div class="like">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <div>{{post.like_count}}</div>
+                                </div>
+                                <div class="comment">
+                                    <i class="fa-regular fa-message"></i>
+                                    <div>{{ post.comment_count }}</div>
+                                </div>
+                            </div>
 
-                    <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
 
-                        {% if post.images.all %}
-                            
+                        </section>
+                    </div>
+                    {%endif%}
+                    {%if not post.is_secret %}
+                    <div class="post_box">
+                        <section class="post_header">
+                            <div class="profile">
+                                <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
+                                <div class="name">{{ post.writer.profile.nickname }}</div>
+                            </div>
+                            <div class="icon">
+                                {% if somd.admin.id == user.id %}
+                                <i class="fa-solid fa-thumbtack" onClick="location.href='{% url 'main:fix' post.id somd.id %}'"></i>
+                                {% endif %}
+                                <!-- <i class="fa-solid fa-ellipsis-vertical"></i> -->
+                            </div>
+                        </section>
+
+                        <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
+
+                            {% if post.images.all %}
+                                
                             <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
                             {% if post.images.all|length > 1 %}
                                 <div class="image_more">
@@ -185,32 +290,39 @@
                                 </div>
                             {% endif %}
                             </div>
-                        {% else %}
-                            <div class="nonimage"></div>
-                        {% endif %}
-                        <div class="text">
-                            <div class="title">{{ post.title }}</div>
-                            <div class="body">{{ post.summary }}</div>
-                        </div>
-                    </a>
-                    <section class="post_footer">
-                        <div class="icon">
-                            <div class="like">
-                                <i class="fa-solid fa-heart"></i>
-                                <div>{{post.like_count}}</div>
+                            {% else %}
+                                <div class="nonimage"></div>
+                            {% endif %}
+                            <div class="text">
+                                <div class="title">{{ post.title }}</div>
+                                <div class="body">{{ post.summary }}</div>
                             </div>
-                            <div class="comment">
-                                <i class="fa-regular fa-message"></i>
-                                <div>{{ post.comment_count }}</div>
+                        </a>
+
+                        <section class="post_footer">
+                            <div class="icon">
+                                <div class="like">
+                                    <i class="fa-solid fa-heart"></i>
+                                    <div>{{post.like_count}}</div>
+                                </div>
+                                <div class="comment">
+                                    <i class="fa-regular fa-message"></i>
+                                    <div>{{ post.comment_count }}</div>
+                                </div>
                             </div>
-                        </div>
 
 
-                    </section>
-                </div>
+                        </section>
+                        </div>
+                    {%endif%}
                 {% endfor %}
-                {% else %}
+
+            {% else %}
+                {%if not user in somd.join_members.all %}
+                <section class="warning">소모임에 가입하시면 게시글을 볼 수 있습니다.</section>
+                {%else%}
                 <section class="warning">아직 포스트가 없습니다!</section>
+                {%endif%}
             </div>
             {% endif %}
            
