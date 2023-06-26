@@ -1,0 +1,26 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/start.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/mainpage.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="SDcontainer">
+        <section class="somdStart">
+            <div class="SomDLogo image"></div>
+            <div class="title">SOM D</div>
+            <div class="sub title">동국대 소모임 네트워킹 서비스</div>
+            <div class="buttons">
+                <a class="button" href="{% url 'accounts:login' %}">로그인</a>
+                <a class="start button" href="{% url 'main:mainpage' %}">게스트로 구경하기</a>
+                <a class="button" href="{% url 'accounts:signup' %}">회원가입</a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

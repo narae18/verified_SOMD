@@ -11,6 +11,8 @@ from django.core.files.base import ContentFile
 
 # Create your views here.
 
+def start(request):
+    return render(request,'main/start.html')
 
 def mainpage(request):
     if request.user.is_authenticated:
