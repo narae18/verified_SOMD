@@ -374,24 +374,29 @@ def members_delete(request, somd_id, join_user_id):
     join_user = User.objects.get(id=join_user_id)
     member = Member.objects.get(user = join_user)
 
-    member.somds.remove(somd)
-    somd.join_members.remove(join_user)
-    member.rejected_somds.add(somd)
+    if request.user == somd.admin:
+        if request.user != join_user:
+            somd.join_members.remove(join_user)
+            member.somds.remove(somd)
+            member.rejected_somds.add(somd)
+        
 
-    #유저에게 알람 전달
-    receiveUser, created = UserAlram.objects.get_or_create(user=join_user)
-    
-    alram = Alram()
-    alram.type ="userDelete"
-    alram.sendUser = (request.user)
-    alram.somd = (somd)
-    alram.date = timezone.now()
+            #유저에게 알람 전달
+            receiveUser, created = UserAlram.objects.get_or_create(user=join_user)
+                
+            alram = Alram()
+            alram.type ="userDelete"
+            alram.sendUser = (request.user)
+            alram.somd = (somd)
+            alram.date = timezone.now()
 
-    alram.save()
+            alram.save()
 
-    receiveUser.alrams.add(alram)
+            receiveUser.alrams.add(alram)
 
-    return redirect("main:members", somd.id)
+            return redirect("main:members", somd.id)
+        else:
+            return redirect("main:members", somd.id)
 
 
 def viewpost(request, post_id):
