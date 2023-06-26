@@ -29,7 +29,7 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect("main:mainpage")   
+    return redirect("main:start")   
 
 def signup(request):
     if request.method == "POST":

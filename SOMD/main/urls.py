@@ -3,7 +3,8 @@ from .views import *
 
 app_name = "main"
 urlpatterns = [
-    path('',mainpage, name="mainpage"),
+    path('',start,name="start"),
+    path('mainpage',mainpage, name="mainpage"),
     path('board/',board,name="board"),
     path('register/',register,name="register"),
     path('somd_edit/<int:id>', somd_edit, name="somd_edit"),
