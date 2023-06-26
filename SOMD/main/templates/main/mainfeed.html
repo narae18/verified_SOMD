@@ -95,6 +95,9 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text">
             </form> -->
+            <div id="container_notice">
+
+            </div>
             <div class="view postContainer_control">
                 <i class="fa-solid fa-image"></i>
                 <i class="fa-solid fa-list"></i>
@@ -160,7 +163,7 @@
                     {%endfor%}
                     {%if fixedPosts.all|length != 0 and image_fixedPosts.all|length == 0 %}
                     <div id="fixedPost_image" class="linebyline_post warning" style="display: none;">
-                        피드형에서는 사진이 첨부된 게시글만 볼 수 있습니다!
+                        더 많은 글을 보고싶다면, 리스트형으로 전환해주세요!
                     </div>
                     {% endif %}
                     
@@ -222,7 +225,7 @@
                 {% endfor %}
                 {%if Posts.all|length > 0 and image_Posts.all|length == 0%}
                     <div id="Post_image" class="linebyline_post warning" style="display: none;">
-                        피드형에서는 사진이 첨부된 게시글만 볼 수 있습니다!
+                        더 많은 글을 보고싶다면, 리스트형으로 전환해주세요!
                     </div>
                 {% endif %}
 
