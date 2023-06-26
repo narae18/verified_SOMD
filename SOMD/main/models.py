@@ -80,7 +80,7 @@ class Member(models.Model):
 class Post(models.Model):
     somd = models.ForeignKey(SOMD, null=False, blank=False, on_delete=models.CASCADE,related_name='posts')
 
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200,null=False,blank=False)
     writer = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     pub_date = models.DateTimeField()
     content = models.TextField()
