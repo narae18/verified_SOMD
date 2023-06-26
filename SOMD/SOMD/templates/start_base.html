@@ -3,6 +3,13 @@
 <html lang="ko">
     
 <head>  
+    <script>
+        history.pushState(null, null, location.href); 
+        window.onpopstate = function(event) { 
+            history.go(1); 
+        };
+    </script>
+
     <link rel="shortcut icon" href="#">
     
     <meta charset="utf-8">
@@ -17,7 +24,6 @@
     <script src="https://kit.fontawesome.com/081be4ecb0.js" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}" />
     <title>SOMD</title>
 </head>
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
@@ -27,14 +33,12 @@
 
         {% endblock %}
     </div>
-    {% include 'shared/_navbar.html' %}
-    
+
 </body>
 <script>
 window.history.forward(); 
 function noBack(){
 	window.history.forward();
-    // console.log(document.referrer)
 }
 </script>
 </html>

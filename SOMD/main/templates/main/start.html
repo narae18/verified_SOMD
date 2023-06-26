@@ -1,17 +1,10 @@
+{% extends 'start_base.html' %}
 {% load static %}
+{% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/start.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/mainpage.css' %}">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="SDcontainer">
-        <section class="somdStart">
+
+<section class="somdStart">
             <div class="SomDLogo image"></div>
             <div class="title">SOM D</div>
             <div class="sub title">동국대 소모임 네트워킹 서비스</div>
@@ -21,6 +14,4 @@
                 <a class="button" href="{% url 'accounts:signup' %}">회원가입</a>
             </div>
         </section>
-    </div>
-</body>
-</html>
+{% endblock %}

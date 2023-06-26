@@ -27,6 +27,42 @@ if (document.querySelector(".sidebar_container")) {
     BlurForSidebar.style.display = "none";
   });
 
+  var nowlink;
+
+  if(document.querySelector(".mainTitle").querySelector("div") != null){
+    nowlink = document.querySelector(".mainTitle").querySelector("div").innerText;
+  }
+  else{
+    nowlink = "없음"
+  }
+
+
+  if (nowlink == "메인페이지") {
+    // console.log(document.querySelector(".mainpageIcon"));
+    document.querySelector(".mainpageIcon").style.color = "#282828";
+  } else if (nowlink == "솜디게시판") {
+    document.querySelector(".boardIcon").style.color = "#282828";
+  } else if (nowlink == "나의솜디") {
+    document.querySelector(".mysomdIcon").style.color = "#282828";
+  } else {
+    document.querySelector(".navbar").style.display = "none";
+  }
+
+  var historyBack = document.querySelector(".historyBack");
+  if (historyBack != null) {
+    historyBack.addEventListener("click", function (event) {
+      if (
+        event.target == historyBack ||
+        event.target.parentNode == historyBack
+      ) {
+        window.history.go(-1);
+      }
+    });
+  }
+}
+
+
+
   // ----헤더 스크롤 관리
   let header = document.querySelector(".header");
   let EmptyForHeader = document.querySelector(".EmptyForHeader");
@@ -90,31 +126,3 @@ if (document.querySelector(".sidebar_container")) {
     preScroll = nowScroll;
   });
   //
-
-  var nowlink = document
-    .querySelector(".mainTitle")
-    .querySelector("div").innerText;
-
-  if (nowlink == "메인페이지") {
-    // console.log(document.querySelector(".mainpageIcon"));
-    document.querySelector(".mainpageIcon").style.color = "#282828";
-  } else if (nowlink == "솜디게시판") {
-    document.querySelector(".boardIcon").style.color = "#282828";
-  } else if (nowlink == "나의솜디") {
-    document.querySelector(".mysomdIcon").style.color = "#282828";
-  } else {
-    document.querySelector(".navbar").style.display = "none";
-  }
-
-  var historyBack = document.querySelector(".historyBack");
-  if (historyBack != null) {
-    historyBack.addEventListener("click", function (event) {
-      if (
-        event.target == historyBack ||
-        event.target.parentNode == historyBack
-      ) {
-        window.history.go(-1);
-      }
-    });
-  }
-}

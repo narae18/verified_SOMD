@@ -34,6 +34,19 @@
 
 
 }
+.button:nth-child(1):hover{
+    color:white
+}
+.button:nth-child(1):focus{
+    color:white
+}
+
+.button:nth-child(3):hover{
+    color:grey
+}
+.button:nth-child(3):focus{
+    color:grey
+}
 
 /* .button{
     width: 185px;
@@ -79,10 +92,10 @@
     color:grey;
 }
 
-.button:nth-child(3):hover,
+/* .button:nth-child(3):hover,
 .button:nth-child(3):active {
     color:#0ECC87;
-}
+} */
 
 /* .start{
     width: 150px;

@@ -29,7 +29,10 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect("main:start")   
+    return redirect("main:start") 
+  
+def needTologin(request):
+    return render(request,'accounts/needTologin.html')
 
 def signup(request):
     if request.method == "POST":
