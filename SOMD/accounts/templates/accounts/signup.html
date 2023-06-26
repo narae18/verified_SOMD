@@ -5,19 +5,16 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
 
+<section class="somdPage">
+
 
 <div class="upperMain">
-    <!-- <div>
-        <div class="SomDLogo image" alt="로고이미지"></div>
-    </div> -->
     <div class="upperMainText" onClick="window.location.href = '/'">
-        <h1>
-            SOM D
-        </h1>
-        <span>
-            동국대 소모임 네트워킹 서비스
-        </span>
+        <div style="display: flex; align-items: center;" >
+            <div class="SomDLogo image" style="width: 50px; height: 50px; margin-right: 10px;"></div> <h1>SOM D</h1>
+        </div>
     </div>
+    <h2>동국대 소모임 네트워킹 서비스</h2>
 </div>
 
 {% if messages %}
@@ -31,37 +28,38 @@
 <form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return false;">
     {% csrf_token %}
     <section class="titleSection">
-        <h3 class="title">개인정보 입력</h3>
+        <h3 class="title">회원가입을 위해 개인정보 입력해주세요!</h3>
     </section>
     <section class="mainbody">
         <div class="mainCol">
             <div class="inputBlank">
-                <p>이름</p>
-                <input type="text" name="name" placeholder="홍길동" required>
+                <div class="label">이름</div>
+                <input class="input_text" type="text" name="name"  required>
             </div>
             <div class="inputBlank">
-                <p>닉네임</p>
-                <input type="text" name="nickname" placeholder="홍길동" required>
+                <div class="label">닉네임</div>
+                <input class="input_text" type="text" name="nickname" required>
             </div>
             <div class="inputBlank">
-                <p>성별</p>
+                <div class="label">성별</div>
                 <!-- <input type="text" name="gender" placeholder="남/여" required> -->
 
-                <div class="select selectOption">
-                    <select id="gender" name="gender" class="selectOption">
-                        <option value="" selected disabled>성별</option>
-                        <option value="male">남</option>
-                        <option value="female">여</option>
-                    </select>
-                </div>
+                <select id="gender" name="gender" class="selectOption">
+                    <option value="" selected disabled>성별</option>
+                    <option value="MALE">남</option>
+                    <option value="FEMALE">여</option>
+                    <option value="NONE">입력하지 않음</option>
+                </select>
+            </div>
+            
+            <div class="inputBlank">
+                <div class="label">생년월일</div>
+                <input class="input_text" type="text" id="birth" name="birth" placeholder="YYYYMMDD" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required maxlength="8">
             </div>
             <div class="inputBlank">
-                <p>생년월일</p>
-                <input type="text" id="birth" name="birth" placeholder="YYYYMMDD" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required maxlength="8">
-            </div>
-            <div class="inputBlank">
-                <p>단과대</p>
-                <div class="select selectOption">
+                <div class="label">소속학과</div>
+    
+                <div class="select_box">
                     <select id="college" name="college" class="selectOption" onchange="selectDepartments()">
                         <option value="" selected disabled>단과대</option>
                         <option value="불교대학">불교대학</option>
@@ -79,46 +77,50 @@
                         <option value="약학대학">약학대학</option>
                         <option value="미래융합대학">미래융합대학</option>
                     </select>
+                    <select id="department" name="department" class="selectOption"></select>
                 </div>
             </div>
-            <div class="inputBlank">
-                <p>학과</p>
-                <div class="select selectOption">
-                    <select id="department" name="department" class="selectOption">
-                        <option value="" selected disabled>학과</option>
-                    </select>
+
+
+            <section class="inputAndAlert">
+                <div class="inputBlank">
+                    <div class="label">ID</div>
+                    <input class="input_text" type="text" id="username" name="username" required>
                 </div>
-            </div>
+                <span class="errorMsg" id="idError"></span>
+            </section>
+            
+
+            <section class="inputAndAlert">
+                <div class="inputBlank">
+                    <div class="label">PW</div>
+                    <input class="input_text" type="password" id="password" name="password" required>
+                    
+                </div>
+                <span class="errorMsg" id="pwError"></span>
+            </section>
+
+
+
+            <section class="inputAndAlert">
+                <div class="inputBlank">
+                    <div class="label">PW CONFIRM</div>
+                    <input class="input_text" type="password" id="confirm" name="confirm" required>
+                </div>
+                <span class="errorMsg" id="pwConfirmError"></span>
+            </section>
+
             <div class="inputBlank">
-                <p>ID</p>
-                <section class="inputAndAlert">
-                    <input type="text" id="username" name="username" required>
-                    <span class="errorMsg" id="idError"></span>
-                </section>
-            </div>
-            <div class="inputBlank">
-                <p>PW</p>
-                <section class="inputAndAlert">
-                    <input type="password" id="password" name="password" required>
-                    <span class="errorMsg" id="pwError"></span>
-                </section>
-            </div>
-            <div class="inputBlank">
-                <p>PW CONFIRM</p>
-                <section class="inputAndAlert">
-                    <input type="password" id="confirm" name="confirm" required>
-                    <span class="errorMsg" id="pwConfirmError"></span>
-                </section>
-            </div>
-            <div class="inputBlank">
-                <p>Email</p>
-                <input type="text" name="email" required>
+                <div class="label">Email</div>
+                <input class="input_text" type="text" name="email" required>
             </div>
         </div>
     </section>
     <input class="signupBtn" type="button" value="회원가입" style="color:white" onclick="validateForm() ">
     <!-- <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button> -->
 </form>
+
+</section>
 
 <script>
     // 각 단과대에 해당하는 학과 목록
@@ -228,7 +230,7 @@ function validateForm() {
     if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
         // alert('비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상이어야 합니다.');
         // return false;
-        document.getElementById("pwError").innerText = "비밀번호 양식을 입력하세요.";
+        document.getElementById("pwError").innerText = "영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상";
         return false;
     } else {
         isValidPassword = true;
