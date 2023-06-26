@@ -33,7 +33,7 @@
     align-items: center;
 
     flex-shrink: 0;
-    font-size: 20px;
+    font-size: 15px;
     color:lightgrey;
 }
 
@@ -66,7 +66,7 @@
   justify-content: center;
   align-items: center;
   padding-left: 10px;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .viewpost_header .info {
@@ -106,18 +106,37 @@
   width: 100%;
 }
 
+.viewpost_body{
+  border-bottom: solid 1px lightgrey;
+}
+
+.viewpost_header .icon{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 0px 10px;
+  margin-bottom: 10px;
+}
+
+.viewpost_header .icon>i{
+  width: 20px;
+  display: flex;
+  justify-content: end;
+  font-size: 20px;
+
+  color: lightgrey;
+}
+
 .viewpost_footer {
-  /* margin: 0px 5px; */
+  margin: 0px 10px;
   padding-top: 10px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
-
-  border-top: solid 1px lightgrey;
 }
 .viewpost_footer > .icon {
   display: flex;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 
@@ -131,14 +150,13 @@
 .viewpost_footer>.icon i {
   margin: 3px;
   color: grey;
-  font-size: 25px;
   margin-right: 10px;
 }
 
 
 .viewpost_footer>.icon>.comment i {
 
-  font-size: 23px;
+  font-size: 18px;
 }
 
 /* ---댓글모음---- */
@@ -326,4 +344,41 @@ textarea {
 
 textarea:focus {
   outline: 0;
+}
+
+.post_view_menu{
+  position: absolute;
+
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+
+  top: 25px;
+  right:7px;
+
+  width: 160px;
+
+  padding: 10px;
+  background-color: white;
+  border: solid 1.8px #0ecc87;
+  box-shadow: 0 0px 2px 1px rgba(169, 169, 169, 0.299);
+  border-radius: 10px;
+  border-top-right-radius: 0px;
+
+}
+
+.post_view_menu>a{
+  display: flex;
+  align-items: center;
+  color: grey;
+  margin: 10px 10px;
+  font-weight: 500;
+}
+
+.post_view_menu>a>i{
+  font-size: 16px;
+  margin-right: 5px;
+}
+.post_view_menu>a:nth-child(2){
+  color: rgb(234, 66, 66);
 }

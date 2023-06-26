@@ -10,10 +10,6 @@
         <a href="{% url 'main:mainfeed' post.somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
-        <div class="header_button_case">
-            <a class="header_button" href="{% url 'main:post_edit' post.id %}" class="button"><i class="fa-solid fa-pen"></i> 글수정</a>
-            <a class="header_button" href="{% url 'main:post_delete' post.id %}" class="button"><i class="fa-solid fa-trash"></i> 삭제하기</a>
-        </div>
     </section>
 </section>
 <section class="EmptyForHeader"></section>
@@ -21,12 +17,6 @@
 <section class="somdPage">
     <section class="viewpost">
         <section class="viewpost_header">
-            {% if post.is_secret %} <!--c참 비밀글일 경우-->
-            <i class ="fa-solid fa-lock" ></i>
-            {% else %}
-            <i class ="fa-solid fa-unlock" ></i>
-            {% endif %}
-            
             <div class="title">
                 <div class="content">
                     {{post.title}}
@@ -39,6 +29,24 @@
                     <div class="name">{{post.writer}}</div>
                 </div>
                 <div class="date">{{post.pub_date}}</div>
+            </div>
+            <div class="icon">
+                {% if post.is_secret %} <!--c참 비밀글일 경우-->
+                <i class ="fa-solid fa-lock" ></i>
+                {% else %}
+                <i class ="fa-solid fa-unlock" ></i>
+                {% endif %}
+                
+                {% if post.writer == request.user or  request.user == post.somd.admin %}
+                <i class="fa-solid fa-ellipsis-vertical" onclick="post_view_menu_open(event)" style="position: relative;">
+                    <div id="post_view_menu" class="post_view_menu" style="display: none;">
+                        {% if post.writer == request.user %}
+                        <a href="{% url 'main:post_edit' post.id %}" class="button"><i class="fa-solid fa-pen"></i> 글수정</a>
+                        {%endif%}
+                        <a ref="{% url 'main:post_delete' post.id %}" class="button"><i class="fa-solid fa-trash"></i> 삭제하기</a>
+                    </div>
+                </i>
+                {% endif %}
             </div>
         </section>
 
@@ -188,6 +196,20 @@ profileInfoButtons.forEach(function(button) {
         openPopup(nickname, college, department, intro, profileImg);
     });
 });
+
+let post_view_menu_state ="close"
+let post_view_menu = document.querySelector("#post_view_menu");
+function post_view_menu_open(event){
+    if(post_view_menu_state == "close"){
+        // console.log("1")
+        post_view_menu_state ="opne"
+        post_view_menu.style.display ="flex";
+    }
+    else{
+        post_view_menu_state ="close"
+        post_view_menu.style.display ="none";
+    }   
+}
 </script>
 
 
