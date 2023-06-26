@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from main.models import Member
+import os
+from django.conf import settings
 
 # Create your views here.
 def mypage(request):
@@ -36,6 +38,9 @@ def mypage_update(request):
     update_user = request.user
 
     if "profile_pic" in request.FILES:
+        # & update_user.profile.filename != 'usrDefaultImage.png'
+        if update_user.profile.profile_pic:
+            os.remove(os.path.join(settings.MEDIA_ROOT, update_user.profile.profile_pic.path))
         update_user.profile.profile_pic = request.FILES["profile_pic"]
         
     # update_user.profile.name = request.POST['name']

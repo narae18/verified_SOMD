@@ -52,7 +52,7 @@ def createSOMD(request):
     if request.user.is_authenticated:
         user = request.user
         new_somd = SOMD()
-        
+
         if "back_pic" in request.FILES:
             new_somd.backgroundimage = request.FILES["back_pic"]
             new_somd.filename_back = request.FILES["back_pic"].name
@@ -102,11 +102,17 @@ def somd_update(request, id):
     update_somd =  SOMD.objects.get(id=id)
     
     if "back_pic" in request.FILES:
+        if update_somd.backgroundimage:
+            os.remove(os.path.join(settings.MEDIA_ROOT, update_somd.backgroundimage.path))
         update_somd.backgroundimage = request.FILES["back_pic"]
+        
     
 
     if "profile_pic" in request.FILES:
+        if update_somd.profileimage:
+            os.remove(os.path.join(settings.MEDIA_ROOT, update_somd.profileimage.path))
         update_somd.profileimage = request.FILES["profile_pic"]
+
 
     update_somd.name = request.POST["somdname"]
 
