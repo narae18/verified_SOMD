@@ -76,6 +76,9 @@ class Post(models.Model):
     
     is_fixed = models.BooleanField(default=False)
 
+    is_secret = models.BooleanField(default=False)
+  
+
     def __str__(self):
         return self.title
     

@@ -166,20 +166,27 @@ def createpost(request, somd_id):
             content = request.POST.get('content', '')
             writer = request.user
             somd = SOMD.objects.get(id=somd_id)
+            
+            if(request.POST.get('is_secret')=="0"):
+                is_secret = False
+            else:
+                is_secret = True
 
             new_post = Post.objects.create(
                 title=title,
                 writer=writer,
                 pub_date=timezone.now(),
                 content=content,
-                somd=somd
+                somd=somd,
+
+                is_secret = is_secret
             )
 
             images = request.FILES.getlist('images')
             for image in images:
                 new_image = Images.objects.create(post=new_post, image=image)
-
-            return render(request, 'main/viewpost.html', {'post': new_post, 'images': new_post.images.all()})
+            
+        return redirect("main:viewpost", new_post.id)
 
 
 def join(request, id):
@@ -318,8 +325,8 @@ def viewpost(request, post_id):
             'post': post,
             'images': images,
             'comments': comments,
-
         })
+    
     elif request.method == 'POST':
         if request.user.is_authenticated:
             new_comment = Comment()
@@ -423,19 +430,29 @@ def post_edit(request, post_id):
 def post_update(request, post_id):
     user = request.user
     update_post = get_object_or_404(Post, id=post_id)
+
+    if(request.POST.get('is_secret')=="0"):
+        is_secret = False
+    else:
+        is_secret = True
+
+
     if request.method == 'POST':
         if user == update_post.writer:
             update_post.title = request.POST['title']
             update_post.content = request.POST['content']
             update_post.pub_date = timezone.now()
+
+            update_post.is_secret = is_secret
+
             if request.FILES.getlist('images'):
                 images = request.FILES.getlist('images')
                 for image in images:
                     new_image = Images.objects.create(post=update_post, image=image)
             
             update_post.save()
-            return render(request, 'main/viewpost.html', {'post': update_post, 'images': update_post.images.all()})
-    return render(request, 'main/viewpost.html', {'post': update_post, 'images': update_post.images.all()})
+            return redirect('main:viewpost', post_id)
+    return redirect('main:viewpost', post_id)
 
 
 def post_delete(request, post_id):

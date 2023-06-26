@@ -21,10 +21,17 @@
 <section class="somdPage">
     <section class="viewpost">
         <section class="viewpost_header">
+            {% if post.is_secret %} <!--c참 비밀글일 경우-->
+            <i class ="fa-solid fa-lock" ></i>
+            {% else %}
+            <i class ="fa-solid fa-unlock" ></i>
+            {% endif %}
+            
             <div class="title">
                 <div class="content">
                     {{post.title}}
                 </div>
+                
             </div>
             <div class="info">
                 <div class="profile">
