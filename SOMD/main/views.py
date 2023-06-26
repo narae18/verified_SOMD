@@ -8,6 +8,8 @@ import os
 from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+# 비동기 좋아요를 위해 추가한 django.http
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -457,20 +459,38 @@ def scrap_view(request):
     return render(request, 'main/scrappedPost_view.html', {'posts':posts})
 
 
+# def post_like(request, post_id):
+#     if not request.user.is_authenticated:
+#         return redirect('accounts:needTologin')
+    
+#     post = get_object_or_404(Post, id=post_id)
+#     user = request.user
+#     if user in post.like.all():
+#         post.like.remove(request.user)
+#         post.like_count -= 1
+#     else:
+#         post.like.add(request.user)
+#         post.like_count += 1
+#     post.save()
+#     return redirect('main:viewpost', post_id)
+
 def post_like(request, post_id):
     if not request.user.is_authenticated:
-        return redirect('accounts:needTologin')
-    
+        return JsonResponse({'error': '로그인이 필요합니다.'})
+
     post = get_object_or_404(Post, id=post_id)
     user = request.user
     if user in post.like.all():
-        post.like.remove(request.user)
+        post.like.remove(user)
         post.like_count -= 1
+        liked = False
     else:
-        post.like.add(request.user)
+        post.like.add(user)
         post.like_count += 1
+        liked = True
     post.save()
-    return redirect('main:viewpost', post_id)
+    
+    return JsonResponse({'like_count': post.like_count, 'liked': liked})
 
 
 # def CountSomdMember(request):
