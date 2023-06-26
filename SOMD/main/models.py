@@ -35,7 +35,6 @@ class SOMD(models.Model):
     intro = models.CharField(max_length=50, blank=True)
     #관리자
     admin = models.ForeignKey(User, related_name="somd_admin", on_delete=models.CASCADE, blank=False, null=False, default=1)
-    # admins = models.ManyToManyField(User, related_name="somd_admins") #얘는 왜 있는건가요?
 
     #이미지관련
     profileimage = models.ImageField(upload_to=get_file_path_somd, blank=True, null=True, default='somd/somdDefaultImage.png')
@@ -95,7 +94,7 @@ class Post(models.Model):
     is_fixed = models.BooleanField(default=False)
 
     is_secret = models.BooleanField(default=False)
-  
+
 
     def __str__(self):
         return self.title
