@@ -10,6 +10,7 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 # 비동기 좋아요를 위해 추가한 django.http
 from django.http import JsonResponse
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
@@ -157,29 +158,28 @@ def somd_update(request, id):
 
 def mainfeed(request, id):
     somd = SOMD.objects.get(id=id)
+    user = request.user
+    is_member = somd.join_members.filter(id=user.id).exists()
 
-    Posts = somd.posts.filter(is_fixed=False)
-    fixedPosts= somd.posts.filter(is_fixed=True)
+    posts = somd.posts.filter(is_fixed=False) if is_member else somd.posts.filter(is_fixed=False, is_secret=False)
+    fixed_posts = somd.posts.filter(is_fixed=True)
 
-    if(somd.join_members.filter(id = request.user.id).exists()):
-        posts = Posts
-        fixed_posts = fixedPosts
-    else:
-        posts = Posts.filter(is_secret = False)
-        fixed_posts = fixedPosts.filter(is_secret = True)
+    image_fixed_posts = fixed_posts.filter(images__isnull=False)
+    image_posts = posts.filter(images__isnull=False)
 
-    image_fixedPosts = fixedPosts.filter(images__isnull= False)
-    image_Posts = Posts.filter(images__isnull = False)
-
+    num_per_page = 5  # 페이지당 표시할 게시물 수 설정
+    page_obj, custom_range = page_list(request, posts, num_per_page)
     return render(request, "main/mainfeed.html", {
-        'image_fixedPosts' :image_fixedPosts,
-        'image_Posts' :image_Posts,
+        'image_fixed_posts': image_fixed_posts,
+        'image_posts': image_posts,
         'somd': somd,
-        'fixedPosts':fixedPosts,
-        'Posts':Posts,
-        'posts': posts,
         'fixed_posts': fixed_posts,
+        'posts': page_obj,
+        'page_obj': page_obj,
+        'custom_range': custom_range,
     })
+
+
 
 def mysomd(request):
     if not request.user.is_authenticated:
@@ -618,3 +618,23 @@ def comment_delete(request, post_id, comment_id):
         delete_comment.delete()
         post.save()
     return redirect('main:viewpost', post.id)
+
+def page_list(request, posts_list, num_per_page):
+    paginator = Paginator(posts_list, num_per_page)
+    page_num = request.GET.get('page')  # 현재 페이지 번호를 가져옴
+    try:
+        page_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        page_num = 1
+        page_obj = paginator.page(page_num)
+    except EmptyPage:
+        page_num = paginator.num_pages
+        page_obj = paginator.page(page_num)
+    left_index = int(page_num) - 2
+    if left_index < 1:
+        left_index = 1
+    right_index = int(page_num) + 2
+    if right_index > paginator.num_pages:
+        right_index = paginator.num_pages
+    custom_range = range(left_index, right_index+1)
+    return page_obj, custom_range
