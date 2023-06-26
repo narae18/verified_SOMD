@@ -50,12 +50,14 @@ def createSOMD(request):
     if request.user.is_authenticated:
         user = request.user
         new_somd = SOMD()
+        
         if "back_pic" in request.FILES:
             new_somd.backgroundimage = request.FILES["back_pic"]
-        
+            new_somd.filename_back = request.FILES["back_pic"].name
         
         if "profile_pic" in request.FILES:
             new_somd.profileimage = request.FILES["profile_pic"]
+            new_somd.filename_prof = request.FILES["profile_pic"].name
         
     
         new_somd.name = request.POST["somdname"]
