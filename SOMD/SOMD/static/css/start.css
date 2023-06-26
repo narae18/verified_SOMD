@@ -1,4 +1,3 @@
-
 .somdStart{
     width: 100%;
     height: 100%;
@@ -24,7 +23,19 @@
     font-size: 20px;
 }
 
-.somdStart>.button{
+.buttons {
+    background-color: white;
+    border-radius: 5px;
+    /* border: 3px solid #0ECC87; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+
+
+}
+
+/* .button{
     width: 185px;
     height: 35px;
     background-color: white;
@@ -39,12 +50,42 @@
     text-decoration: none;
     font-size: 20px;
     margin: 5px;
+} */
+
+.button {
+    /* flex-grow: 1; */
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    color: white;
 }
 
-.somdStart>.start.button{
-    width: 130px;
+.button:nth-child(1){
+    border: #0ECC87 2px solid;
+    background-color: #0ECC87;
+}
+.button:nth-child(2){
+    border: #0ECC87 2px solid;
+    background-color: white;
+    color:#0ECC87;
+}
+.button:nth-child(3){
+    border: 0;
+    background-color: white;
+    color:grey;
+}
+
+.button:nth-child(3):hover,
+.button:nth-child(3):active {
+    color:#0ECC87;
+}
+
+/* .start{
+    width: 150px;
     background-color: #0ECC87;
     color: white;
-    margin: 15px;
-    margin-bottom: 20px;
-}
+} */
