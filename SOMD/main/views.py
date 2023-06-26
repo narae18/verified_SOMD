@@ -4,6 +4,8 @@ from .models import Post, Comment, Tag, SOMD, Member, Images, JoinRequest, UserA
 from django.contrib.auth.models import User
 from django.utils import timezone
 import re
+import os
+from django.conf import settings
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
@@ -181,10 +183,16 @@ def createpost(request, somd_id):
 
                 is_secret = is_secret
             )
+            
+            if request.FILES.getlist('images'):
+                for image in request.FILES.getlist('images'):
+                    filename = image.name
+                    new_image = Images.objects.create(post=new_post, image=image, filename=filename)
 
-            images = request.FILES.getlist('images')
-            for image in images:
-                new_image = Images.objects.create(post=new_post, image=image)
+
+            # images = request.FILES.getlist('images')
+            # for image in images:
+            #     new_image = Images.objects.create(post=new_post, image=image, filename=image.filename)
             
         return redirect("main:viewpost", new_post.id)
 
@@ -431,14 +439,12 @@ def post_update(request, post_id):
     user = request.user
     update_post = get_object_or_404(Post, id=post_id)
 
-    if(request.POST.get('is_secret')=="0"):
-        is_secret = False
-    else:
-        is_secret = True
-
-
     if request.method == 'POST':
         if user == update_post.writer:
+            if(request.POST.get('is_secret')=="0"):
+                is_secret = False
+            else:
+                is_secret = True
             update_post.title = request.POST['title']
             update_post.content = request.POST['content']
             update_post.pub_date = timezone.now()
@@ -446,9 +452,15 @@ def post_update(request, post_id):
             update_post.is_secret = is_secret
 
             if request.FILES.getlist('images'):
+                for image in update_post.images.all():
+                    if image.image:
+                        os.remove(os.path.join(settings.MEDIA_ROOT, image.image.path))
+                    
+                update_post.images.all().delete()
                 images = request.FILES.getlist('images')
                 for image in images:
-                    new_image = Images.objects.create(post=update_post, image=image)
+                    filename = image.name
+                    new_image = Images.objects.create(post=update_post, image=image, filename=filename)
             
             update_post.save()
             return redirect('main:viewpost', post_id)
@@ -458,6 +470,9 @@ def post_update(request, post_id):
 def post_delete(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.user == post.writer:
+        for image in post.images.all():
+            if image.image:
+                image.image.delete()
         post.delete()
     return redirect('main:mainfeed', post.somd.id)
 

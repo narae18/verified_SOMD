@@ -43,7 +43,7 @@
                         {% if post.writer == request.user %}
                         <a href="{% url 'main:post_edit' post.id %}" class="button"><i class="fa-solid fa-pen"></i> 글수정</a>
                         {%endif%}
-                        <a ref="{% url 'main:post_delete' post.id %}" class="button"><i class="fa-solid fa-trash"></i> 삭제하기</a>
+                        <a href="{% url 'main:post_delete' post.id %}" class="button"><i class="fa-solid fa-trash"></i> 삭제하기</a>
                     </div>
                 </i>
                 {% endif %}

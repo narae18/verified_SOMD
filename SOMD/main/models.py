@@ -1,7 +1,18 @@
+import os
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from accounts.models import Profile
+from uuid import uuid4
+from datetime import datetime
+
 # Create your models here.
+def get_file_path(instance, filename):
+    ymd_path = datetime.now().strftime('%Y/%m/%d')
+    uuid_name = uuid4().hex
+    return '/'.join(['post/', ymd_path, uuid_name])
+
+
 class Tag(models.Model): #태그
     name = models.CharField(max_length=30,null=False,blank=False)
 
@@ -106,7 +117,13 @@ class Comment(models.Model):
 
 class Images(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to="post/", blank=True, null=True)    
+    image = models.ImageField(upload_to=get_file_path, blank=True, null=True)
+    filename = models.CharField(max_length=64, null=True, verbose_name='첨부파일명')
+    
+    def delete(self, *args, **kargs):
+        if self.image:
+            os.remove(os.path.join(settings.MEDIA_ROOT, self.image.path))
+        super(Images, self).delete(*args, **kargs)
 
 
 class Alram(models.Model):
