@@ -16,10 +16,6 @@ def get_file_path_somd(instance, filename):
     uuid_name = uuid4().hex
     return '/'.join(['somd/', uuid_name])
 
-def get_file_path_user(instance, filename):
-    uuid_name = uuid4().hex
-    return '/'.join(['user_profile/', uuid_name])
-
 
 class Tag(models.Model): #태그
     name = models.CharField(max_length=30,null=False,blank=False)
