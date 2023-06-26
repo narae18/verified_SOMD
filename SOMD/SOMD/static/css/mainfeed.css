@@ -111,6 +111,7 @@
 
 
 .option{
+    
     justify-content: end;
     align-items: center;
     margin:15px 0px 15px 0px;
@@ -118,6 +119,12 @@
     display: flex;
 
     color:grey;
+}
+.option>#container_notice{
+    padding-left: 10px;
+    flex-grow: 1;
+    font-size: 10px;
+    color: lightgrey;
 }
 
 .view{

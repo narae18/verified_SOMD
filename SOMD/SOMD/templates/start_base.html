@@ -25,6 +25,12 @@
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
     <title>SOMD</title>
+
+
+    {% if user.is_authenticated %} 
+        <meta http-equiv="refresh" content="0;url={% url 'main:mainpage' %}">
+    {%endif%}
+
 </head>
 <body onload="noBack();" onpageshow="if(event.persisted) noBack();" onunload="">
     

@@ -167,7 +167,7 @@ input {
 }
 
 .comment_form {
-  width: 100%;
+  width: 97%;
   display: flex;
   justify-content: space-between;
   padding-bottom: 15px;
@@ -190,7 +190,7 @@ input {
 }
 
 .comment_form>.submit {
-  color: grey;
+  color: lightgrey;
   width: 50px;
 
   /* margin: 5px 0px; */
