@@ -43,12 +43,18 @@ def board(request):
 
 
 def register(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     tags = Tag.objects.all()
     return render(request,'main/register.html',{
         "tags":tags,
     })
 
 def createSOMD(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     if request.user.is_authenticated:
         user = request.user
         new_somd = SOMD()
@@ -86,10 +92,12 @@ def createSOMD(request):
         
         return redirect("main:mainfeed", new_somd.id)
     else:
-        return redirect('accounts:login')
+        return redirect('accounts:needTologin')
 
 def somd_edit(request, id):
-
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = SOMD.objects.get(id=id)
     tags = Tag.objects.all()
 
@@ -99,6 +107,10 @@ def somd_edit(request, id):
     })
 
 def somd_update(request, id):
+    
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     update_somd =  SOMD.objects.get(id=id)
     
     if "back_pic" in request.FILES:
@@ -165,6 +177,9 @@ def mainfeed(request, id):
     })
 
 def mysomd(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     user = request.user
     try:
         member = Member.objects.get(user=user)
@@ -183,46 +198,56 @@ def mysomd(request):
     })
     
 def new(request,somd_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = SOMD.objects.get(id=somd_id)
     return render(request, 'main/new.html', {'somd': somd})
 
 def createpost(request, somd_id):
+    
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     # if request.user in SOMD.members:
-        if request.method == 'POST':
-            title = request.POST.get('title')
-            content = request.POST.get('content', '')
-            writer = request.user
-            somd = SOMD.objects.get(id=somd_id)
-            
-            if(request.POST.get('is_secret')=="0"):
-                is_secret = False
-            else:
-                is_secret = True
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content', '')
+        writer = request.user
+        somd = SOMD.objects.get(id=somd_id)
+        
+        if(request.POST.get('is_secret')=="0"):
+            is_secret = False
+        else:
+            is_secret = True
 
-            new_post = Post.objects.create(
-                title=title,
-                writer=writer,
-                pub_date=timezone.now(),
-                content=content,
-                somd=somd,
+        new_post = Post.objects.create(
+            title=title,
+            writer=writer,
+            pub_date=timezone.now(),
+            content=content,
+            somd=somd,
 
-                is_secret = is_secret
-            )
-            
-            if request.FILES.getlist('images'):
-                for image in request.FILES.getlist('images'):
-                    filename = image.name
-                    new_image = Images.objects.create(post=new_post, image=image, filename=filename)
+            is_secret = is_secret
+        )
+        
+        if request.FILES.getlist('images'):
+            for image in request.FILES.getlist('images'):
+                filename = image.name
+                new_image = Images.objects.create(post=new_post, image=image, filename=filename)
 
 
-            # images = request.FILES.getlist('images')
-            # for image in images:
-            #     new_image = Images.objects.create(post=new_post, image=image, filename=image.filename)
-            
+        # images = request.FILES.getlist('images')
+        # for image in images:
+        #     new_image = Images.objects.create(post=new_post, image=image, filename=image.filename)
+        
         return redirect("main:viewpost", new_post.id)
 
 
 def join(request, id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = SOMD.objects.get(id=id)
     return render(request, "main/join.html", {
         'somd': somd,
@@ -230,6 +255,10 @@ def join(request, id):
 
 
 def wantTojoin(request, id):
+    
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = SOMD.objects.get(id=id)
 
     new_join_request = JoinRequest()
@@ -266,6 +295,9 @@ def wantTojoin(request, id):
 
 
 def members(request, id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = somd = SOMD.objects.get(id=id)
     
     return render(request, "main/members.html", {
@@ -273,6 +305,9 @@ def members(request, id):
     })
 
 def members_wantTojoin(request, somd_id, request_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = SOMD.objects.get(id=somd_id)
     joinrequest = JoinRequest.objects.get(id=request_id)
 
@@ -324,6 +359,10 @@ def members_wantTojoin(request, somd_id, request_id):
 
 
 def members_delete(request, somd_id, join_user_id):
+    
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = SOMD.objects.get(id=somd_id)
     join_user = User.objects.get(id=join_user_id)
     member = Member.objects.get(user = join_user)
@@ -361,6 +400,7 @@ def viewpost(request, post_id):
         })
     
     elif request.method == 'POST':
+
         if request.user.is_authenticated:
             new_comment = Comment()
             new_comment.post = post
@@ -374,6 +414,9 @@ def viewpost(request, post_id):
             return redirect('main:viewpost', post.id)
 
 def bookmark(request, somd_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     somd = SOMD.objects.get(id=somd_id)
     user = request.user
     is_user_bookmarked = user.bookmark.filter(id=somd.id).exists()
@@ -391,6 +434,9 @@ def bookmark(request, somd_id):
 
 
 def scrap(request, post_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     post = get_object_or_404(Post, id=post_id)
     user = request.user
     is_user_scraped = user.scrap.filter(id=post.id).exists()
@@ -403,12 +449,18 @@ def scrap(request, post_id):
     return redirect('main:viewpost', post.id)
 
 def scrap_view(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     user = request.user
     posts = user.scrap.all()
     return render(request, 'main/scrappedPost_view.html', {'posts':posts})
 
 
 def post_like(request, post_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     post = get_object_or_404(Post, id=post_id)
     user = request.user
     if user in post.like.all():
@@ -441,6 +493,9 @@ def post_like(request, post_id):
 #         return redirect('가입완료페이지')
 
 def fix(request, post_id, somd_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     post = get_object_or_404(Post, id=post_id)
     if post.is_fixed:
         post.is_fixed = False
@@ -451,16 +506,25 @@ def fix(request, post_id, somd_id):
     return redirect('main:mainfeed', id = somd_id)
 
 def alram(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     alrams, created = UserAlram.objects.get_or_create(user=request.user)
     return render(request, "main/alram.html", {
         'alrams': alrams,
     })
 
 def post_edit(request, post_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     edit_post = Post.objects.get(id=post_id)
     return render(request, "main/post_update.html", {"post": edit_post})
 
 def post_update(request, post_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     user = request.user
     update_post = get_object_or_404(Post, id=post_id)
 
@@ -493,6 +557,9 @@ def post_update(request, post_id):
 
 
 def post_delete(request, post_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     post = get_object_or_404(Post, id=post_id)
     if request.user == post.writer:
         for image in post.images.all():
@@ -502,6 +569,9 @@ def post_delete(request, post_id):
     return redirect('main:mainfeed', post.somd.id)
 
 def comment_update(request, post_id, comment_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     post = get_object_or_404(Post, id=post_id)
     update_comment = get_object_or_404(Comment, id=comment_id)
     user = request.user
@@ -515,6 +585,9 @@ def comment_update(request, post_id, comment_id):
     return render(request, 'main/viewpost.html', {'post': update_comment.post})
 
 def comment_delete(request, post_id, comment_id):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
+    
     post = get_object_or_404(Post, id=post_id)
     delete_comment = get_object_or_404(Comment, id=comment_id)
     if request.user == delete_comment.writer:

@@ -1,25 +1,16 @@
 {% load static %}
-<!-- {% if user.is_authenticated %} -->
 
 <section class="BlurForSidebar"></section>
-
-<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}" />
 <section class="sidebar_container">
-  {% if user.id == 13 %}
-  <div class="NEED_TO_LOGIN">
-    <a class="logout" href="{% url 'accounts:logout' %}"></a>로그인하세요
-  </div>
-  {% else %}
+
   <section class="sidebar">
+    {%if user.is_authenticated %}
     <a class="logout" href="{% url 'accounts:logout' %}">
       <i class="fa-solid fa-right-from-bracket"></i>
       로그아웃
     </a>
     <div class="profile">
-      <div
-        class="image"
-        style="background-image:url({{user.profile.profile_pic.url}});"
-      ></div>
+      <div class="image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
       <div class="info">
         <div class="name">{{ user.profile.nickname }}</div>
         <div class="department">{{ user.profile.college }}</div>
@@ -27,13 +18,22 @@
       </div>
       <!-- <i class="fa-solid fa-angle-right"></i> -->
     </div>
+    {% else %}
+    <div class="profile" style="margin-top: 50px;" onClick="window.location.href = '/'">
+      <i class="fa-solid fa-hand-point-up" style=" padding-right:10px; color:#0ecc87"></i>
+      <div style="color:lightgrey; flex-grow:1;">로그인이 필요합니다!</div>
+      <i class="fa-solid fa-chevron-right"  style="color:lightgrey" ></i>
+    </div>
+
+    {%endif%}
+
 
     <section class="linkList">
       <a href="{% url 'users:mypage' %}">마이페이지</a>
       <a class="icon" href="{% url 'main:scrap_view' %}">스크랩한 게시물</a>
     </section>
   </section>
-  {% endif %}
+ 
   <div class="bottom">
     <div class="icon sidebar_button_close">
       <i class="fa-solid fa-xmark"></i>
@@ -73,6 +73,6 @@
   </a>
 </section>
 
-<!-- {% endif %} -->
+
 
 <script src="{% static 'js/header.js' %}"></script>

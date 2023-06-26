@@ -7,7 +7,10 @@
 
 <section class="header">
     <section class="mainTitle">
-        <a href="{% url 'main:mysomd' %}"><i class="fa-solid fa-chevron-left"></i></a>
+
+    
+        <sapn onclick="gotoBack()"><i class="fa-solid fa-chevron-left"></i></sapn>
+ 
         <div>{{ somd.name }}</div>
     </section>
 </section>
@@ -18,7 +21,7 @@
 
 <section class="somdPage">
             {% if user in somd.join_members.all %}
-            <a class="writeButton" href="{% url 'main:new' somd.id%}"><i class="fa-solid fa-pen"></i></a>
+            <div class="writeButton" onclick=location.href="{% url 'main:new' somd.id%}"><i class="fa-solid fa-pen"></i></div>
             {%endif%}
 
 
@@ -239,6 +242,21 @@
 </section>
 
 <script src="{% static 'js/postContainer.js' %}"></script>
-
+<script>
+    let beforeLink = document.referrer
+    function gotoBack(){
+        console.log(beforeLink);
+        if(beforeLink.includes("viewpost") ||beforeLink.includes("join")||beforeLink.includes("members") || beforeLink.includes("mainfeed")|| beforeLink.includes("needTologin") ||beforeLink.includes("new") ||beforeLink.includes("somd_edit") ){
+            {% if user.is_authenticated%}
+            location.href = {% url 'main:mysomd' %};
+            {%else%}
+            location.href = {% url 'main:board' %};
+            {%endif%}
+        }
+        else{
+            location.href = beforeLink;
+        }
+    }
+</script>
 {% endblock %}
 
