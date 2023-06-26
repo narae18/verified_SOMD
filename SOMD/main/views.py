@@ -117,14 +117,17 @@ def somd_update(request, id):
     
     if "back_pic" in request.FILES:
         if update_somd.backgroundimage:
-            os.remove(os.path.join(settings.MEDIA_ROOT, update_somd.backgroundimage.path))
+            default_image_path = os.path.join(settings.MEDIA_ROOT, 'somd/somdbackDefaultImage.png')
+            if update_somd.backgroundimage.path != default_image_path:
+                os.remove(os.path.join(settings.MEDIA_ROOT, update_somd.backgroundimage.path))
         update_somd.backgroundimage = request.FILES["back_pic"]
-        
-    
+
 
     if "profile_pic" in request.FILES:
         if update_somd.profileimage:
-            os.remove(os.path.join(settings.MEDIA_ROOT, update_somd.profileimage.path))
+            default_image_path = os.path.join(settings.MEDIA_ROOT, 'somd/somdDefaultImage.png')
+            if update_somd.profileimage.path != default_image_path:
+                os.remove(os.path.join(settings.MEDIA_ROOT, update_somd.profileimage.path))
         update_somd.profileimage = request.FILES["profile_pic"]
 
 
