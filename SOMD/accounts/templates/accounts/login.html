@@ -21,6 +21,9 @@
         {% csrf_token %}
         <input class="inputbtn" type="text" name="username" placeholder="ID"><br>
         <input class="inputbtn" type="password" name="password" placeholder="PassWord"><br>
+        {% if login_success is not None and not login_success %}
+            <p class="errorMsg">ID/PW를 다시 확인하세요</p>
+        {% endif %}
         <input class="loginbtn"type="submit" value="로그인" style="color:white">
     </form>
 </div>

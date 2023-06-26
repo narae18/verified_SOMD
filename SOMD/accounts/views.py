@@ -12,15 +12,17 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = auth.authenticate(request, username = username, password = password)
+        user = auth.authenticate(request, username=username, password=password)
         if user is not None:
-            auth.login(request,user)
+            auth.login(request, user)
             return redirect('main:mainpage')
         else:
-            return render(request,'accounts/login.html')
+            login_success = False
+            return render(request, 'accounts/login.html', {'login_success': login_success})
         
     elif request.method == "GET":
-        return render(request, 'accounts/login.html')
+        login_success = True
+        return render(request, 'accounts/login.html', {'login_success': login_success})
 
 # def login(request):
 #         if request.method == "POST" :

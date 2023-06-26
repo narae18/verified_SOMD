@@ -65,3 +65,9 @@ span{
  border: 0;
  width: 100px;
 }
+
+/* 로그인 실패했을 때 문구 */
+.errorMsg {
+    margin-bottom: 15px;
+    color: rgb(234, 66, 66);
+}
