@@ -31,12 +31,12 @@
 
             <div class="postPicturePreview image">
                 <label for="postPictureInput">
-                    <input type="file" accept="image/*" name="images" id="postPictureinput">
+                    <input type="file" accept="image/*" name="images" id="postPictureinput" multiple>
                 </label>
             </div>
 
             <!-- feed 사진 작업중 2 -->
-            <input type="file" id="image-input" name="images" style="display: none;" onchange="previewImage()">
+            <input type="file" id="image-input" name="images" style="display: none;" onchange="previewImage()" multiple>
             <!-- <button onclick="chooseImage()"><i class="far fa-image"></i></button><br> -->
             <img id="image-preview" src="" style="max-width: 300px; margin-top: 10px;">
         
