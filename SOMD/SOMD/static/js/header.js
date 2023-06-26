@@ -44,8 +44,6 @@ if (document.querySelector(".sidebar_container")) {
     document.querySelector(".boardIcon").style.color = "#282828";
   } else if (nowlink == "나의솜디") {
     document.querySelector(".mysomdIcon").style.color = "#282828";
-  } else {
-    document.querySelector(".navbar").style.display = "none";
   }
 
   var historyBack = document.querySelector(".historyBack");

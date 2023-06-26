@@ -133,7 +133,7 @@
   background-color: grey;
   background-blend-mode: multiply;
   opacity: 0.7;
-  z-index: 4;
+  z-index: 49;
   animation-name: fadeIn;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
@@ -185,7 +185,7 @@
   position: fixed;
   top: 0px;
   right: 0px;
-  z-index: 5;
+  z-index: 50;
   width: 300px;
   height: 100%;
   background-color: white;
@@ -199,10 +199,10 @@
 
 @keyframes slideIn {
   0% {
-    width: 200px;
+    right: -100px;
   }
   100% {
-    width: 300px;
+    right: 0px;
   }
 }
 
@@ -323,9 +323,9 @@
   flex-shrink: 0;
 } */
 
-.navbar .sidebar_button > i {
+/* .navbar .sidebar_button > i {
   font-size: 25px;
-}
+} */
 
 .navbar .text {
   font-size: 10px;
