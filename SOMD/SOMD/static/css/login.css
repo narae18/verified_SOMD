@@ -20,7 +20,7 @@
 .title{
  font-weight: bold;
  font-size: 50px;
- color: #00E392
+ color: #0ecc87
 }
 
 
@@ -29,12 +29,12 @@
 }
 
 span{
- color:#00E392 !important;
+ color:#0ecc87 !important;
  font-size: 15px;
 }
 
 .lowerMain{
- border: 2px solid #00E392;
+ border: 2px solid #0ecc87;
  display: flex;
  justify-content: center;
  align-items: center;
@@ -57,11 +57,11 @@ span{
 
 
 .inputbtn{
- border: 1px solid #00E392;
+ border: 1px solid #0ecc87;
 }
 
 .loginbtn{
- background-color: #00E392;
+ background-color: #0ecc87;
  border: 0;
  width: 100px;
 }
