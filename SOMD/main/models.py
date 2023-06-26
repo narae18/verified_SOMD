@@ -12,6 +12,14 @@ def get_file_path(instance, filename):
     uuid_name = uuid4().hex
     return '/'.join(['post/', ymd_path, uuid_name])
 
+def get_file_path_somd(instance, filename):
+    uuid_name = uuid4().hex
+    return '/'.join(['somd/', uuid_name])
+
+def get_file_path_user(instance, filename):
+    uuid_name = uuid4().hex
+    return '/'.join(['user_profile/', uuid_name])
+
 
 class Tag(models.Model): #태그
     name = models.CharField(max_length=30,null=False,blank=False)
@@ -34,8 +42,11 @@ class SOMD(models.Model):
     # admins = models.ManyToManyField(User, related_name="somd_admins") #얘는 왜 있는건가요?
 
     #이미지관련
-    profileimage = models.ImageField(upload_to="somd/", blank=True, null=True, default='somd/somdDefaultImage.png')
-    backgroundimage = models.ImageField(upload_to="somd/", blank=True, null=True, default='somd/somdbackDefaultImage.png')
+    profileimage = models.ImageField(upload_to=get_file_path_somd, blank=True, null=True, default='somd/somdDefaultImage.png')
+    filename_prof = models.CharField(max_length=64, null=True)
+    backgroundimage = models.ImageField(upload_to=get_file_path_somd, blank=True, null=True, default='somd/somdbackDefaultImage.png')
+    filename_back = models.CharField(max_length=64, null=True)
+    
 
     #대학/학과
     college = models.CharField(max_length=100, blank=True, null=True)
@@ -118,7 +129,7 @@ class Comment(models.Model):
 class Images(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to=get_file_path, blank=True, null=True)
-    filename = models.CharField(max_length=64, null=True, verbose_name='첨부파일명')
+    filename = models.CharField(max_length=64, null=True)
     
     def delete(self, *args, **kargs):
         if self.image:
