@@ -187,7 +187,7 @@ def mainfeed(request, id):
     else:
         num_per_page = 6
 
-    page_obj, custom_range = page_list(request,posts,num_per_page)
+    page_obj = page_list(request,posts,num_per_page)
     # page_obj1, custom_range1 = page_list(request,image_posts,num_per_page)
     
 
@@ -198,7 +198,7 @@ def mainfeed(request, id):
         'fixed_posts': fixed_posts,
         'posts': page_obj,
         'page_obj': page_obj,
-        'custom_range': custom_range,
+        #'custom_range': custom_range,
         # 'page_obj1': page_obj1,
         # 'custom_range1': custom_range1,
         'option_state': option_state,
@@ -693,12 +693,12 @@ def page_list(request, posts_list, num_per_page):
         page_num = paginator.num_pages  # 페이지를 마지막 페이지로 설정
         page_obj = paginator.page(page_num)
 
-    left_index = int(page_num) - 2      # 현재 페이지 기준으로 왼쪽에 보여줄 페이지 개수
-    if left_index < 1:                  # 왼쪽에 보여줄 페이지 개수가 1보다 작으면 1로 설정
-        left_index = 1
+    # left_index = int(page_num) - 2      # 현재 페이지 기준으로 왼쪽에 보여줄 페이지 개수
+    # if left_index < 1:                  # 왼쪽에 보여줄 페이지 개수가 1보다 작으면 1로 설정
+    #     left_index = 1
 
-    right_index = int(page_num) + 2     # 현재 페이지 기준으로 오른쪽에 보여줄 페이지 개수
-    if right_index > paginator.num_pages:   # 오른쪽에 보여줄 페이지 개수가 전체 페이지 개수보다 크면전체 페이지 개수로 설정
-        right_index = paginator.num_pages   
-    custom_range = range(left_index, right_index+1) # 페이지 범위 설정
-    return page_obj, custom_range
+    # right_index = int(page_num) + 2     # 현재 페이지 기준으로 오른쪽에 보여줄 페이지 개수
+    # if right_index > paginator.num_pages:   # 오른쪽에 보여줄 페이지 개수가 전체 페이지 개수보다 크면전체 페이지 개수로 설정
+    #     right_index = paginator.num_pages   
+    # custom_range = range(left_index, right_index+1) # 페이지 범위 설정
+    return page_obj
