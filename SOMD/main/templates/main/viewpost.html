@@ -29,7 +29,7 @@
             <div class="info">
                 <div class="profile">
                     <div class="profile_info image" style="background-image:url({{ post.writer.profile.profile_pic.url }});" data-nickname="{{ post.writer.profile.nickname }}" data-college="{{ post.writer.profile.college }}" data-department="{{ post.writer.profile.department }}" data-intro="{{ post.writer.profile.intro }}" data-profileimg="{{ post.writer.profile.profile_pic.url }}"></div>
-                    <div class="profile_info name">{{post.writer}}</div>
+                    <div class="profile_info name">{{post.writer.profile.nickname}}</div>
                 </div>
                 <div class="date">{{post.pub_date}}</div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="comment">
                     <div class="profile">
                         <div class="profile_info image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileimg="{{ comment.writer.profile.profile_pic.url }}"></div>
-                        <div class="name">{{ comment.writer }}</div>
+                        <div class="name">{{ comment.writer.profile.nickname }}</div>
                         <!-- 삭제버튼 -->
                         {% if comment.writer == request.user or  request.user == post.somd.admin %}
                         <a href="{% url 'main:comment_delete' post.id comment.id %}"><i class="fa-solid fa-trash"></i></a>
