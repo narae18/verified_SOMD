@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Count 
+from django.db.models import Count, F, ExpressionWrapper, FloatField
 from .models import Post, Comment, Tag, SOMD, Member, Images, JoinRequest, UserAlram, Alram
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -37,9 +37,15 @@ def mainpage(request):
 
 def board(request):
     #somds = SOMD.objects.all()
-    rank_somds = SOMD.objects.annotate(totalMember=Count('members')).order_by('-totalMember')[:7]
+    #rank_somds = SOMD.objects.annotate(totalMember=Count('members'), totalPosts=Count('posts'), ratio='totalPosts'/'totalMember').filter(totalMember__gte=5).order_by('-totalMember', '-totalPosts')[:7]
+    rank_somds = SOMD.objects.annotate(
+        totalMember=Count('members'),
+        totalPosts=Count('posts'),
+        ratio=ExpressionWrapper(F('totalPosts') / F('totalMember'), output_field=FloatField())
+        ).filter(totalMember__gte=5).order_by('-ratio')[:7]
     tags = Tag.objects.all()
     somds = SOMD.objects.all()
+        
     return render(request, 'main/board.html', {
         "rank_somds": rank_somds,
         "tags": tags,
