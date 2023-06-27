@@ -79,17 +79,22 @@
 
             <div class="button_case">
                 {% if somd.admin.id == user.id %}
-                    <a class="button_a button2" href="{% url 'main:members' somd.id %}">멤버관리</a>
-                    <a class="button_a button2" href="{% url 'main:somd_edit' somd.id %}">솜디수정</a>
+                    <a class="body_button body_button2" href="{% url 'main:members' somd.id %}">멤버관리</a>
+                    <a class="body_button body_button2" href="{% url 'main:somd_edit' somd.id %}">솜디수정</a>
                 {% endif %}
 
                 {% if user in somd.waitTojoin_members.all %}
                 <div class="body_button body_button1 white_button">가입대기중</div>
                 {% elif not user in somd.join_members.all %}
-                    <a class="button_a button1" hre f="{% url 'main:join' somd.id %}">가입하기</a>
+                    <a class="body_button body_button1" href="{% url 'main:join' somd.id %}">가입하기</a>
                 {% endif %}
             </div>
         </section>
+
+        <form id="option_state_form" style="display: none;" method="POST" action="{% url 'main:mainfeed' somd.id %}">
+            {% csrf_token %}
+            <input type="text" name="option_state" id="option_state" value="{{option_state}}" tyle="display: none;">
+        </form>
 
         <section class="option">
             <!-- <form class="search">
@@ -129,7 +134,6 @@
                         </section>
 
                         <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
-
                             {% if post.images.all %}
                                 <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
                                 {% if post.images.all|length > 1 %}
@@ -139,7 +143,7 @@
                                 {% endif %}
                                 </div>
                             {% else %}
-                                <div class="nonimage"></div>
+                                <div class="nonimage" style="display: none;"></div>
                             {% endif %}
                             <div class="text">
                                 <div class="title">{{ post.title }}</div>
@@ -194,18 +198,17 @@
 
                         <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
 
-                            {% if post.images.all %}
-                                
-                                <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
-                                {% if post.images.all|length > 1 %}
-                                    <div class="image_more">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </div>
-                                {% endif %}
+                        {% if post.images.all %}
+                            <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
+                            {% if post.images.all|length > 1 %}
+                                <div class="image_more">
+                                    <i class="fa-solid fa-plus"></i>
                                 </div>
-                            {% else %}
-                                <div class="nonimage"></div>
                             {% endif %}
+                            </div>
+                        {% else %}
+                            <div class="nonimage" style="display: none;"></div>
+                        {% endif %}
                             <div class="text">
                                 <div class="title">{{ post.title }}</div>
                                 <div class="body">{{ post.summary }}</div>
@@ -227,53 +230,195 @@
                         </section>
                     </div>
                 {% endfor %}
-                <hr>
-                <div class="pagination">
-                    <!-- 현재 page_obj가 이전 페이지가 있다면, 1 페이지로 가는 << a태그 생성 -->
-                    {% if page_obj.has_previous %}
-                        <a href="?page=1">&laquo;&nbsp;</a>
-                    {% endif %}
-                    <!-- custom_range 범위만큼 순회 -->
-                    {% for num in custom_range %}
-                        <!-- 현재 페이지면 클릭 못하도록 막음 -->
-                        {% if num == page_obj.number %}
-                            <span class="current-page"> &nbsp;{{ num }}&nbsp; </span>
-                        {% else %}
-                        <!-- 그 외의 경우 a태그로 생성 -->
-                            <a href="?page={{ num }}"> &nbsp;{{ num }}&nbsp; </a>
-                        {% endif %}
-                    {% endfor %}
-                    <!-- 현재 page_obj의 다음 페이지가 있다면, 끝 페이지로 이동하는 >> a 태그 생성 -->
-                    {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.paginator.num_pages }}">&nbsp;&raquo;</a>
-                    {% endif %}
-                </div>
+
+                
             {% else %}
                 <section class="warning">아직 포스트가 없습니다!</section>
             </div>
             {% endif %}
         </section>
+
+        <div class="pagination">
+            <!-- 현재 page_obj가 이전 페이지가 있다면, 1 페이지로 가는 << a태그 생성 -->
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo;&nbsp;</a>
+            {% endif %}
+
+            <!-- custom_range 범위만큼 순회 -->
+            {% for num in custom_range %}
+                <!-- 현재 페이지면 클릭 못하도록 막음 -->
+                {% if num == page_obj.number %}
+                    <span class="current-page"> &nbsp;{{ num }}&nbsp; </span>
+                {% else %}
+                <!-- 그 외의 경우 a태그로 생성 -->
+                    <a href="?page={{ num }}" onclixk> &nbsp;{{ num }}&nbsp; </a>
+                {% endif %}
+            {% endfor %}
+            
+            <!-- 현재 page_obj의 다음 페이지가 있다면, 끝 페이지로 이동하는 >> a 태그 생성 -->
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.paginator.num_pages }}">&nbsp;&raquo;</a>
+            {% endif %}
+        </div>
     
     </section> 
 
 </section>
 
-<script src="{% static 'js/postContainer.js' %}"></script>
+<!-- <script src="{% static 'js/postContainer.js' %}"></script> -->
+
+
+<script>
+var option_state = '{{option_state}}' ;
+// console.log(option_state);
+
+if(document.querySelector('.postContainer_control')){
+
+    const postContainer_control = document.querySelector('.postContainer_control');
+    postContainer_control.addEventListener('click', function(event){
+        if(option_state== "리스트"){
+            document.getElementById("option_state").value = "피드";
+        }
+        else if(option_state == "피드"){
+            document.getElementById("option_state").value = "리스트";
+        }
+        console.log(option_state);
+        console.log(document.getElementById("option_state").value );
+        document.getElementById("option_state_form").submit();
+    });
+
+}
+
+
+const postContainer_control = document.querySelector('.postContainer_control');
+const postContainer_control_list = postContainer_control.querySelector('.fa-list');
+const postContainer_control_feed = postContainer_control.querySelector('.fa-image');
+
+
+var notice_container = `
+    <i class="fa-solid fa-circle-exclamation"></i> 
+    피드형에서는 사진이 첨부된 게시글만 볼 수 있어요
+`
+postContainer_control_feed.style.color = "lightgrey";
+// console.log("dd" + postContainer_control);
+
+let admin_linebyline = document.getElementsByClassName("admin_linebyline")
+let admin_album = document.getElementsByClassName("admin_album")
+let Post_image;
+let fixedPost_image;
+let notice = document.getElementById("container_notice")
+// console.log(Post_image)
+// console.log(fixedPost_image)
+
+
+
+function loadPage(){
+    let postContainer_control_state = "{{option_state}}";
+    // if(event.target == postContainer_control ||event.target  == postContainer_control_list || event.target == postContainer_control_feed){
+        // console.log(event.target);
+        let postContainer = document.querySelector(".postContainer");
+        let nonImages = postContainer.getElementsByClassName("nonimage");
+        // console.log(nonImages)
+
+        //피드
+        if(postContainer_control_state == "피드"){
+            postContainer_control_state = "피드";
+            postContainer_control_feed.style.color = "grey";
+            postContainer_control_list.style.color = "lightgrey";
+            postContainer.className = "postContainer album_post"
+
+
+            if(document.querySelector("#Post_image") !=null){
+                Post_image = document.querySelector("#Post_image");
+                Post_image.className ="album_post warning"
+                Post_image.style.display = "flex";
+            }
+            
+            if(document.querySelector("#fixedPost_image")!=null ){
+                fixedPost_image = document.querySelector("#fixedPost_image");
+                fixedPost_image.className ="album_post warning"
+                fixedPost_image.style.display= "flex";
+            }
+
+            // postContainer_control_icon.className = "fa-solid fa-list";
+
+            for(image of nonImages){
+                image.parentNode.parentNode.style.display = "none";
+            }
+
+            for(admin of admin_album){
+                admin.style.display = "block";
+            }
+            for(admin of admin_linebyline){
+                admin.style.display = "none";
+            }
+            notice.innerHTML = notice_container;
+        }
+
+        // 리스트
+        else if (postContainer_control_state == "리스트"){
+            postContainer_control_state = "피드"
+            postContainer_control_list.style.color = "grey";
+            postContainer_control_feed.style.color = "lightgrey";
+            postContainer.className = "postContainer linebyline_post";
+            
+            // postContainer_control_icon.className = "fa-solid fa-image";
+
+
+            if(document.querySelector("#Post_image") !=null){
+                Post_image = document.querySelector("#Post_image");
+                Post_image.className ="linebyline_post warning"
+                Post_image.style.display ="none";
+            }
+            
+            if(document.querySelector("#fixedPost_image")!=null ){
+                fixedPost_image = document.querySelector("#fixedPost_image");
+                fixedPost_image.className ="linebyline_post warning"
+                fixedPost_image.style.display="none";
+            }
+
+
+            for(image of nonImages){
+                image.parentNode.parentNode.style.display = "block";
+            }
+            for(admin of admin_album){
+                admin.style.display = "none";
+            }
+
+            for(admin of admin_linebyline){
+                admin.style.display = "block";
+            }
+            notice.innerHTML = ""
+        }
+        // console.log(postContainer_control_state);
+    };
+
+
+
+
+
+loadPage();
+
+</script>
+
+
 <script>
     let beforeLink = document.referrer
     function gotoBack(){
-        console.log(beforeLink);
+        // console.log(beforeLink);
         if(beforeLink.includes("viewpost") ||beforeLink.includes("join")||beforeLink.includes("members") || beforeLink.includes("mainfeed")|| beforeLink.includes("needTologin") ||beforeLink.includes("new") ||beforeLink.includes("somd_edit") ){
-            {% if user.is_authenticated%}
-            location.href = {% url 'main:mysomd' %};
-            {%else%}
-            location.href = {% url 'main:board' %};
-            {%endif%}
+            '{% if user.is_authenticated%}'
+            location.href = '{% url 'main:mysomd' %}';
+            '{%else%}'
+            location.href = '{% url 'main:board' %}';
+            '{%endif%}'
         }
         else{
             location.href = beforeLink;
         }
     }
-</script>
+    </script>
+
 {% endblock %}
 
+ 
