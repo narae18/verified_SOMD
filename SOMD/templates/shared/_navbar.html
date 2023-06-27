@@ -29,7 +29,7 @@
 
 
     <section class="linkList">
-      <a href="{% url 'users:mypage' %}">마이페이지</a>
+      <a href="{% url 'users:myPage' %}">마이페이지</a>
       <a class="icon" href="{% url 'main:scrap_view' %}">스크랩한 게시물</a>
     </section>
   </section>
@@ -42,26 +42,26 @@
 </section>
 <section class="navbar">
   <!-- 메인페이지 링크 연결 -->
-  <a class="icon" href="{% url 'main:mainpage' %}">
-    <i class="mainpageIcon fa-solid fa-house"></i>
+  <a class="icon" href="{% url 'main:mainPage' %}">
+    <i class="mainPageIcon fa-solid fa-house"></i>
     <!-- <div class="text">메인홈</div> -->
   </a>
 
   <!-- 나의 솜디 링크 연결 -->
-  <a class="icon" href="{% url 'main:mysomd' %}">
-    <i class="mysomdIcon fa-solid fa-user-group"></i>
+  <a class="icon" href="{% url 'main:mySomd' %}">
+    <i class="mySomdIcon fa-solid fa-user-group"></i>
     <!-- <div class="text">나의솜디</div> -->
   </a>
 
   <!-- 솜디 게시판 링크 연결 -->
-  <a class="icon" href="{% url 'main:board' %}">
-    <!-- <div class="boardIcon">
+  <a class="icon" href="{% url 'main:somdList' %}">
+    <!-- <div class="somdListIcon">
                 <i class="fa-solid fa-stop"></i>
                 <i class="fa-solid fa-stop"></i>
                 <i class="fa-solid fa-stop"></i>
                 <i class="fa-solid fa-stop"></i>
             </div> -->
-    <i class="boardIcon fa-solid fa-magnifying-glass"></i>
+    <i class="somdListIcon fa-solid fa-magnifying-glass"></i>
     <!-- <i class="fa-solid fa-grid-2"></i> -->
     <!-- <div class="text">전체솜디</div> -->
   </a>

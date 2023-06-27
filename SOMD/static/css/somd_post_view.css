@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.viewpost {
+.somd_post_view {
   /* padding: 0px 10px; */
   display: flex;
   flex-direction: column;
@@ -10,24 +10,24 @@
 
 /* ---모든 프로필 기본 설정--- */
 
-.viewpost .profile {
+.somd_post_view .profile {
   /* padding: 0px 5px; */
   display: flex;
 }
-.viewpost .profile > .image {
+.somd_post_view .profile > .image {
   width: 35px;
   height: 35px;
   /* background-color: #0ECC87; */
   border-radius: 50%;
 }
-.viewpost .profile>.name {
+.somd_post_view .profile>.name {
   flex-grow: 1;
   padding: 0px 5px;
   display: flex;
   justify-content: start;
   align-items: center;
 }
-.viewpost .profile>a{
+.somd_post_view .profile>a{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,14 +40,14 @@
 
 
 /* ----뷰포스트,헤더---- */
-.viewpost_header .title {
+.somd_post_view_header .title {
   font-size: 30px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.viewpost_header>i {
+.somd_post_view_header>i {
   width: 100%;
   /* text-align: right; */
   /* font-size: 20px; */
@@ -57,7 +57,7 @@
   padding-top: 3px; */
 }
 
-.viewpost_header .content{
+.somd_post_view_header .content{
   flex-grow: 1;
 }
 
@@ -69,14 +69,14 @@
   font-size: 20px;
 }
 
-.viewpost_header .info {
+.somd_post_view_header .info {
   display: flex;
   justify-content: space-between;
 }
-.viewpost_header .profile {
+.somd_post_view_header .profile {
   margin-bottom: 5px;
 }
-.viewpost_header .date {
+.somd_post_view_header .date {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,13 +86,13 @@
   margin-bottom: 5px;
 }
 
-.viewpost_header {
+.somd_post_view_header {
   border-bottom: solid 1px lightgrey;
   margin-bottom: 20px;
 }
 
 /* ----뷰포스트바디---- */
-.viewpost_body .image {
+.somd_post_view_body .image {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -102,15 +102,15 @@
   border-radius: 20px;
 }
 
-.viewpost_body .image > img {
+.somd_post_view_body .image > img {
   width: 100%;
 }
 
-.viewpost_body{
+.somd_post_view_body{
   border-bottom: solid 1px lightgrey;
 }
 
-.viewpost_header .icon{
+.somd_post_view_header .icon{
   width: 100%;
   display: flex;
   justify-content: end;
@@ -118,7 +118,7 @@
   margin-bottom: 10px;
 }
 
-.viewpost_header .icon>i{
+.somd_post_view_header .icon>i{
   width: 20px;
   display: flex;
   justify-content: end;
@@ -127,34 +127,34 @@
   color: lightgrey;
 }
 
-.viewpost_footer {
+.somd_post_view_footer {
   margin: 0px 10px;
   padding-top: 10px;
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
 }
-.viewpost_footer > .icon {
+.somd_post_view_footer > .icon {
   display: flex;
   font-size: 20px;
 }
 
 
-.viewpost_footer >.icon >div {
+.somd_post_view_footer >.icon >div {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 15px;
 }
 
-.viewpost_footer>.icon i {
+.somd_post_view_footer>.icon i {
   margin: 3px;
   color: grey;
   margin-right: 10px;
 }
 
 
-.viewpost_footer>.icon>.comment i {
+.somd_post_view_footer>.icon>.comment i {
 
   font-size: 18px;
 }
@@ -204,33 +204,33 @@ input {
 }
 
 
-.viewpost_commentConatiner .title {
+.somd_post_view_commentConatiner .title {
   display: flex;
   align-items: center;
 
   margin-bottom: 20px;
 }
 
-.viewpost_commentConatiner .title > i {
+.somd_post_view_commentConatiner .title > i {
   padding-left: 3px;
   font-size: 7px;
 }
 
 
-.viewpost_commentConatiner .comment {
+.somd_post_view_commentConatiner .comment {
   margin-bottom: 20px;
   border-bottom: solid 1px lightgrey;
 }
 
-.viewpost_commentConatiner .comment .profile {
+.somd_post_view_commentConatiner .comment .profile {
   margin-bottom: 5px;
 }
 
-.viewpost_commentConatiner .comment .comment_body {
+.somd_post_view_commentConatiner .comment .comment_body {
   margin-bottom: 7px;
 }
 
-.viewpost_commentConatiner .comment .comment_footer {
+.somd_post_view_commentConatiner .comment .comment_footer {
   font-size: 5px;
   color: grey;
   padding-bottom: 5px;

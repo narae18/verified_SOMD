@@ -38,12 +38,12 @@ if (document.querySelector(".sidebar_container")) {
 
 
   if (nowlink == "메인페이지") {
-    // console.log(document.querySelector(".mainpageIcon"));
-    document.querySelector(".mainpageIcon").style.color = "#282828";
+    // console.log(document.querySelector(".mainPageIcon"));
+    document.querySelector(".mainPageIcon").style.color = "#282828";
   } else if (nowlink == "솜디게시판") {
-    document.querySelector(".boardIcon").style.color = "#282828";
+    document.querySelector(".somdListIcon").style.color = "#282828";
   } else if (nowlink == "나의솜디") {
-    document.querySelector(".mysomdIcon").style.color = "#282828";
+    document.querySelector(".mySomdIcon").style.color = "#282828";
   }
 
   var historyBack = document.querySelector(".historyBack");

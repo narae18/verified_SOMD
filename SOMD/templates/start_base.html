@@ -23,12 +23,12 @@
 
     <script src="https://kit.fontawesome.com/081be4ecb0.js" crossorigin="anonymous"></script>
     
-    <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/_project.css' %}">
     <title>SOMD</title>
 
 
     {% if user.is_authenticated %} 
-        <meta http-equiv="refresh" content="0;url={% url 'main:mainpage' %}">
+        <meta http-equiv="refresh" content="0;url={% url 'main:mainPage' %}">
     {%endif%}
 
 </head>

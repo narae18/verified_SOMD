@@ -1,12 +1,12 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/myPage.css' %}" />
 
 <section class="header">
   <section class="mainTitle">
-      <a href="{% url 'users:mypage' %}"><i class="fa-solid fa-chevron-left"></i></a>
+      <a href="{% url 'users:myPage' %}"><i class="fa-solid fa-chevron-left"></i></a>
       <div></div>
 
-      <button class="header_button-2" button type="submit" form="mypage_edit">
+      <button class="header_button-2" button type="submit" form="myPage_edit">
           <i class="fa-solid fa-check"></i> 수정완료
       </button>
 
@@ -16,9 +16,9 @@
 
 <section class="somdPage">
   <form
-    id="mypage_edit"
-    class="mypage"
-    action="{% url 'users:mypage_update' %}"
+    id="myPage_edit"
+    class="myPage"
+    action="{% url 'users:myPage_update' %}"
     method="post"
     enctype="multipart/form-data"
   >

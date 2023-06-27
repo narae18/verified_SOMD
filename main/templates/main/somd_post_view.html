@@ -3,13 +3,13 @@
 
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/viewpost.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/somd_post_view.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/_button.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/_popup.css' %}">
 
 <section class="header">
     <section class="mainTitle">
-        <a href="{% url 'main:mainfeed' post.somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <a href="{% url 'main:somdFeed' post.somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
     </section>
@@ -17,8 +17,8 @@
 <section class="EmptyForHeader"></section>
 
 <section class="somdPage">
-    <section class="viewpost">
-        <section class="viewpost_header">
+    <section class="somd_post_view">
+        <section class="somd_post_view_header">
             <div class="title">
                 <div class="content">
                     {{post.title}}
@@ -45,16 +45,16 @@
                 <i class="fa-solid fa-ellipsis-vertical" onclick="post_view_menu_open(event)" style="position: relative;">
                     <div id="post_view_menu" class="post_view_menu" style="display: none;">
                         {% if post.writer == request.user %}
-                        <a href="{% url 'main:post_edit' post.id %}" class="button"><i class="fa-solid fa-pen"></i> 글수정</a>
+                        <a href="{% url 'main:somd_post_edit' post.id %}" class="button"><i class="fa-solid fa-pen"></i> 글수정</a>
                         {%endif%}
-                        <a href="{% url 'main:post_delete' post.id %}" class="button"><i class="fa-solid fa-trash"></i> 삭제하기</a>
+                        <a href="{% url 'main:somd_post_delete' post.id %}" class="button"><i class="fa-solid fa-trash"></i> 삭제하기</a>
                     </div>
                 </i>
                 {% endif %}
             </div>
         </section>
 
-        <section class="viewpost_body">
+        <section class="somd_post_view_body">
             <p>{{post.content}}</p>
             {% if post.images %}
                 {% for image in images %}
@@ -66,7 +66,7 @@
             {% endif %}
         </section>
 
-        <section class="viewpost_footer">
+        <section class="somd_post_view_footer">
             <div class="icon">
                 <div class="like">
                     {% if request.user in post.like.all %}
@@ -92,7 +92,7 @@
 
         </section>
     
-        <section class="viewpost_commentConatiner">
+        <section class="somd_post_view_commentConatiner">
             <div class="title">댓글 <i class="fa-solid fa-angle-right"></i> </div>
             
             <!-- 20230624 22:20 댓글 클릭시 정보 팝업 띄우기 작업중 > 작업완료 -->
@@ -123,7 +123,7 @@
 
 </section>
 
-<form class="comment_form" method="POST" action="{% url 'main:viewpost' post.id %}">
+<form class="comment_form" method="POST" action="{% url 'main:somd_post_view' post.id %}">
     {% csrf_token %}
     <textarea class="text" type="text" name="comment" required></textarea>
     <button class="submit" type="submit" name="submit">
@@ -245,7 +245,7 @@ function post_view_menu_open(event){
                 }
             }
         };
-        xhr.open('POST', '{% url 'main:post_like' post.id %}');
+        xhr.open('POST', '{% url 'main:somd_post_like' post.id %}');
         xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}');
         xhr.send();
     }

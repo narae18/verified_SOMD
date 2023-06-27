@@ -3,7 +3,7 @@ from .views import *
 
 app_name = "users"
 urlpatterns = [
-    path("mypage/", mypage, name="mypage"),
-    path("mypage_edit/", mypage_edit, name="mypage_edit"),
-    path("mypage_update/", mypage_update, name="mypage_update"),
+    path("myPage/", myPage, name="myPage"),
+    path("myPage_edit/", myPage_edit, name="myPage_edit"),
+    path("myPage_update/", myPage_update, name="myPage_update"),
 ]

@@ -1,10 +1,10 @@
-.mypage {
+.myPage {
   display: flex;
   flex-direction: column;
   padding: 0px 5px;
 }
 
-.mypage > .top {
+.myPage > .top {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,11 +14,11 @@
   position: relative;
 }
 
-.mypage > .top > .label {
+.myPage > .top > .label {
   align-items: center;
 }
 
-.mypage > .item {
+.myPage > .item {
   padding: 5px 0px;
   display: flex;
   justify-content: start;
@@ -26,7 +26,7 @@
   border-bottom: solid 1px lightgrey;
 }
 
-.mypage > .middle {
+.myPage > .middle {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,17 +37,17 @@
   color: grey;
 }
 
-.mypage .fixinfo {
+.myPage .fixinfo {
   width: 100%;
   font-size: 10px;
   text-align: center;
 }
 
-.mypage > .bottom {
+.myPage > .bottom {
   border-bottom: none;
 }
 
-.mypage .label {
+.myPage .label {
   width: 90px;
   height: 100%;
   color: #0ecc87;
@@ -55,14 +55,14 @@
   padding: 5px 0px;
 }
 
-.mypage .image {
+.myPage .image {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   /* border: 3px solid #0ECC87; */
 }
 
-.mypage .text {
+.myPage .text {
   flex-grow: 1;
   /* border-radius: 5px; */
   /* border: 3px solid #0ECC87; */
@@ -73,7 +73,7 @@
   justify-content: space-between;
 }
 
-.mypage .long.text {
+.myPage .long.text {
   height: 70px;
   white-space: pre-wrap;
   /* 3줄부터는 생략시키기 */
@@ -82,7 +82,7 @@
   text-overflow: ellipsis;
 }
 
-.mypage .somd_list {
+.myPage .somd_list {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@ select {
   border-radius: 5px;
 }
 
-.mypage .select {
+.myPage .select {
   flex-grow: 1;
   height: 72px;
   /* border-radius: 5px; */

@@ -17,7 +17,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 def start(request):
     return render(request,'main/start.html')
 
-def mainpage(request):
+def mainPage(request):
     if request.user.is_authenticated:
         user = request.user
         members = Member.objects.filter(user=user)
@@ -26,16 +26,16 @@ def mainpage(request):
         posts = Post.objects.filter(somd__in =somds)
         if somds:
             posts = posts.order_by('-pub_date')
-            return render(request, 'main/mainpage.html', {
+            return render(request, 'main/mainPage.html', {
                 'somds': somds,
                 'posts' : posts,
                 
             })
-    return render(request, 'main/mainpage.html')
+    return render(request, 'main/mainPage.html')
 
 
 
-def board(request):
+def somdList(request):
     #somds = SOMD.objects.all()
     #rank_somds = SOMD.objects.annotate(totalMember=Count('members'), totalPosts=Count('posts'), ratio='totalPosts'/'totalMember').filter(totalMember__gte=5).order_by('-totalMember', '-totalPosts')[:7]
     rank_somds = SOMD.objects.annotate(
@@ -46,23 +46,23 @@ def board(request):
     tags = Tag.objects.all()
     somds = SOMD.objects.all()
         
-    return render(request, 'main/board.html', {
+    return render(request, 'main/somdList.html', {
         "rank_somds": rank_somds,
         "tags": tags,
         "somds": somds,
     })
 
 
-def register(request):
+def somd_new(request):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
     tags = Tag.objects.all()
-    return render(request,'main/register.html',{
+    return render(request,'main/somd_new.html',{
         "tags":tags,
     })
 
-def createSOMD(request):
+def somd_create(request):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
@@ -101,7 +101,7 @@ def createSOMD(request):
         
         new_somd.join_members.add(request.user)
         
-        return redirect("main:mainfeed", new_somd.id)
+        return redirect("main:somdFeed", new_somd.id)
     else:
         return redirect('accounts:needTologin')
 
@@ -161,10 +161,10 @@ def somd_update(request, id):
 
 
     update_somd.save()
-    return redirect("main:mainfeed", update_somd.id)
+    return redirect("main:somdFeed", update_somd.id)
 
 
-def mainfeed(request, id):
+def somdFeed(request, id):
     if request.method == "POST":
         option_state = request.POST['option_state']
     else:
@@ -197,7 +197,7 @@ def mainfeed(request, id):
     # page_obj1, custom_range1 = page_list(request,image_posts,num_per_page)
     
 
-    return render(request, "main/mainfeed.html", {
+    return render(request, "main/somdFeed.html", {
         # 'image_fixed_posts': image_fixed_posts,
         # 'image_posts': image_posts,
         'somd': somd,
@@ -213,7 +213,7 @@ def mainfeed(request, id):
 
 
 
-def mysomd(request):
+def mySomd(request):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
@@ -221,27 +221,27 @@ def mysomd(request):
     try:
         member = Member.objects.get(user=user)
     except Member.DoesNotExist:
-        return render(request, "main/mysomd.html")
+        return render(request, "main/mySomd.html")
         
     member = Member.objects.get(user=user)
     somds = member.somds.all()
     # tags = Tag.objects.all()
 
     waiting_somds = member.waiting_somds.all()
-    return render(request, "main/mysomd.html", {
+    return render(request, "main/mySomd.html", {
         'somds': somds,
         'waiting_somds':waiting_somds,
         # 'tags':tags,
     })
     
-def new(request,somd_id):
+def somd_post_new(request,somd_id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
     somd = SOMD.objects.get(id=somd_id)
-    return render(request, 'main/new.html', {'somd': somd})
+    return render(request, 'main/somd_post_create.html', {'somd': somd})
 
-def createpost(request, somd_id):
+def somd_post_create(request, somd_id):
     
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
@@ -278,7 +278,7 @@ def createpost(request, somd_id):
         # for image in images:
         #     new_image = Images.objects.create(post=new_post, image=image, filename=image.filename)
         
-        return redirect("main:viewpost", new_post.id)
+        return redirect("main:somd_post_view", new_post.id)
 
 
 def join(request, id):
@@ -328,16 +328,16 @@ def wantTojoin(request, id):
 
     receiveUser.alrams.add(alram)
 
-    return redirect("main:mainfeed", somd.id)
+    return redirect("main:somdFeed", somd.id)
 
 
-def members(request, id):
+def somd_members(request, id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
     somd = somd = SOMD.objects.get(id=id)
     
-    return render(request, "main/members.html", {
+    return render(request, "main/somd_members.html", {
         'somd': somd,
     })
 
@@ -357,7 +357,7 @@ def your_view(request):
 
 
 
-def members_wantTojoin(request, somd_id, request_id):
+def somd_members_wantTojoin(request, somd_id, request_id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
@@ -408,10 +408,10 @@ def members_wantTojoin(request, somd_id, request_id):
 
         member.waiting_somds.remove(somd)
 
-    return redirect("main:members", somd.id)
+    return redirect("main:somd_members", somd.id)
 
 
-def members_delete(request, somd_id, join_user_id):
+def somd_members_delete(request, somd_id, join_user_id):
     
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
@@ -440,18 +440,18 @@ def members_delete(request, somd_id, join_user_id):
 
             receiveUser.alrams.add(alram)
 
-            return redirect("main:members", somd.id)
+            return redirect("main:somd_members", somd.id)
         else:
-            return redirect("main:members", somd.id)
+            return redirect("main:somd_members", somd.id)
 
 
-def viewpost(request, post_id):
+def somd_post_view(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.method == 'GET':
         images = post.images.all()
         comments = Comment.objects.filter(post=post)
         
-        return render(request, 'main/viewpost.html', {
+        return render(request, 'main/somd_post_view.html', {
             'post': post,
             'images': images,
             'comments': comments,
@@ -471,7 +471,7 @@ def viewpost(request, post_id):
             post.comment_count += 1
             post.save()
 
-            return redirect('main:viewpost', post.id)
+            return redirect('main:somd_post_view', post.id)
 
 def bookmark(request, somd_id):
     if not request.user.is_authenticated:
@@ -490,7 +490,7 @@ def bookmark(request, somd_id):
 
     user.save()
 
-    return redirect('main:mainfeed', somd.id)
+    return redirect('main:somdFeed', somd.id)
 
 
 def scrap(request, post_id):
@@ -506,7 +506,7 @@ def scrap(request, post_id):
     else:
         user.scrap.add(post)
     user.save()
-    return redirect('main:viewpost', post.id)
+    return redirect('main:somd_post_view', post.id)
 
 def scrap_view(request):
     if not request.user.is_authenticated:
@@ -517,7 +517,7 @@ def scrap_view(request):
     return render(request, 'main/scrappedPost_view.html', {'posts':posts})
 
 
-# def post_like(request, post_id):
+# def somd_post_like(request, post_id):
 #     if not request.user.is_authenticated:
 #         return redirect('accounts:needTologin')
     
@@ -530,9 +530,9 @@ def scrap_view(request):
 #         post.like.add(request.user)
 #         post.like_count += 1
 #     post.save()
-#     return redirect('main:viewpost', post_id)
+#     return redirect('main:somd_post_view', post_id)
 
-def post_like(request, post_id):
+def somd_post_like(request, post_id):
     # if not request.user.is_authenticated:
     #     return redirect('accounts:needTologin')
     if not request.user.is_authenticated:
@@ -558,7 +558,7 @@ def post_like(request, post_id):
 
 # def CountSomdMember(request):
 #     somds = SOMD.objects.annotate(num_members=Count('members')).all()
-#     return render(request, 'main/board.html', {"somds": somds})
+#     return render(request, 'main/somdList.html', {"somds": somds})
 
 # def JoinRequest(request):
 #         new_join_request = JoinRequest()
@@ -589,12 +589,12 @@ def fix(request, post_id, somd_id):
                 post.is_fixed = False
                 post.save()
             else:
-                return redirect('main:mainfeed', id = somd_id)
+                return redirect('main:somdFeed', id = somd_id)
         else:
             post.is_fixed = True
             post.save()
     
-    return redirect('main:mainfeed', id = somd_id)
+    return redirect('main:somdFeed', id = somd_id)
 
 def alram(request):
     if not request.user.is_authenticated:
@@ -605,14 +605,14 @@ def alram(request):
         'alrams': alrams,
     })
 
-def post_edit(request, post_id):
+def somd_post_edit(request, post_id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
     edit_post = Post.objects.get(id=post_id)
-    return render(request, "main/post_update.html", {"post": edit_post})
+    return render(request, "main/somd_post_update.html", {"post": edit_post})
 
-def post_update(request, post_id):
+def somd_post_update(request, post_id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
@@ -643,11 +643,11 @@ def post_update(request, post_id):
                     new_image = Images.objects.create(post=update_post, image=image, filename=filename)
             
             update_post.save()
-            return redirect('main:viewpost', post_id)
-    return redirect('main:viewpost', post_id)
+            return redirect('main:somd_post_view', post_id)
+    return redirect('main:somd_post_view', post_id)
 
 
-def post_delete(request, post_id):
+def somd_post_delete(request, post_id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     
@@ -657,7 +657,7 @@ def post_delete(request, post_id):
             if image.image:
                 image.image.delete()
         post.delete()
-    return redirect('main:mainfeed', post.somd.id)
+    return redirect('main:somdFeed', post.somd.id)
 
 def comment_update(request, post_id, comment_id):
     if not request.user.is_authenticated:
@@ -672,8 +672,8 @@ def comment_update(request, post_id, comment_id):
             update_comment.content = request.POST['content']
             update_comment.pub_date = timezone.now()
             update_comment.save()
-            return redirect('main:viewpost', update_comment.post.id)
-    return render(request, 'main/viewpost.html', {'post': update_comment.post})
+            return redirect('main:somd_post_view', update_comment.post.id)
+    return render(request, 'main/somd_post_view.html', {'post': update_comment.post})
 
 def comment_delete(request, post_id, comment_id):
     if not request.user.is_authenticated:
@@ -685,7 +685,7 @@ def comment_delete(request, post_id, comment_id):
         post.comment_count -= 1
         delete_comment.delete()
         post.save()
-    return redirect('main:viewpost', post.id)
+    return redirect('main:somd_post_view', post.id)
 
 def page_list(request, posts_list, num_per_page):
     paginator = Paginator(posts_list, num_per_page)

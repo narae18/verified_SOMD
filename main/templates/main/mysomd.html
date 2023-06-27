@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/mysomd.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/mySomd.css' %}">
 <section class="header">
     <section class="mainTitle">
         <i class="fa-solid fa-user-group"></i>
@@ -22,7 +22,7 @@
                 <!-- 소모임이 있을 경우 -->
                 {% for somd in user.bookmark.all %}
                     {% if user in somd.join_members.all %}
-                        <a class="somd join " href="{% url 'main:mainfeed' somd.id %}">
+                        <a class="somd join " href="{% url 'main:somdFeed' somd.id %}">
                             <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
                             <div class="information">
                                 <div class="name">{{ somd.name }}</div>
@@ -39,7 +39,7 @@
 
                 {% for somd in user.bookmark.all %}
                     {% if not user in somd.join_members.all %}
-                        <a class="somd wait " href="{% url 'main:mainfeed' somd.id %}">
+                        <a class="somd wait " href="{% url 'main:somdFeed' somd.id %}">
                             <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
                             <div class="information">
                                 <div class="name">{{ somd.name }}</div>
@@ -55,7 +55,7 @@
                 {% endfor %}
             {% else %}
                 <!-- 소모임이 없을 경우 -->
-                <a class="warning" href="{% url 'main:board' %}">
+                <a class="warning" href="{% url 'main:somdList' %}">
                     즐겨찾는 솜디가 아직 없습니다!
                     <br>
                     소모임을 둘러보세요!
@@ -69,7 +69,7 @@
             {% if somds %}
                 <!-- 소모임이 있을 경우 -->
                 {% for somd in somds %}
-                    <a class="somd join " href="{% url 'main:mainfeed' somd.id %}">
+                    <a class="somd join " href="{% url 'main:somdFeed' somd.id %}">
                         <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
                         <div class="information">
                             <div class="name">{{ somd.name }}</div>
@@ -84,7 +84,7 @@
                 {% endfor %}
             {% else %}
                 <!-- 소모임이 없을 경우 -->
-                <a class="warning" href="{% url 'main:board' %}">
+                <a class="warning" href="{% url 'main:somdList' %}">
                     내가 속한 솜디가 아직 없습니다!
                     <br>
                     소모임에 가입해보세요!
@@ -98,7 +98,7 @@
                 <!-- 가입 대기 중인 소모임이 있을 경우 -->
                 <div class="section_title">가입 대기중인 솜디</div>
                 {% for somd in waiting_somds %}
-                    <a class="somd wait" href="{% url 'main:mainfeed' somd.id %}">
+                    <a class="somd wait" href="{% url 'main:somdFeed' somd.id %}">
                         <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
                         <div class="information">
                             <div class="name">{{ somd.name }}</div>
