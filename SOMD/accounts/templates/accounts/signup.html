@@ -156,70 +156,73 @@
     }
 }
 
-// function isBirthday() {
+function isBirthday(year, month, day) {
+            var today = new Date(); // 날짜 변수 선언
+            var yearNow = today.getFullYear(); // 올해 연도 가져옴
 
-//     var year = document.getElementById('year').value;
-//     var month = document.getElementById('month').value;
-//     var day = document.getElementById('day').value;
-//     var today = new Date(); // 날짜 변수 선언
-//     var yearNow = today.getFullYear(); // 올해 연도 가져옴
+        
+        // 연도 1900 보다 작거나 yearNow 보다 크다면 false를 반환
+            if (year.length == 4 && (1900 > year || year > yearNow)){
+                
+                return false;
+            } else if (month && (month < 1 || month > 12)) {
+                
+                return false;
+            } else if (day && (day < 1 || day > 31)) {
+                
+                return false;
+            } else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+                
+                return false;
+            } else if (month == 2) {
 
-    
-//     // 연도 1900 보다 작거나 yearNow 보다 크다면 false를 반환
-//         if (year.length == 4 && (1900 > year || year > yearNow)){
-//             alert('년도를 확인하세요');
-//             return false;
-//         } else if (month && (month < 1 || month > 12)) {
-//             alert('달은 01월부터 12월까지 입력 가능합니다.');
-//             return false;
-//         } else if (day && (day < 1 || day > 31)) {
-//             alert('일은 1일부터 31일까지 입력가능합니다.');
-//             return false;
-//         } else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
-//             alert(month+"월은 31일이 존재하지 않습니다.");
-//             return false;
-//         } else if (month == 2) {
-
-//             var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
-//             if (day>29 || (day==29 && !isleap)) {
-//                 alert(year + "년 2월은  " + day + "일이 없습니다.");
-//                 return false;
-//             } else {
-//                 return true;
-//             } //end of if (day>29 || (day==29 && !isleap))
-//         } else {
-//             return true;
-//         }//end of if
-// }
+                var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+                if (day>29 || (day==29 && !isleap)) {
+                    
+                    return false;
+                } else {
+                    return true;
+                } //end of if (day>29 || (day==29 && !isleap))
+            } else {
+                return true;
+            }//end of if
+    }
 
 function validateForm() {
 
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     var confirm_password = document.getElementById('confirm').value;
-    var isValidBirthday = true;
+
     var college = document.getElementById('college').value;
     var department = document.getElementById('department').value;
     var birthday = document.getElementById('birth').value;
 
+    var year = birthday.substring(0,4);
+    var month = birthday.substring(4,6);
+    var day = birthday.substring(6,8);
+
+    
+    var isValidBirthday = false
     var isValidUsername = false;
     var isValidPassword = false;
     var isEqualPassword = false;
+
     if (!college||!department||!birthday){
         alert("정보를 모두 입력해주세요.");
         return false;
     }
     // 생년월일 확인
-    if (!isValidBirthday) {
+    if (!isBirthday(year, month, day)) {
         alert("생년월일이 올바르지 않습니다.");
         document.getElementById('birth').value = '';
         return false;
+    } else {
+        isValidBirthday = true;
     }
 
     // 아이디 형식 확인
     if (!/^[a-zA-Z0-9_-]{4,16}$/.test(username)) {
-        // alert('아이디는 영문자, 숫자, 대시(-), 밑줄(_)로 구성되며 4자 이상 16자 이하여야 합니다.');
-        // return false;
         document.getElementById("idError").innerText = "ID: 영문자, 숫자, -, _를 선택하여 4~16자";
         return false;
     } else {
@@ -228,8 +231,6 @@ function validateForm() {
     }
     // 비밀번호 형식 확인
     if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
-        // alert('비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상이어야 합니다.');
-        // return false;
         document.getElementById("pwError").innerText = "PW: 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상";
         return false;
     } else {
@@ -239,8 +240,6 @@ function validateForm() {
 
     // 비밀번호 일치 여부 확인
     if (password !== confirm_password) {
-        // alert('비밀번호가 일치하지 않습니다.');
-        // return false;
         document.getElementById("pwConfirmError").innerText = "비밀번호가 일치하지 않습니다.";
         return false;
     } else  {
@@ -248,17 +247,17 @@ function validateForm() {
         document.getElementById("pwConfirmError").innerText = "";
     }
 
-    // 입력한 정보가 유효하지 않을 경우
-    // if (!isValidBirthday || !/^[a-zA-Z0-9_-]{4,16}$/.test(username) || !/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password) || password !== confirm_password) {
-    if (!isValidBirthday ) {
+    if (!isValidBirthday) {
         document.getElementById('birthday').value = '';
-        return false;
-    } else if (!isValidUsername) document.getElementById('username').value = '';
+    } else if (!isValidUsername) {
+        document.getElementById('username').value = '';
+    }
     else if (!isValidPassword) {
         document.getElementById('password').value = '';
         document.getElementById('confirm').value = '';
-    } else if (!isEqualPassword) document.getElementById('confirm').value = ''; 
-    else {
+    } else if (!isEqualPassword) {
+        document.getElementById('confirm').value = ''; 
+    } else {
         document.querySelector("form").submit();
         return true;
     }
