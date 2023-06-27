@@ -3,7 +3,7 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/mainfeed.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/somdFeed.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/_button.css' %}">
 
 <section class="header">
@@ -22,11 +22,11 @@
 
 <section class="somdPage">
             {% if user in somd.join_members.all %}
-            <div class="writeButton" onclick=location.href="{% url 'main:new' somd.id%}"><i class="fa-solid fa-pen"></i></div>
+            <div class="writeButton" onclick=location.href="{% url 'main:somd_post_new' somd.id%}"><i class="fa-solid fa-pen"></i></div>
             {%endif%}
 
 
-    <section class="mainfeed">
+    <section class="somdFeed">
         <section class="feed_header">
             {% if somd.backgroundimage %}
             <div class="background image" 
@@ -79,7 +79,7 @@
 
             <div class="button_case">
                 {% if somd.admin.id == user.id %}
-                    <a class="body_button body_button2" href="{% url 'main:members' somd.id %}">멤버관리</a>
+                    <a class="body_button body_button2" href="{% url 'main:somd_members' somd.id %}">멤버관리</a>
                     <a class="body_button body_button2" href="{% url 'main:somd_edit' somd.id %}">솜디수정</a>
                 {% endif %}
 
@@ -91,7 +91,7 @@
             </div>
         </section>
 
-        <form id="option_state_form" style="display: none;" method="POST" action="{% url 'main:mainfeed' somd.id %}">
+        <form id="option_state_form" style="display: none;" method="POST" action="{% url 'main:somdFeed' somd.id %}">
             {% csrf_token %}
             <input type="text" name="option_state" id="option_state" value="{{option_state}}" tyle="display: none;">
         </form>
@@ -133,7 +133,7 @@
                             </div>
                         </section>
 
-                        <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
+                        <a class="about_post"  href="{% url 'main:somd_post_view' post.id %}">
                             {% if post.images.all %}
                                 <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
                                 {% if post.images.all|length > 1 %}
@@ -196,7 +196,7 @@
                             </div>
                         </section>
 
-                        <a class="about_post"  href="{% url 'main:viewpost' post.id %}">
+                        <a class="about_post"  href="{% url 'main:somd_post_view' post.id %}">
 
                         {% if post.images.all %}
                             <div class="image" style="background-image:url( {{ post.images.first.image.url }} );">
@@ -396,11 +396,11 @@ loadPage();
     let beforeLink = document.referrer
     function gotoBack(){
         // console.log(beforeLink);
-        if(beforeLink.includes("viewpost") ||beforeLink.includes("join")||beforeLink.includes("members") || beforeLink.includes("mainfeed")|| beforeLink.includes("needTologin") ||beforeLink.includes("new") ||beforeLink.includes("somd_edit") ){
+        if(beforeLink.includes("somd_post_view") ||beforeLink.includes("join")||beforeLink.includes("members") || beforeLink.includes("somdFeed")|| beforeLink.includes("needTologin") ||beforeLink.includes("new") ||beforeLink.includes("somd_edit") ){
             '{% if user.is_authenticated%}'
-            location.href = '{% url 'main:mysomd' %}';
+            location.href = '{% url 'main:mySomd' %}';
             '{%else%}'
-            location.href = '{% url 'main:board' %}';
+            location.href = '{% url 'main:somdList' %}';
             '{%endif%}'
         }
         else{

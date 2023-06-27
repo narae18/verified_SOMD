@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/somdList.css' %}">
 <section class="header">
     <section class="mainTitle">
         <i class=" fa-solid fa-magnifying-glass"></i>
 
         <div>솜디게시판</div>
-        <a class="header_button" href="{% url 'main:register' %}">
+        <a class="header_button" href="{% url 'main:somd_new' %}">
             <i class="fa-solid fa-plus"></i> SOM D 등록
         </a>
     </section>
@@ -26,7 +26,7 @@
 
                 <div class="somd_list_for_scroll">
                     {% for somd in rank_somds %}
-                    <a class="somd icon_box" href="{% url 'main:mainfeed' somd.id %}">
+                    <a class="somd icon_box" href="{% url 'main:somdFeed' somd.id %}">
                         <div class="image"
                             style="background-image:url({{somd.profileimage.url}});"></div>
                         <div class="name">{{somd.name}}</div>
@@ -63,7 +63,7 @@
         
         </section>
         <section class="button_box">
-            <button id="resetBtn" class="resetBtn" onclick = "location.href = '{% url 'main:board' %}' "><i class="fa-solid fa-rotate-right"></i>초기화</button>
+            <button id="resetBtn" class="resetBtn" onclick = "location.href = '{% url 'main:somdList' %}' "><i class="fa-solid fa-rotate-right"></i>초기화</button>
             <button id="searchBtn" class="searchBtn" onclick="searchBtn_click(event)"><i class="fa-solid fa-magnifying-glass"></i> 찾기</button>
         </section>
     </div>
@@ -127,7 +127,7 @@ let somd = {};
     somd['name'] = "{{ somd.name }}";
     somd['college'] = "{{ somd.college }}";
     somd['department'] = "{{ somd.department }}";
-    somd['a_href'] = "{% url 'main:mainfeed' somd.id %}"
+    somd['a_href'] = "{% url 'main:somdFeed' somd.id %}"
     somd['profileimage'] = "{{somd.profileimage.url}}";
     somd['tags'] = [];
     {% for tag in somd.tags.all %}
@@ -242,7 +242,7 @@ function open_College(collegeTitle, toggle_college, toggle_icon){
     if(collegeTitle.parentNode.querySelector(".list") == null){
         let warning = document.createElement("a");
         warning.className ="warning";
-        warning.href = "{% url 'main:register' %}"
+        warning.href = "{% url 'main:somd_new' %}"
         warning.innerText = toggle_college+"의 소모임이 아직 없습니다.\n소모임을 만들어보세요!"
         collegeSomdList.appendChild(warning);
 
@@ -393,7 +393,7 @@ function searchBtn_click(event){
     else{
         let warning = document.createElement("a");
         warning.className ="warning";
-        warning.href = "{% url 'main:register' %}"
+        warning.href = "{% url 'main:somd_new' %}"
         warning.innerText = "해당하는 소모임이 아직 없습니다.\n소모임을 만들어보세요!"
         search_somdList_for_you.appendChild(warning);
 
@@ -408,5 +408,5 @@ function searchBtn_click(event){
 
 
 </script>
-<!-- <script src="{% static 'js/scroll_board.js' %}"></script> -->
+<!-- <script src="{% static 'js/scroll_somdList.js' %}"></script> -->
 {% endblock %}

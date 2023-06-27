@@ -15,7 +15,7 @@ def login(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('main:mainpage')
+            return redirect('main:mainPage')
         else:
             login_success = False
             return render(request, 'accounts/login.html', {'login_success': login_success})
@@ -86,7 +86,7 @@ def signup(request):
 
             auth.login(request, user)
             messages.success(request, '회원 가입이 완료되었습니다.')
-            return redirect('main:mainpage')
+            return redirect('main:mainPage')
         except Exception as e:
             messages.error(request, '회원 가입 중 오류가 발생했습니다. 다시 시도해주세요.')
 
@@ -95,4 +95,4 @@ def signup(request):
 def deleteUser(request):
     user = request.user
     user.delete()
-    return redirect('main:mainpage')
+    return redirect('main:mainPage')

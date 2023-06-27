@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/somd_register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/somd_new.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/_button.css' %}">
 <section class="header">
     <section class="mainTitle">
-        <a href="{% url 'main:board' %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <a href="{% url 'main:somdList' %}"><i class="fa-solid fa-chevron-left"></i></a>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>솜디 등록하기</div>
     </section>
@@ -14,8 +14,8 @@
 
 
 <section class="somdPage">
-    <form action="{% url 'main:createSOMD' %}" method="POST" enctype="multipart/form-data">
-        <section class="somd_register">
+    <form action="{% url 'main:somd_create' %}" method="POST" enctype="multipart/form-data">
+        <section class="somd_new">
         {% csrf_token %}
         <section class="feed_header">
             <div class="back-pic-preview background image">

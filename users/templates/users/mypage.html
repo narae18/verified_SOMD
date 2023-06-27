@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/mypage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/myPage.css' %}">
 
 <section class="header">
     <section class="mainTitle">
-        <a href="{% url 'main:mainpage' %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <a href="{% url 'main:mainPage' %}"><i class="fa-solid fa-chevron-left"></i></a>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
-         <a class="header_button" href="{% url 'users:mypage_edit' %}" class="button">
+         <a class="header_button" href="{% url 'users:myPage_edit' %}" class="button">
             <i class="fa-solid fa-pen"></i> 수정
         </a>
     </section>
@@ -18,7 +18,7 @@
 
 
 <section class="somdPage">
-    <section class="mypage">
+    <section class="myPage">
         <section class="top">
             <div class="profile-pic-preview profile image" style="background-image:url({{user.profile.profile_pic.url}});"></div>
         </section>

@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/mainpage.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/mainPage.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 
 <section class="header">
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </section>
-                    <a class="about_post" href="{% url 'main:viewpost' post.id %}">
+                    <a class="about_post" href="{% url 'main:somd_post_view' post.id %}">
 
                         {% if post.images.all %}
                             

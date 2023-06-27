@@ -39,7 +39,7 @@
     border-radius: 5px;
 }
 
-.mainfeed{
+.somdFeed{
     display: flex;
     flex-direction: column;
 }

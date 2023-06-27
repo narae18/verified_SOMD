@@ -6,7 +6,7 @@
 
 <section class="header">
     <section class="mainTitle">
-        <a href="{% url 'main:mysomd' %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <a href="{% url 'main:mySomd' %}"><i class="fa-solid fa-chevron-left"></i></a>
         <div>솜디 로그</div>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
@@ -32,7 +32,7 @@
             </section>
         
         {% elif alram.type == "somdAccept" %}    
-        <div class="somdAccept alram" onclick ="location.href = '{% url 'main:mainfeed' alram.somd.id %}'">
+        <div class="somdAccept alram" onclick ="location.href = '{% url 'main:somdFeed' alram.somd.id %}'">
             <div class="date">
                 {{alram.date}}
             </div>
@@ -45,7 +45,7 @@
                 <i class="fa-solid fa-chevron-right"></i>
             </section>
         {% elif alram.type == "userJoin" %}    
-        <div class="somdJoin alram" onclick ="location.href = '{% url 'main:members' alram.somd.id %}'">
+        <div class="somdJoin alram" onclick ="location.href = '{% url 'main:somd_members' alram.somd.id %}'">
             <div class="date">
                 {{alram.date}}
             </div>

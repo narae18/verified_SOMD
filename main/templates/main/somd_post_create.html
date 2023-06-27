@@ -3,25 +3,25 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/new.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/somd_post_new.css' %}">
 
 <section class="header">
     <section class="mainTitle">
-        <a href="{% url 'main:mainfeed' somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
+        <a href="{% url 'main:somdFeed' somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
         <!-- <i class="fa-solid fa-house"></i> -->
         <div>{{ somd.name }}</div>
     </section>
 </section>
 
 <section class="somdPage">
-    <section class="mainfeed">
+    <section class="somdFeed">
         
 
         <!-- <div class="titlebtn">
             <a class="button">글 쓰기</a>
         </div> -->
     
-        <form action = "{% url 'main:createpost' somd.id %}" method="POST" enctype="multipart/form-data">
+        <form action = "{% url 'main:somd_post_create' somd.id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="mainForm">
                 <section class="joinForm">
@@ -68,7 +68,7 @@
                 <button type="submit" id="uploadBtn" class="button">업로드</button>
             </div>
         </form>
-        <!-- <form action = "{% url 'main:createpost' somd.id %}" method="POST" enctype="multipart/form-data">
+        <!-- <form action = "{% url 'main:somd_post_create' somd.id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
                 <p>제목 : <input type="text" name="title"></p>
