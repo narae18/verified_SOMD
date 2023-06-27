@@ -172,7 +172,7 @@ def mainfeed(request, id):
     num_per_page = 6
 
     page_obj, custom_range = page_list(request,posts,num_per_page)
-    page_obj1, custom_range = page_list(request,image_posts,num_per_page)
+    page_obj1, custom_range1 = page_list(request,image_posts,num_per_page)
     
 
     return render(request, "main/mainfeed.html", {
@@ -184,6 +184,7 @@ def mainfeed(request, id):
         'page_obj': page_obj,
         'custom_range': custom_range,
         'page_obj1': page_obj1,
+        'custom_range1': custom_range1,
     })
 
 
@@ -532,13 +533,21 @@ def post_like(request, post_id):
 def fix(request, post_id, somd_id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
-    
+    somd = get_object_or_404(SOMD, id=somd_id)
     post = get_object_or_404(Post, id=post_id)
-    if post.is_fixed:
-        post.is_fixed = False
-    else:
-        post.is_fixed = True
-    post.save()
+
+    fixed_posts_count = Post.objects.filter(somd=somd, is_fixed=True).count()
+
+    if somd.admin == request.user:
+        if fixed_posts_count >= 2:
+            if post.is_fixed:
+                post.is_fixed = False
+                post.save()
+            else:
+                return redirect('main:mainfeed', id = somd_id)
+        else:
+            post.is_fixed = True
+            post.save()
     
     return redirect('main:mainfeed', id = somd_id)
 
