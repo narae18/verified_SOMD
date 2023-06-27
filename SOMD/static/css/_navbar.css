@@ -305,7 +305,7 @@
   margin: 5px;
 }
 
-/* .boardIcon{
+/* .somdListIcon{
   display: flex;
   justify-content: space-between;
   align-content: space-between ;
@@ -314,7 +314,7 @@
   margin: 5px;
   flex-wrap: wrap;
 }
-.boardIcon>i{
+.somdListIcon>i{
   display: flex;
   justify-content: center;
   align-items: center;

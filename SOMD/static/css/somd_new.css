@@ -1,7 +1,7 @@
 * {
   font-size: 15px;
 }
-.somd_register {
+.somd_new {
   display: flex;
   flex-direction: column;
 }
@@ -57,7 +57,7 @@
   justify-content: start;
 }
 
-.somd_register .label {
+.somd_new .label {
   width: 100px;
   height: 38.5px;
   color: #0ecc87;
@@ -90,7 +90,7 @@ select {
   margin-bottom: 6px;
 }
 
-.somd_register .long.text {
+.somd_new .long.text {
   height: 70px;
 }
 
@@ -103,7 +103,7 @@ input[type="file"] {
   display: none;
 }
 
-.somd_register > .feed_header label {
+.somd_new > .feed_header label {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -127,7 +127,7 @@ input[type="file"] {
 
 /* ----태그용---- */
 
-.somd_register > .info .tag_box {
+.somd_new > .info .tag_box {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -135,7 +135,7 @@ input[type="file"] {
   flex-grow: 0;
 }
 
-.somd_register > .info .tag_box > label {
+.somd_new > .info .tag_box > label {
   border: solid 3px #0ecc87;
   color: #0ecc87;
   border-radius: 20px;
@@ -144,18 +144,18 @@ input[type="file"] {
   margin-bottom: 5px;
 }
 
-.somd_register > .info .tag {
+.somd_new > .info .tag {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.somd_register > .info .tag > .input_tag {
+.somd_new > .info .tag > .input_tag {
   display: flex;
   /* width: 100%; */
   margin: 5px;
 }
 
-.somd_register > .info .tag > .input_tag > input {
+.somd_new > .info .tag > .input_tag > input {
   flex-grow: 1;
   background-color: rgb(250, 250, 250);
   margin-right: 3px;

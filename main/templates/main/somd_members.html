@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/members.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/somd_members.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/_button.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/_popup.css' %}">
 
 
 <section class="header">
   <section class="mainTitle">
-      <a href="{% url 'main:mainfeed' somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
+      <a href="{% url 'main:somdFeed' somd.id %}"><i class="fa-solid fa-chevron-left"></i></a>
       <div>{{ somd.name }}</div>
   </section>
 </section>
@@ -31,7 +31,7 @@
                         data-requestTitle="{{ request.title }}"
                         data-requesmotivation="{{ request.motivation }}"
                         data-requestPubDate="{{ request.pub_date }}"
-                        data-requestUrl="{% url 'main:members_wantTojoin' somd.id request.id%}">
+                        data-requestUrl="{% url 'main:somd_members_wantTojoin' somd.id request.id%}">
 
 
           <div class="newMemberName">{{request.writer.profile.nickname}}</div>
@@ -54,7 +54,7 @@
             <div class="college">{{join_user.profile.college}} {{join_user.profile.department}}</div>
           </div>
           {% if not join_user == somd.admin %}
-          <a class="deleteBtn" href= "{% url 'main:members_delete' somd.id join_user.id %}"><i class="fa-solid fa-user-large-slash"></i></a>
+          <a class="deleteBtn" href= "{% url 'main:somd_members_delete' somd.id join_user.id %}"><i class="fa-solid fa-user-large-slash"></i></a>
           {%endif%}
         </div>
 

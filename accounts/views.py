@@ -17,7 +17,7 @@ def login(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('main:mainpage')
+            return redirect('main:mainPage')
         else:
             login_success = False
             return render(request, 'accounts/login.html', {'login_success': login_success})
@@ -93,6 +93,12 @@ def signup(request):
             messages.warning(request, '동국 패스 인증 중! 승인 시 로그인 페이지로 이동합니다.')
             return dgupass_process(request, user.id)
 
+<<<<<<< HEAD
+=======
+            auth.login(request, user)
+            messages.success(request, '회원 가입이 완료되었습니다.')
+            return redirect('main:mainPage')
+>>>>>>> b06ea09bf0ebe12b0c522bfe529ba63fc62847e1
         except Exception as e:
             messages.error(request, '회원 가입 중 오류가 발생했습니다. 다시 시도해주세요.')
 
@@ -110,4 +116,4 @@ def dgupass_process(request,user_id):
 def deleteUser(request):
     user = request.user
     user.delete()
-    return redirect('main:mainpage')
+    return redirect('main:mainPage')

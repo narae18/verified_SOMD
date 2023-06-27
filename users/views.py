@@ -4,38 +4,38 @@ import os
 from django.conf import settings
 
 # Create your views here.
-def mypage(request):
+def myPage(request):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')
     user = request.user
     try:
         member = Member.objects.get(user=user)
     except Member.DoesNotExist:
-        return render(request, "users/mypage.html")
+        return render(request, "users/myPage.html")
         
 
     member = Member.objects.get(user=user)
     somds = member.somds.all()
-    return render(request, "users/mypage.html", {
+    return render(request, "users/myPage.html", {
         'somds': somds,
     })
 
-def mypage_edit(request):
+def myPage_edit(request):
     user = request.user
 
     try:
         member = Member.objects.get(user=user)
     except Member.DoesNotExist:
-        return render(request, "users/mypage_edit.html")
+        return render(request, "users/myPage_edit.html")
         
 
     member = Member.objects.get(user=user)
     somds = member.somds.all()
-    return render(request, "users/mypage_edit.html", {
+    return render(request, "users/myPage_edit.html", {
         'somds': somds,
     })
 
-def mypage_update(request):
+def myPage_update(request):
 
     update_user = request.user
 
@@ -59,5 +59,5 @@ def mypage_update(request):
     update_user.profile.save()
     update_user.save()
 
-    return redirect('users:mypage')
+    return redirect('users:myPage')
 
