@@ -5,6 +5,8 @@ from django.conf import settings
 
 # Create your views here.
 def mypage(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:needTologin')
     user = request.user
     try:
         member = Member.objects.get(user=user)

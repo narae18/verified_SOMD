@@ -114,6 +114,9 @@ body{
     .SDcontainer{
         width: 100%;
     }
+    .input_text, select{
+        max-width: 270px;
+    }
   }
 
 
@@ -192,4 +195,14 @@ select:focus{
 }
 .warning:hover{
     color: grey;
+}
+
+
+@media screen and (min-width:720px){
+    .SDcontainer{
+        width: 720px;
+    }
+    .input_text, select{
+        max-width: 600px;
+    }
 }
