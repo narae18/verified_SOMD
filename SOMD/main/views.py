@@ -184,7 +184,7 @@ def mainfeed(request, id):
 
     num_per_page = 5
 
-    page_obj, custom_rango = page_list(request,posts,num_per_page)
+    page_obj, custom_range = page_list(request,posts,num_per_page)
 
     return render(request, "main/mainfeed.html", {
         'image_fixed_posts': image_fixed_posts,

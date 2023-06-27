@@ -287,3 +287,9 @@ textarea:focus {
 .post_view_menu>a:nth-child(2){
   color: rgb(234, 66, 66);
 }
+
+/* 비로그인으로 좋아요 눌렀을 시 생기는 문구 */
+.needLoginMsg {
+  color: blue;
+  font-size: 13px;
+}
