@@ -220,7 +220,7 @@ function validateForm() {
     if (!/^[a-zA-Z0-9_-]{4,16}$/.test(username)) {
         // alert('아이디는 영문자, 숫자, 대시(-), 밑줄(_)로 구성되며 4자 이상 16자 이하여야 합니다.');
         // return false;
-        document.getElementById("idError").innerText = "ID를 입력하세요.";
+        document.getElementById("idError").innerText = "ID: 영문자, 숫자, -, _를 선택하여 4~16자";
         return false;
     } else {
         isValidUsername = true;
@@ -230,7 +230,7 @@ function validateForm() {
     if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
         // alert('비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상이어야 합니다.');
         // return false;
-        document.getElementById("pwError").innerText = "영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상";
+        document.getElementById("pwError").innerText = "PW: 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상";
         return false;
     } else {
         isValidPassword = true;
