@@ -38,37 +38,37 @@ def needTologin(request):
 
 def signup(request):
     if request.method == "POST":
-        name = request.POST['name']
-        nickname = request.POST['nickname']
-        gender = request.POST['gender']
-        birth = request.POST['birth']
+        name = request.POST.get('name')
+        nickname = request.POST.get('nickname')
+        gender = request.POST.get('gender')
+        birth = request.POST.get('birth')
         year = birth[:4]
         month = birth[4:6]
         day = birth[6:]
         birth = f'{year}-{month}-{day}'
-        college = request.POST['college']
-        department = request.POST['department']
-        email = request.POST['email']
+        college = request.POST.get('college')
+        department = request.POST.get('department')
+        email = request.POST.get('email')
 
-
-        if not re.match(r'^[a-zA-Z0-9_-]{4,16}$', request.POST['username']):
+        # 입력값 검증
+        if not re.match(r'^[a-zA-Z0-9_-]{4,16}$', request.POST.get('username')):
             messages.error(request, '유효한 아이디 형식이 아닙니다.')
             return redirect('accounts:signup')
 
-        if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', request.POST['password']):
+        if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', request.POST.get('password')):
             messages.error(request, '비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상 입력해야 합니다.')
             return redirect('accounts:signup')
 
-        if request.POST['password'] != request.POST['confirm']:
+        if request.POST.get('password') != request.POST.get('confirm'):
             messages.error(request, '비밀번호가 일치하지 않습니다.')
             return redirect('accounts:signup')
 
-        if User.objects.filter(Q(username=request.POST['username']) | Q(email=request.POST['email'])).exists():
+        if User.objects.filter(Q(username=request.POST.get('username')) | Q(email=request.POST.get('email'))).exists():
             messages.error(request, '이미 사용 중인 ID 또는 이메일입니다.')
             return redirect('accounts:signup')
 
         try:
-            user = User.objects.create_user(username=request.POST['username'], password=request.POST['password'])
+            user = User.objects.create_user(username=request.POST.get('username'), password=request.POST.get('password'))
             user.save()
 
             # 추가 필드 정보 저장
@@ -80,15 +80,28 @@ def signup(request):
                 birthday=birth,
                 college=college,
                 department=department,
-                email = email,
+                email=email,
             )
             profile.save()
 
+            # 회원 가입 완료 후 이메일 인증을 위한 코드 추가
+            current_site = get_current_site(request)
+            message = render_to_string('accounts/activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            mail_title = "SOMDI 이메일 인증이 도착했습니다🐘"
+            mail_to = request.POST.get("email")
+            email = EmailMessage(mail_title, message, to=[mail_to])
+            email.send()
+
             auth.login(request, user)
-            messages.success(request, '회원 가입이 완료되었습니다.')
+            messages.success(request, '회원 가입 성공!')
             return redirect('main:mainpage')
         except Exception as e:
-            messages.error(request, '회원 가입 중 오류가 발생했습니다. 다시 시도해주세요.')
+            messages.error(request, f'회원 가입 실패: {e}')
 
     return render(request, 'accounts/signup.html')
 
