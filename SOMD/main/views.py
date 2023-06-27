@@ -169,22 +169,11 @@ def mainfeed(request, id):
     image_fixed_posts = fixed_posts.filter(images__isnull=False)
     image_posts = posts.filter(images__isnull=False)
 
-    Posts = somd.posts.filter(is_fixed=False)
-    fixedPosts= somd.posts.filter(is_fixed=True)
+    num_per_page = 6
 
-    if(somd.join_members.filter(id = request.user.id).exists()):
-        posts = Posts
-        fixed_posts = fixedPosts
-    else:
-        posts = Posts.filter(is_secret = False)
-        fixed_posts = fixedPosts.filter(is_secret = True)
-
-    image_fixedPosts = fixedPosts.filter(images__isnull= False)
-    image_Posts = Posts.filter(images__isnull = False)
-
-    num_per_page = 5
-
-    page_obj, custom_rango = page_list(request,posts,num_per_page)
+    page_obj, custom_range = page_list(request,posts,num_per_page)
+    page_obj1, custom_range = page_list(request,image_posts,num_per_page)
+    
 
     return render(request, "main/mainfeed.html", {
         'image_fixed_posts': image_fixed_posts,
@@ -194,6 +183,7 @@ def mainfeed(request, id):
         'posts': page_obj,
         'page_obj': page_obj,
         'custom_range': custom_range,
+        'page_obj1': page_obj1,
     })
 
 
