@@ -4,6 +4,8 @@
 {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/viewpost.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/_button.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/_popup.css' %}">
 
 <section class="header">
     <section class="mainTitle">
@@ -97,7 +99,7 @@
                 {% for comment in comments %}
                 <div class="comment">
                     <div class="profile">
-                        <div class="profile_info image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileImg="{{ comment.writer.profile.profile_pic.url }}"></div>
+                        <div class="profile_info image" style="background-image:url({{ comment.writer.profile.profile_pic.url }});" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileimg="{{ comment.writer.profile.profile_pic.url }}"></div>
                         <div class="name">{{ comment.writer }}</div>
                         <!-- 삭제버튼 -->
                         {% if comment.writer == request.user or  request.user == post.somd.admin %}
@@ -109,7 +111,7 @@
                     </div>
                     <div class="comment_footer">
                         {{ comment.pub_date }}
-                        <!-- <button class="profile_info" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileImg="{{ comment.writer.profile.profile_pic.url }}">작성자 정보</button> -->
+                        <!-- <button class="profile_info" data-nickname="{{ comment.writer.profile.nickname }}" data-college="{{ comment.writer.profile.college }}" data-department="{{ comment.writer.profile.department }}" data-intro="{{ comment.writer.profile.intro }}" data-profileimg="{{ comment.writer.profile.profile_pic.url }}">작성자 정보</button> -->
                     </div>
                 </div>
                 {% endfor %}
@@ -131,27 +133,30 @@
 <script>
     // 팝업을 열기 위한 함수
     // user.profile.profile_pic.url
-    function openPopup(nickname, college, department, intro, profileImg) {
+    function openPopup(nickname, college, department, intro, profileimg) {
     // 팝업 내용을 구성하는 HTML 코드
     var popupContent = `
-        <div class="popup">
-            <section class="popupinfo">
-                <div class="image">
-                    <img class="popupProfileImg" src="{{ post.writer.profile.profile_pic.url }}" alt="프로필 이미지" width="30px">
-                </div>
-                <div>
-                    <p>${nickname}</p>
-                    <p>${college}</p>
-                    <p>${department}</p>
-                </div>
-            </section>
-            <section class="popupintro">
-                <p>${intro}</p>
-            </section>
-            <section>
-                <button onclick="closePopup()">닫기</button>
-            </section>
+    <div id="popup" class="popup" style="display: flex;"  method="POST" enctype="multipart/form-data" onsubmit="return false;">
+      {% csrf_token %}  
+        <div class="profile">
+          <div class="image" style="background-image:url( ${profileimg} );"></div>
+          <div class="info">
+            <div class="name">${nickname}</div>
+            <div class="department">${college}</div>
+            <div class="department">${department}</div>
+          </div>
         </div>
+        
+        <div class="popupContent">
+            <div>${intro}</div>    
+        </div>
+
+        <div class="popupBtns">
+          <div class="button_case">
+            <button class="body_button white body_button1" onclick="closePopup()">닫기</button>
+          </div>
+        </div>
+      </div>
     `;
 
     // 팝업을 표시할 요소를 생성하고 내용을 설정
@@ -192,8 +197,8 @@ profileInfoButtons.forEach(function(button) {
         var college = this.dataset.college;
         var department = this.dataset.department;
         var intro = this.dataset.intro;
-        var profileImg = this.dataset.profileImg;
-        openPopup(nickname, college, department, intro, profileImg);
+        var profileimg = this.dataset.profileimg;
+        openPopup(nickname, college, department, intro, profileimg);
     });
 });
 
