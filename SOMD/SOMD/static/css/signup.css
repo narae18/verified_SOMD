@@ -41,7 +41,7 @@ form{
 }
 
 .input_text, select{
-    max-width: 270px;
+    flex-grow: 1;
     height: 38.5px;
     flex-grow: 1;
     padding: 5px;

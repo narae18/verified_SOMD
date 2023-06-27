@@ -83,7 +83,7 @@
                 {% endif %}
 
                 {% if user in somd.waitTojoin_members.all %}
-                <div class="button_a button1 wait" href="">가입대기중</div>
+                <div class="body_button body_button1 white_button">가입대기중</div>
                 {% elif not user in somd.join_members.all %}
                     <a class="button_a button1" href="{% url 'main:join' somd.id %}">가입하기</a>
                 {% endif %}
@@ -95,7 +95,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text">
             </form> -->
-            <div id="container_notice">
+            <div id="container_notice" style="color: grey; font-size: 13px;">
 
             </div>
             <div class="view postContainer_control">
@@ -161,15 +161,18 @@
                         </section>
                     </div>
                     {%endfor%}
-                    {%if image_fixed_posts %}
-                    <div id="fixedPost_image" class="linebyline_post warning" style="display: none;">
-                        더 많은 글을 보고싶다면, 리스트형으로 전환해주세요!
-                    </div>
-                    {% endif %}
                     
                 </div>
             {% endif %}  <!--고정한 포스트가 있을 경우-->
+            
+            
             <div class="postContainer_title">post</div>
+            {%if somd.posts %}
+            {%if not user in somd.join_members.all %}
+                <section class="needTojoin">소모임에 가입하시면 더 많은 게시글을 볼 수 있습니다.</section>
+            {%endif%}
+            {%endif%}
+
             {% if posts %} <!--고정 안한 포스트가 없을 경우-->
             <div class="list">
                 {% for post in posts %}
@@ -223,11 +226,6 @@
                         </section>
                     </div>
                 {% endfor %}
-                {% if image_posts %}
-                    <div id="Post_image" class="linebyline_post warning" style="display: none;">
-                        더 많은 글을 보고싶다면, 리스트형으로 전환해주세요!
-                    </div>
-                {% endif %}
                 <hr>
                 <div class="pagination">
                     <!-- 현재 page_obj가 이전 페이지가 있다면, 1 페이지로 가는 << a태그 생성 -->
@@ -250,14 +248,9 @@
                     {% endif %}
                 </div>
             {% else %}
-                {%if not user in somd.join_members.all %}
-                <section class="warning">소모임에 가입하시면 게시글을 볼 수 있습니다.</section>
-                {%else%}
                 <section class="warning">아직 포스트가 없습니다!</section>
-                {%endif%}
             </div>
             {% endif %}
-            
         </section>
     
     </section> 

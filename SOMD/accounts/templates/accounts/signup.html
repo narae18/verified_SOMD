@@ -17,14 +17,6 @@
     <h2>동국대 소모임 네트워킹 서비스</h2>
 </div>
 
-{% if messages %}
-    <ul class="messages">
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
-
 <form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return false;">
     {% csrf_token %}
     <section class="titleSection">
@@ -60,7 +52,7 @@
                 <div class="label">소속학과</div>
     
                 <div class="select_box">
-                    <select id="college" name="college" class="selectOption" onchange="selectDepartments()">
+                    <select id="college" name="college" class="selectOption" onchange="selectDepartments()" required>
                         <option value="" selected disabled>단과대</option>
                         <option value="불교대학">불교대학</option>
                         <option value="문과대학">문과대학</option>
@@ -77,7 +69,9 @@
                         <option value="약학대학">약학대학</option>
                         <option value="미래융합대학">미래융합대학</option>
                     </select>
-                    <select id="department" name="department" class="selectOption"></select>
+                    <select id="department" name="department" class="selectOption" required>
+                        <option value="" selected disabled>학과</option>
+                    </select>
                 </div>
             </div>
 
@@ -116,7 +110,7 @@
             </div>
         </div>
     </section>
-    <input class="signupBtn" type="button" value="회원가입" style="color:white" onclick="validateForm() ">
+    <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="validateForm() ">
     <!-- <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button> -->
 </form>
 
@@ -204,11 +198,17 @@ function validateForm() {
     var password = document.getElementById('password').value;
     var confirm_password = document.getElementById('confirm').value;
     var isValidBirthday = true;
+    var college = document.getElementById('college').value;
+    var department = document.getElementById('department').value;
+    var birthday = document.getElementById('birth').value;
 
     var isValidUsername = false;
     var isValidPassword = false;
     var isEqualPassword = false;
-
+    if (!college||!department||!birthday){
+        alert("정보를 모두 입력해주세요.");
+        return false;
+    }
     // 생년월일 확인
     if (!isValidBirthday) {
         alert("생년월일이 올바르지 않습니다.");
