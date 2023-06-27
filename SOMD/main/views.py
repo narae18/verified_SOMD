@@ -36,12 +36,13 @@ def mainpage(request):
     
 def board(request):
     #somds = SOMD.objects.all()
-    somds = SOMD.objects.annotate(totalMember=Count('members')).order_by('-totalMember')
+    rank_somds = SOMD.objects.annotate(totalMember=Count('members')).order_by('-totalMember')[:7]
     tags = Tag.objects.all()
-    
+    somds = SOMD.objects.all()
     return render(request, 'main/board.html', {
-        "somds": somds,
+        "rank_somds": rank_somds,
         "tags": tags,
+        "somds": somds,
     })
 
 

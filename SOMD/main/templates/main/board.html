@@ -25,7 +25,7 @@
             <div class="somd_list">
 
                 <div class="somd_list_for_scroll">
-                    {% for somd in somds %}
+                    {% for somd in rank_somds %}
                     <a class="somd icon_box" href="{% url 'main:mainfeed' somd.id %}">
                         <div class="image"
                             style="background-image:url({{somd.profileimage.url}});"></div>
