@@ -318,6 +318,22 @@ def members(request, id):
         'somd': somd,
     })
 
+def your_view(request):
+    if request.user == post.writer:
+
+        # post.writer와 post.writer.profile.profile_pic.url 값이 올바른지 확인
+        print(post.writer)
+        print(post.writer.profile.profile_pic.url)
+
+        # 템플릿 변수를 전달
+        context = {
+            'post': post,
+        }
+
+    return render(request, 'your_template.html', context)
+
+
+
 def members_wantTojoin(request, somd_id, request_id):
     if not request.user.is_authenticated:
         return redirect('accounts:needTologin')

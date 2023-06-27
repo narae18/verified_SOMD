@@ -25,13 +25,15 @@
                 </div>
                 
             </div>
+
             <div class="info">
                 <div class="profile">
-                    <div class="image" style="background-image:url({{ post.writer.profile.profile_pic.url }});"></div>
-                    <div class="name">{{post.writer}}</div>
+                    <div class="profile_info image" style="background-image:url({{ post.writer.profile.profile_pic.url }});" data-nickname="{{ post.writer.profile.nickname }}" data-college="{{ post.writer.profile.college }}" data-department="{{ post.writer.profile.department }}" data-intro="{{ post.writer.profile.intro }}" data-profileimg="{{ post.writer.profile.profile_pic.url }}"></div>
+                    <div class="profile_info name">{{post.writer}}</div>
                 </div>
                 <div class="date">{{post.pub_date}}</div>
             </div>
+            
             <div class="icon">
                 {% if post.is_secret %} <!--c참 비밀글일 경우-->
                 <i class ="fa-solid fa-lock" ></i>
@@ -56,7 +58,6 @@
             <p>{{post.content}}</p>
             {% if post.images %}
                 {% for image in images %}
-
                     <!-- <div class="image" style="background-image:url( {{ image.image.url }} );"></div> -->
                     <div class="image">
                         <img src="{{image.image.url}}" alt="사진">
@@ -131,11 +132,25 @@
 </form>
 
 <script>
-    // 팝업을 열기 위한 함수
-    // user.profile.profile_pic.url
-    function openPopup(nickname, college, department, intro, profileimg) {
-    // 팝업 내용을 구성하는 HTML 코드
-    var popupContent = `
+
+// 작성자 정보 버튼 클릭 시 팝업을 열기 위한 이벤트 처리
+var profileInfoButtons = document.querySelectorAll(".profile_info");
+profileInfoButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        var nickname = this.dataset.nickname;
+        var college = this.dataset.college;
+        var department = this.dataset.department;
+        var intro = this.dataset.intro;
+        var profileimg = this.dataset.profileimg;
+        openPopup(nickname, college, department, intro, profileimg);
+    });
+});
+
+// 팝업을 열기 위한 함수
+// user.profile.profile_pic.url
+function openPopup(nickname, college, department, intro, profileimg) {
+// 팝업 내용을 구성하는 HTML 코드
+var popupContent = `
     <div id="popup" class="popup" style="display: flex;"  method="POST" enctype="multipart/form-data" onsubmit="return false;">
       {% csrf_token %}  
         <div class="profile">
@@ -159,14 +174,14 @@
       </div>
     `;
 
-    // 팝업을 표시할 요소를 생성하고 내용을 설정
-    var popupElement = document.createElement("div");
-    popupElement.classList.add("popup-container");
-    popupElement.innerHTML = popupContent;
+// 팝업을 표시할 요소를 생성하고 내용을 설정
+var popupElement = document.createElement("div");
+popupElement.classList.add("popup-container");
+popupElement.innerHTML = popupContent;
 
-    // body에 팝업을 추가
-    document.body.appendChild(popupElement);
-    centerPopup();
+// body에 팝업을 추가
+document.body.appendChild(popupElement);
+centerPopup();
 }
 
 // 팝업을 중앙에 위치시키는 함수
@@ -189,18 +204,6 @@ function closePopup() {
     popupElement.remove();
 }
 
-// 작성자 정보 버튼 클릭 시 팝업을 열기 위한 이벤트 처리
-var profileInfoButtons = document.querySelectorAll(".profile_info");
-profileInfoButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
-        var nickname = this.dataset.nickname;
-        var college = this.dataset.college;
-        var department = this.dataset.department;
-        var intro = this.dataset.intro;
-        var profileimg = this.dataset.profileimg;
-        openPopup(nickname, college, department, intro, profileimg);
-    });
-});
 
 let post_view_menu_state ="close"
 let post_view_menu = document.querySelector("#post_view_menu");
@@ -249,7 +252,5 @@ function post_view_menu_open(event){
         xhr.send();
     }
 </script>
-
-
 
 {% endblock %}
