@@ -75,6 +75,7 @@
 
 .mypage .long.text {
   height: 70px;
+  white-space: pre-wrap;
 }
 
 .mypage .somd_list {
