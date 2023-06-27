@@ -52,19 +52,19 @@ def signup(request):
 
 
         if not re.match(r'^[a-zA-Z0-9_-]{4,16}$', request.POST['username']):
-            messages.error(request, '유효한 아이디 형식이 아닙니다.')
+            # messages.error(request, '유효한 아이디 형식이 아닙니다.')
             return redirect('accounts:signup')
 
         if not re.match(r'^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$', request.POST['password']):
-            messages.error(request, '비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상 입력해야 합니다.')
+            # messages.error(request, '비밀번호는 영문자, 숫자, 특수문자(@$!%*?&)를 모두 포함하여 8자 이상 입력해야 합니다.')
             return redirect('accounts:signup')
 
         if request.POST['password'] != request.POST['confirm']:
-            messages.error(request, '비밀번호가 일치하지 않습니다.')
+            # messages.error(request, '비밀번호가 일치하지 않습니다.')
             return redirect('accounts:signup')
 
         if User.objects.filter(Q(username=request.POST['username']) | Q(email=request.POST['email'])).exists():
-            messages.error(request, '이미 사용 중인 ID 또는 이메일입니다.')
+            # messages.error(request, '이미 사용 중인 ID 또는 이메일입니다.')
             return redirect('accounts:signup')
 
         try:
