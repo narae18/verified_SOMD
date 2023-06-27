@@ -47,7 +47,7 @@ def signup(request):
         day = birth[6:]
         birth = f'{year}-{month}-{day}'
         college = request.POST['college']
-        department = request.POST['department']
+        department = request.POST.get('department')
         email = request.POST['email']
 
 
