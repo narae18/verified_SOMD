@@ -13,6 +13,8 @@ urlpatterns = [
     path('mysomd/',mysomd,name="mysomd"),
     path('createSOMD/',createSOMD,name="createSOMD"),
     path('mainfeed/<int:id>/',mainfeed,name="mainfeed"),
+    # path('mainfeed/<int:id>/',postContainer_change,name="postContainer_change"),
+    
     path('fix/<int:post_id>/<int:somd_id>/', fix, name="fix"),
     
     path('mainfeed/<int:somd_id>/new/',new, name="new"),
@@ -25,9 +27,11 @@ urlpatterns = [
     path('mainfeed/comment_update/<int:post_id>/<int:comment_id>/',comment_update,name="comment_update"),
     path('mainfeed/comment_delete/<int:post_id>/<int:comment_id>/',comment_delete,name="comment_delete"),
 
+    
     path('scrap/<int:post_id>/',scrap,name="scrap"),
     path('scrap_view/',scrap_view,name="scrap_view"),
 
+    path('like/<int:post_id>/',post_like,name="post_like"),
     path('like/<int:post_id>/',post_like,name="post_like"),
     path('bookmark/<int:somd_id>/',bookmark,name="bookmark"),
     path('join/<int:id>/', join, name="join"),
