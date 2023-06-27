@@ -73,43 +73,6 @@
     color:#0ECC87;
 }
 
-.button_case{
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    /* position: absolute;
-    right: 0px;
-    display: flex; */
-}
-
-.button_case> .button_a{
-    /* margin: 5px; */
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 10px;
-    border: #0ECC87 2px solid;
-    background-color: #0ECC87;
-    color: white;
-}
-.button_case> .wait{
-    background-color: white;
-    color: #0ECC87;
-
-}
-.button_case> .button2:nth-child(1){
-    margin-right: 5px;
-}
-
-
-.button_case> .button2:nth-child(2){
-    margin-left: 5px;
-}
-
-
 .option{
     
     justify-content: end;

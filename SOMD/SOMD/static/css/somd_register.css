@@ -94,30 +94,6 @@ select {
   height: 70px;
 }
 
-section .button_case {
-  margin-bottom: 0px;
-  width: 100%;
-  display: flex;
-  justify-content: end;
-}
-.button {
-  display: inline;
-  padding: 3px 5px;
-  border: 3px solid #0ecc87;
-  background-color: #0ecc87;
-  color: white;
-  border-radius: 5px;
-}
-
-.registerButton {
-  background-color: #0ecc87;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 0px;
-  width: 30%;
-  display: flex;
-  justify-content: center;
-}
 
 input {
   border: none;
@@ -148,15 +124,6 @@ input[type="file"] {
   mix-blend-mode: multiply;
 }
 
-button {
-  display: inline;
-  padding: 3px 5px;
-  border: 3px solid #0ecc87;
-  background-color: #0ecc87;
-  color: white;
-  border-radius: 5px;
-  margin-bottom: 0;
-}
 
 /* ----태그용---- */
 
@@ -195,17 +162,4 @@ button {
   padding: 5px;
   border-radius: 5px;
 }
-.somd_register > .info .tag > .input_tag > .button {
-}
-.button_a {
-  /* margin: 5px; */
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  border-radius: 10px;
-  border: #0ecc87 2px solid;
-  background-color: #0ecc87;
-  color: white;
-}
+

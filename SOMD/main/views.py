@@ -169,8 +169,23 @@ def mainfeed(request, id):
     image_fixed_posts = fixed_posts.filter(images__isnull=False)
     image_posts = posts.filter(images__isnull=False)
 
-    num_per_page = 5  # 페이지당 표시할 게시물 수 설정
-    page_obj, custom_range = page_list(request, posts, num_per_page)
+    Posts = somd.posts.filter(is_fixed=False)
+    fixedPosts= somd.posts.filter(is_fixed=True)
+
+    if(somd.join_members.filter(id = request.user.id).exists()):
+        posts = Posts
+        fixed_posts = fixedPosts
+    else:
+        posts = Posts.filter(is_secret = False)
+        fixed_posts = fixedPosts.filter(is_secret = True)
+
+    image_fixedPosts = fixedPosts.filter(images__isnull= False)
+    image_Posts = Posts.filter(images__isnull = False)
+
+    num_per_page = 5
+
+    page_obj, custom_rango = page_list(request,posts,num_per_page)
+
     return render(request, "main/mainfeed.html", {
         'image_fixed_posts': image_fixed_posts,
         'image_posts': image_posts,
@@ -485,8 +500,10 @@ def scrap_view(request):
 #     return redirect('main:viewpost', post_id)
 
 def post_like(request, post_id):
+    # if not request.user.is_authenticated:
+    #     return redirect('accounts:needTologin')
     if not request.user.is_authenticated:
-        return JsonResponse({'error': '로그인이 필요합니다.'})
+        return JsonResponse({'alert': '로그인이 필요합니다.'})
 
     post = get_object_or_404(Post, id=post_id)
     user = request.user
