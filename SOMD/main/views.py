@@ -485,8 +485,10 @@ def scrap_view(request):
 #     return redirect('main:viewpost', post_id)
 
 def post_like(request, post_id):
+    # if not request.user.is_authenticated:
+    #     return redirect('accounts:needTologin')
     if not request.user.is_authenticated:
-        return JsonResponse({'error': '로그인이 필요합니다.'})
+        return JsonResponse({'alert': '로그인이 필요합니다.'})
 
     post = get_object_or_404(Post, id=post_id)
     user = request.user
