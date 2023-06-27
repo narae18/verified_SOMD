@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Profile
 from django.db.models import Q
-
+from django.dispatch import receiver
+from django.shortcuts import render, redirect
+from datetime import datetime
 # Create your views here.
 def login(request):
     if request.method == "POST":
@@ -49,8 +51,10 @@ def signup(request):
         college = request.POST['college']
         department = request.POST.get('department')
         email = request.POST['email']
+        dgu_pass = request.POST.get('dgu_pass', '')
+        dgu_pass_approved = False
 
-
+ 
         if not re.match(r'^[a-zA-Z0-9_-]{4,16}$', request.POST['username']):
             # messages.error(request, '유효한 아이디 형식이 아닙니다.')
             return redirect('accounts:signup')
@@ -80,17 +84,28 @@ def signup(request):
                 birthday=birth,
                 college=college,
                 department=department,
-                email = email,
+                email=email,
+                dgu_pass=dgu_pass,
+                dgu_pass_approved=False,
             )
-            profile.save()
+            # profile.save()
 
-            auth.login(request, user)
-            messages.success(request, '회원 가입이 완료되었습니다.')
-            return redirect('main:mainpage')
+            messages.warning(request, '동국 패스 인증 중! 승인 시 로그인 페이지로 이동합니다.')
+            return dgupass_process(request, user.id)
+
         except Exception as e:
             messages.error(request, '회원 가입 중 오류가 발생했습니다. 다시 시도해주세요.')
 
     return render(request, 'accounts/signup.html')
+
+
+
+
+def dgupass_process(request,user_id):
+    profile = Profile.objects.get(user=user_id)
+    if profile.dgupass_approved :
+        return redirect('accounts:firstlogin')
+    pass
 
 def deleteUser(request):
     user = request.user

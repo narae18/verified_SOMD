@@ -17,7 +17,7 @@
     <h2>동국대 소모임 네트워킹 서비스</h2>
 </div>
 
-<form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return false;">
+<form action="{% url 'accounts:signup' %}" method="POST" onsubmit="return false;" enctype="multipart/form-data">
     {% csrf_token %}
     <section class="titleSection">
         <h3 class="title">회원가입을 위해 개인정보 입력해주세요!</h3>
@@ -50,7 +50,8 @@
             </div>
             <div class="inputBlank">
                 <div class="label">소속학과</div>
-    
+                <label for="dgupass">동국 패스 이미지</label>
+            <input type="file" name="dgupass" id="dgupass">
                 <div class="select_box">
                     <select id="college" name="college" class="selectOption" onchange="selectDepartments()" required>
                         <option value="" selected disabled>단과대</option>
@@ -110,6 +111,15 @@
             </div>
         </div>
     </section>
+
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
     <input class="signupBtn" type="submit" value="회원가입" style="color:white" onclick="validateForm() ">
     <!-- <button class="signupBtn" type='submit' value="회원가입" style="color:white">회원가입</button> -->
 </form>
