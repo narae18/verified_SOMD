@@ -4,6 +4,7 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/post.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/mainfeed.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/_button.css' %}">
 
 <section class="header">
     <section class="mainTitle">
@@ -78,14 +79,14 @@
 
             <div class="button_case">
                 {% if somd.admin.id == user.id %}
-                    <a class="button_a button2" href="{% url 'main:members' somd.id %}">멤버관리</a>
-                    <a class="button_a button2" href="{% url 'main:somd_edit' somd.id %}">솜디수정</a>
+                    <a class="body_button body_button2" href="{% url 'main:members' somd.id %}">멤버관리</a>
+                    <a class="body_button body_button2" href="{% url 'main:somd_edit' somd.id %}">솜디수정</a>
                 {% endif %}
 
                 {% if user in somd.waitTojoin_members.all %}
-                <div class="button_a button1 wait" href="">가입대기중</div>
+                <div class="body_button body_button1 white" href="">가입대기중</div>
                 {% elif not user in somd.join_members.all %}
-                    <a class="button_a button1" href="{% url 'main:join' somd.id %}">가입하기</a>
+                    <a class="body_button body_ button1" href="{% url 'main:join' somd.id %}">가입하기</a>
                 {% endif %}
             </div>
         </section>
