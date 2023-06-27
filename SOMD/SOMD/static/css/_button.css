@@ -21,11 +21,21 @@
     background-color: #0ECC87;
     color: white;
 }
+
+.body_button:focus, .body_button:hover, .body_button:active{
+    color: #0ECC87;
+}
+
+
 /* 배경이 하얀색인 버튼 */
-.white{
+.white_button{
     background-color: white;
     color: #0ECC87;
 
+}
+
+.white_button:focus, .white_button:hover .white_button:active{
+    color: #0ECC87
 }
 
 /* 버튼2개가 row일경우 */

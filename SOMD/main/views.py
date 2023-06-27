@@ -419,6 +419,8 @@ def viewpost(request, post_id):
         })
     
     elif request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('accounts:needTologin')
 
         if request.user.is_authenticated:
             new_comment = Comment()

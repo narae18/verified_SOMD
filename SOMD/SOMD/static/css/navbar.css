@@ -292,10 +292,11 @@
 
 .navbar .icon {
   color: lightgrey;
-  width: 50px;
+  width: calc(100%/4);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin-bottom: 5px;
   font-size: 20px;
 }
