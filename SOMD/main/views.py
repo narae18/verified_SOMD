@@ -28,12 +28,13 @@ def mainpage(request):
             posts = posts.order_by('-pub_date')
             return render(request, 'main/mainpage.html', {
                 'somds': somds,
-                'posts' : posts
+                'posts' : posts,
                 
             })
     return render(request, 'main/mainpage.html')
 
-    
+
+
 def board(request):
     #somds = SOMD.objects.all()
     rank_somds = SOMD.objects.annotate(totalMember=Count('members')).order_by('-totalMember')[:7]
@@ -158,6 +159,11 @@ def somd_update(request, id):
 
 
 def mainfeed(request, id):
+    if request.method == "POST":
+        option_state = request.POST['option_state']
+    else:
+        option_state= "리스트"
+
     somd = SOMD.objects.get(id=id)
     user = request.user
     # 소모임 가입 여부 확인
@@ -167,26 +173,37 @@ def mainfeed(request, id):
     # fixed_posts : 가입자, 미가입자 모두 고정글에 접근 가능
     fixed_posts = somd.posts.filter(is_fixed=True)
     # 이하 동일
-    image_fixed_posts = fixed_posts.filter(images__isnull=False)
-    image_posts = posts.filter(images__isnull=False)
+    # image_fixed_posts = fixed_posts.filter(images__isnull=False)
+    # image_posts = posts.filter(images__isnull=False)
 
-    num_per_page = 6
+    if(option_state == "피드"):
+        posts = posts.filter(images__isnull =False)
+        fixed_posts = fixed_posts.filter(images__isnull =False)
+        if posts.count() == 0:
+            num_per_page =1
+        else :
+            num_per_page = posts.count()
+
+    else:
+        num_per_page = 6
 
     page_obj, custom_range = page_list(request,posts,num_per_page)
-    page_obj1, custom_range1 = page_list(request,image_posts,num_per_page)
+    # page_obj1, custom_range1 = page_list(request,image_posts,num_per_page)
     
 
     return render(request, "main/mainfeed.html", {
-        'image_fixed_posts': image_fixed_posts,
-        'image_posts': image_posts,
+        # 'image_fixed_posts': image_fixed_posts,
+        # 'image_posts': image_posts,
         'somd': somd,
         'fixed_posts': fixed_posts,
         'posts': page_obj,
         'page_obj': page_obj,
         'custom_range': custom_range,
-        'page_obj1': page_obj1,
-        'custom_range1': custom_range1,
+        # 'page_obj1': page_obj1,
+        # 'custom_range1': custom_range1,
+        'option_state': option_state,
     })
+
 
 
 
@@ -517,6 +534,7 @@ def post_like(request, post_id):
 
     post = get_object_or_404(Post, id=post_id)
     user = request.user
+
     if user in post.like.all():
         post.like.remove(user)
         post.like_count -= 1
@@ -528,6 +546,8 @@ def post_like(request, post_id):
     post.save()
     
     return JsonResponse({'like_count': post.like_count, 'liked': liked})
+
+
 
 
 # def CountSomdMember(request):
