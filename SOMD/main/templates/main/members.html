@@ -45,7 +45,7 @@
       <div class="section_title">소모임 회원</div>  
 
 
-        {% for join_user in somd.join_members.all reversed %}
+        {% for join_user in somd.join_members.all %}
         <div class="manageMemberForm">
           <div class="icon"><i class="fa-solid fa-grip-lines"></i></div>
           <div class="information">
@@ -103,8 +103,8 @@ function openPopup(nickname, college, department, profileimg, requestTitle,reque
 
         <div class="popupBtns">
           <div class="button_case">
-            <button class="body_button white body_button2" id="acceptBtn"  onclick="wantTojoin(event)">승인</button>
-            <button class="body_button white body_button2" id="rejectBtn"  onclick="wantTojoin(event)">거부</button>
+            <button class="body_button white_button body_button2" id="acceptBtn"  onclick="wantTojoin(event)">승인</button>
+            <button class="body_button white_button body_button2" id="rejectBtn"  onclick="wantTojoin(event)">거부</button>
           </div>
           <input id="wantTojoin_result" type="text" name="wantTojoin_result" style="display: none;">
         </div>
